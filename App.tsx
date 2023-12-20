@@ -1,13 +1,23 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from 'expo-status-bar'
+import { StyleSheet, Text, View, Alert, Platform } from 'react-native'
+import { PaperProvider, Button } from 'react-native-paper'
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <PaperProvider>
+      <View style={styles.container}>
+        <Text>Open up App.tsx to start working on your app!</Text>
+        <Button
+          onPress={() => {
+            Alert.alert('Hello React Native!')
+          }}
+        >
+          {Platform.OS === 'web' ? 'Click' : 'Press'} me!
+        </Button>
+        <StatusBar style="auto" />
+      </View>
+    </PaperProvider>
+  )
 }
 
 const styles = StyleSheet.create({
@@ -17,4 +27,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-});
+})
