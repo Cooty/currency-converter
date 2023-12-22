@@ -1,30 +1,10 @@
-import { StatusBar } from 'expo-status-bar'
-import { StyleSheet, Text, View, Alert, Platform } from 'react-native'
-import { PaperProvider, Button } from 'react-native-paper'
+import { PaperProvider } from 'react-native-paper'
+import Navigator from './navigation/Navigator'
 
 export default function App() {
   return (
     <PaperProvider>
-      <View style={styles.container}>
-        <Text>Open up App.tsx to start working on your app!</Text>
-        <Button
-          onPress={() => {
-            Alert.alert('Hello React Native!')
-          }}
-        >
-          {Platform.OS === 'web' ? 'Click' : 'Press'} me!
-        </Button>
-        <StatusBar style="auto" />
-      </View>
+      <Navigator />
     </PaperProvider>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-})
