@@ -8,13 +8,26 @@ import FavoritesScreen from '../screens/favorites/FavoritesScreen'
 import SettingsScreen from '../screens/settings/SettingsScreen'
 
 import routes from './routes'
+import styles from '../config/styles'
 
 const Tab = createBottomTabNavigator()
 
 function Navigator() {
   return (
     <NavigationContainer>
-      <Tab.Navigator initialRouteName={routes.CONVERT}>
+      <Tab.Navigator
+        initialRouteName={routes.CONVERT}
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: styles.colors.brand,
+          },
+          headerTitleStyle: {
+            color: styles.colors.onBrand,
+          },
+          tabBarActiveTintColor: styles.colors.brand,
+          tabBarInactiveTintColor: styles.colors.light.disabled,
+        }}
+      >
         <Tab.Screen
           name={routes.CONVERT}
           component={ConvertScreen}

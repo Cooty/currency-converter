@@ -5,7 +5,7 @@ function FavoritesScreen() {
   return (
     <View style={styles.container}>
       <Text>Favorites screen</Text>
-      <StatusBar style="auto" />
+      <StatusBar style="light" />
     </View>
   )
 }

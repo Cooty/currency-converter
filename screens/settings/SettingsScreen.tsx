@@ -5,7 +5,7 @@ function SettingsScreen() {
   return (
     <View style={styles.container}>
       <Text>Setting screen</Text>
-      <StatusBar style="auto" />
+      <StatusBar style="light" />
     </View>
   )
 }
