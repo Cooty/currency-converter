@@ -1,20 +1,22 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
+import stylesConfig from '../../config/styles'
+import CurrencyInput from './components/CurrencyInput'
 
 function ConvertScreen() {
   return (
-    <View style={styles.container}>
-      <Text>Convert screen</Text>
+    <ScrollView contentContainerStyle={styles.container}>
+      <CurrencyInput />
       <StatusBar style="auto" />
-    </View>
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: stylesConfig.baseSize * 4,
+    // backgroundColor: 'white',
   },
 })
 
