@@ -20,7 +20,7 @@ const CurrencySelectorWidget: FC<CurrencySelectorWidgetProps> = ({
   code,
   symbol,
   decimal_digits,
-  onChange,
+  onAmountChange,
   value,
 }) => {
   return (
@@ -52,7 +52,11 @@ const CurrencySelectorWidget: FC<CurrencySelectorWidgetProps> = ({
       </Card.Body>
       <Divider />
       <Card.Body style={{ paddingTop: 0 }}>
-        <CurrencyInput value={value} onChange={onChange} symbol={symbol} />
+        <CurrencyInput
+          value={value}
+          onAmountChange={onAmountChange}
+          symbol={symbol}
+        />
       </Card.Body>
     </Card>
   )

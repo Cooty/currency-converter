@@ -5,16 +5,21 @@ import AppText from '../ui/AppText'
 
 export interface CurrencyInputProps {
   symbol: string
-  value?: number
-  onChange: (value: string) => void
+  value?: string
+  onAmountChange: (value: string) => void
 }
 
-const CurrencyInput: FC<CurrencyInputProps> = ({ symbol, value, onChange }) => {
+const CurrencyInput: FC<CurrencyInputProps> = ({
+  symbol,
+  value,
+  onAmountChange,
+}) => {
   return (
     <View style={componentStyles.inputWrapper}>
       <AppText style={componentStyles.symbol}>{symbol}</AppText>
       <TextInput
-        onChangeText={onChange}
+        onChangeText={onAmountChange}
+        value={value}
         keyboardType="numeric"
         placeholder="0.00"
         cursorColor={styles.colors.light.text}
