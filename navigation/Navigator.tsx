@@ -25,13 +25,15 @@ function Navigator() {
             color: styles.colors.onBrand,
           },
           tabBarActiveTintColor: styles.colors.brand,
-          tabBarInactiveTintColor: styles.colors.light.disabled,
+          tabBarInactiveTintColor: styles.colors.light.textSecondary,
         }}
       >
         <Tab.Screen
           name={routes.CONVERT}
           component={ConvertScreen}
           options={{
+            tabBarLabel: 'Convert',
+            headerTitle: 'Convert currencies',
             tabBarIcon: ({ color, size }) => (
               <MaterialIcons name="compare-arrows" color={color} size={size} />
             ),
@@ -41,6 +43,8 @@ function Navigator() {
           name={routes.FAVORITES}
           component={FavoritesScreen}
           options={{
+            tabBarLabel: 'Favorites',
+            headerTitle: 'Favorite currency pairs',
             tabBarIcon: ({ color, size }) => (
               <MaterialIcons name="favorite" color={color} size={size} />
             ),
@@ -50,6 +54,8 @@ function Navigator() {
           name={routes.SETTINGS}
           component={SettingsScreen}
           options={{
+            tabBarLabel: 'Settings',
+            headerTitle: 'Settings',
             tabBarIcon: ({ color, size }) => (
               <MaterialIcons name="settings" color={color} size={size} />
             ),
