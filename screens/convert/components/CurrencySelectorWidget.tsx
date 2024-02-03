@@ -31,7 +31,7 @@ const CurrencySelectorWidget: FC<CurrencySelectorWidgetProps> = ({
           android_ripple={{
             color: styles.colors.light.rippleOnBackground,
           }}
-          style={(pressed) => [
+          style={({ pressed }) => [
             {
               backgroundColor:
                 pressed && Platform.OS === 'ios'
