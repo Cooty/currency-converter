@@ -1,9 +1,15 @@
-import { useState } from 'react'
+import { FC, useState } from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 import CurrencySelectorWidget from './CurrencySelectorWidget'
 import styles from '../../../config/styles'
 
-const CurrencyConverterForm = () => {
+interface CurrencyConverterFormProps {
+  onSelect: () => void
+}
+
+const CurrencyConverterForm: FC<CurrencyConverterFormProps> = ({
+  onSelect,
+}) => {
   const [currencyAAmount, setCurrencyAAmount] = useState('')
   const [currencyBAmount, setCurrencyBAmount] = useState('')
   const gap = styles.baseSize * 2
@@ -16,6 +22,7 @@ const CurrencyConverterForm = () => {
           decimal_digits={2}
           code="USD"
           value={currencyAAmount}
+          onSelect={onSelect}
           onAmountChange={setCurrencyAAmount}
         />
       </View>
@@ -25,6 +32,7 @@ const CurrencyConverterForm = () => {
           decimal_digits={2}
           code="EUR"
           value={currencyBAmount}
+          onSelect={onSelect}
           onAmountChange={setCurrencyBAmount}
         />
       </View>

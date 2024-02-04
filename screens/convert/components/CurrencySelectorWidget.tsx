@@ -14,7 +14,9 @@ type CurrencySelectorWidgetProps = Omit<
   Currency,
   'symbol_native' | 'rounding' | 'name_plural' | 'name'
 > &
-  Omit<CurrencyInputProps, 'symbol'>
+  Omit<CurrencyInputProps, 'symbol'> & {
+    onSelect: () => void
+  }
 
 const CurrencySelectorWidget: FC<CurrencySelectorWidgetProps> = ({
   code,
@@ -22,12 +24,13 @@ const CurrencySelectorWidget: FC<CurrencySelectorWidgetProps> = ({
   decimal_digits,
   onAmountChange,
   value,
+  onSelect,
 }) => {
   return (
     <Card>
       <Card.Body style={{ paddingBottom: 0 }}>
         <Pressable
-          onPress={() => Alert.alert('Open up the currency list')}
+          onPress={() => onSelect()}
           android_ripple={{
             color: styles.colors.light.rippleOnBackground,
           }}
