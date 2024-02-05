@@ -23,6 +23,7 @@ const CurrencyListOverlay: FC<CurrencyListOverlayProps> = ({
       visible={isVisible}
       animationType="slide"
       presentationStyle="fullScreen"
+      hardwareAccelerated
     >
       <SafeAreaView style={componentStyles.modalInner}>
         <Button title="Selected the currency" onPress={onCurrencySelection} />
