@@ -5,7 +5,7 @@ import stylesConfig from '../../config/styles'
 import CurrencyConverterForm from './components/CurrencyConverterForm'
 import ResultText from './components/ResultText'
 import styles from '../../config/styles'
-import { CurrencyListOverlay } from '../../components/currency/CurrencyListOverlay'
+import CurrencyListOverlay from '../../components/currency/CurrencyListOverlay'
 
 function ConvertScreen() {
   const [isCurrencySelectorOpen, setIsCurrencySelectorOpen] = useState(false)

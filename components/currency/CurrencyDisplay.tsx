@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { View, Text, ViewStyle, StyleSheet } from 'react-native'
 import CountryFlag from 'react-native-country-flag'
-import currencyCodeToCountryCode from '../../utils/currency-code-to-country-code'
+import { currencyCodeToCountryCode } from '../../utils'
 import styles from '../../config/styles'
 import AppText from '../ui/AppText'
 
