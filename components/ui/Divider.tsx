@@ -13,7 +13,7 @@ const Divider: FC<DividerProps> = ({ style }) => {
 const componentStyles = StyleSheet.create({
   divider: {
     width: '100%',
-    borderBottomWidth: 1,
+    borderBottomWidth: StyleSheet.hairlineWidth,
     borderStyle: 'solid',
     borderColor: styles.colors.light.divider,
     marginVertical: styles.baseSize * 4,

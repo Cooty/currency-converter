@@ -1,14 +1,14 @@
 import { FC } from 'react'
-import { Pressable, Alert, Platform, StyleSheet } from 'react-native'
+import { Pressable, StyleSheet } from 'react-native'
 import { Entypo } from '@expo/vector-icons'
-import Card from '../../../components/ui/Card'
-import Currency from '../../../model/Currency'
+import { Currency } from '../../../services/currency'
 import CurrencyDisplay from '../../../components/currency/CurrencyDisplay'
 import styles from '../../../config/styles'
-import Divider from '../../../components/ui/Divider'
+import { Divider, Card } from '../../../components/ui/'
 import CurrencyInput, {
   CurrencyInputProps,
 } from '../../../components/currency/CurrencyInput'
+import { isIOS } from '../../../utils'
 
 type CurrencySelectorWidgetProps = Omit<
   Currency,
@@ -35,9 +35,11 @@ const CurrencySelectorWidget: FC<CurrencySelectorWidgetProps> = ({
             color: styles.colors.light.rippleOnBackground,
           }}
           style={({ pressed }) => [
+            // TODO: Try to use the Android ripple effect where available
+            // https://reactnative.dev/docs/improvingux#use-android-ripple
             {
               backgroundColor:
-                pressed && Platform.OS === 'ios'
+                pressed && isIOS()
                   ? styles.colors.light.rippleOnBackground
                   : undefined,
             },

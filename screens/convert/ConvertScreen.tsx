@@ -6,14 +6,22 @@ import CurrencyConverterForm from './components/CurrencyConverterForm'
 import ResultText from './components/ResultText'
 import styles from '../../config/styles'
 import CurrencyListOverlay from '../../components/currency/CurrencyListOverlay'
+import { Currency, useCurrencies } from '../../services/currency'
+import { isIOS } from '../../utils'
 
 function ConvertScreen() {
   const [isCurrencySelectorOpen, setIsCurrencySelectorOpen] = useState(false)
+  const { currencies } = useCurrencies()
   const openCurrencySelector = () => {
     setIsCurrencySelectorOpen(true)
   }
 
-  const currencySelectionHandler = () => {
+  function currencySelectionHandler(currency: Currency) {
+    console.log(currency)
+    setIsCurrencySelectorOpen(false)
+  }
+
+  function cancelCurrencySelectionHandler() {
     setIsCurrencySelectorOpen(false)
   }
 
@@ -31,8 +39,10 @@ function ConvertScreen() {
       <CurrencyListOverlay
         isVisible={isCurrencySelectorOpen}
         onCurrencySelection={currencySelectionHandler}
+        onCancel={cancelCurrencySelectionHandler}
+        currencies={currencies}
       />
-      <StatusBar style="light" />
+      <StatusBar style={isIOS() && isCurrencySelectorOpen ? 'dark' : 'light'} />
     </ScrollView>
   )
 }

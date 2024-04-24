@@ -23,7 +23,7 @@ const CurrencyDisplay: FC<CurrencyDisplayProps> = ({ code, name, style }) => {
         <AppText style={componentStyles.code}>{code}</AppText>
       </View>
       {name && (
-        <View>
+        <View style={componentStyles.nameContainer}>
           <Text style={componentStyles.name}>{name}</Text>
         </View>
       )}
@@ -52,7 +52,7 @@ const componentStyles = StyleSheet.create({
     color: styles.colors.light.textSecondary,
   },
   nameContainer: {
-    marginTop: styles.baseSize * 2,
+    marginTop: styles.baseSize,
   },
 })
 

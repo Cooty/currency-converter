@@ -1,4 +1,8 @@
-interface Currency {
+export interface CurrencyList {
+  data: Record<string, Currency>
+}
+
+export interface Currency {
   symbol: string
   name: string
   symbol_native: string
@@ -7,5 +11,3 @@ interface Currency {
   code: string
   name_plural: string
 }
-
-export default Currency

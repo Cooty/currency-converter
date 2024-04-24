@@ -1,30 +1,56 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { useState } from 'react'
 import {
   View,
+  KeyboardAvoidingView,
   SafeAreaView,
-  FlatList,
-  Text,
+  ScrollView,
   StyleSheet,
   Modal,
-  Button,
 } from 'react-native'
 import { useHeaderHeight } from '@react-navigation/elements'
 import styles from '../../config/styles'
 import SearchInput from '../ui/SearchInput'
-import { isAndroid } from '../../utils'
+import { isAndroid, isIOS } from '../../utils'
+import { Currency, CurrencyList } from '../../services/currency'
+import CurrencyListItem from './CurrencyListItem'
+import {
+  filterCurrencies,
+  getAllCurrenciesAsArray,
+} from '../../services/currency'
 
 interface CurrencyListOverlayProps {
   isVisible: boolean
-  onCurrencySelection: () => void
+  onCurrencySelection: (currency: Currency) => void
+  onCancel: () => void
+  currencies?: CurrencyList
 }
 
 const CurrencyListOverlay: FC<CurrencyListOverlayProps> = ({
   isVisible,
+  currencies,
   onCurrencySelection,
+  onCancel,
 }) => {
   const headerHeight = useHeaderHeight()
   const [searchValue, setSearchValue] = useState('')
+  const [filteredCurrencies, setFilteredCurrencies] = useState<Currency[]>([])
+
+  useEffect(() => {
+    if (currencies) {
+      setFilteredCurrencies(getAllCurrenciesAsArray(currencies))
+    }
+  }, [currencies])
+
+  useEffect(() => {
+    if (searchValue.length !== 0) {
+      setFilteredCurrencies(filterCurrencies(searchValue, filteredCurrencies))
+    } else {
+      setFilteredCurrencies(
+        currencies ? getAllCurrenciesAsArray(currencies) : []
+      )
+    }
+  }, [searchValue])
 
   return (
     <Modal
@@ -34,23 +60,40 @@ const CurrencyListOverlay: FC<CurrencyListOverlayProps> = ({
       hardwareAccelerated
     >
       <SafeAreaView style={componentStyles.modalInner}>
-        <View
-          style={[
-            componentStyles.modalHeader,
-            {
-              height: headerHeight,
-              backgroundColor: isAndroid() ? styles.colors.brand : undefined,
-            },
-          ]}
+        <KeyboardAvoidingView
+          behavior={isIOS() ? 'height' : undefined}
+          style={componentStyles.modalInner}
         >
-          <SearchInput
-            value={searchValue}
-            onChangeText={setSearchValue}
-            placeholder="Start typing (eg.: USD or Dollars)"
-            onCancel={onCurrencySelection}
-          />
-        </View>
-        <Button title="Selected the currency" onPress={onCurrencySelection} />
+          <View
+            style={[
+              componentStyles.modalHeader,
+              {
+                height: headerHeight,
+                backgroundColor: isAndroid() ? styles.colors.brand : undefined,
+              },
+            ]}
+          >
+            <SearchInput
+              value={searchValue}
+              onChangeText={setSearchValue}
+              placeholder="Start typing (eg.: USD or Dollars)"
+              onCancel={onCancel}
+            />
+          </View>
+          <ScrollView style={componentStyles.scrollableContent}>
+            {filteredCurrencies.map((currency, i) => (
+              <CurrencyListItem
+                currency={currency}
+                isFirst={i === 0}
+                onPress={(currency) => {
+                  onCurrencySelection(currency)
+                  setSearchValue('')
+                }}
+                key={`${currency.code}-${i}`}
+              />
+            ))}
+          </ScrollView>
+        </KeyboardAvoidingView>
       </SafeAreaView>
     </Modal>
   )
@@ -66,6 +109,9 @@ const componentStyles = StyleSheet.create({
     justifyContent: 'center',
     borderColor: styles.colors.light.divider,
     borderBottomWidth: 1,
+  },
+  scrollableContent: {
+    flex: 1,
   },
 })
 
