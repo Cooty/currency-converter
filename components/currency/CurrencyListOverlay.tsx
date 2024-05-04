@@ -78,6 +78,7 @@ const CurrencyListOverlay: FC<CurrencyListOverlayProps> = ({
               onChangeText={setSearchValue}
               placeholder="Start typing (eg.: USD or Dollars)"
               onCancel={onCancel}
+              autoFocus
             />
           </View>
           <ScrollView style={componentStyles.scrollableContent}>
