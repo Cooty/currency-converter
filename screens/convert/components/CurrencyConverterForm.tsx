@@ -1,7 +1,10 @@
 import { FC, useState } from 'react'
-import { View, StyleSheet } from 'react-native'
+import { MaterialIcons } from '@expo/vector-icons'
+import { View, StyleSheet, Pressable, PlatformColor } from 'react-native'
 import CurrencySelectorWidget from './CurrencySelectorWidget'
 import styles from '../../../config/styles'
+import { shadowMedium } from '../../../styles/mixins'
+import { isIOS, isAndroid } from '../../../utils'
 
 interface CurrencyConverterFormProps {
   onSelect: () => void
@@ -12,11 +15,20 @@ const CurrencyConverterForm: FC<CurrencyConverterFormProps> = ({
 }) => {
   const [currencyAAmount, setCurrencyAAmount] = useState('')
   const [currencyBAmount, setCurrencyBAmount] = useState('')
-  const gap = styles.baseSize * 2
+  const [isSwitched, setIsSwitched] = useState(false)
+
+  function switchCurrencyPairHandler() {
+    setIsSwitched(!isSwitched)
+  }
 
   return (
-    <View style={componentStyles.container}>
-      <View style={[componentStyles.widgetContainer, { paddingRight: gap }]}>
+    <View
+      style={[
+        componentStyles.container,
+        { flexDirection: isSwitched ? 'row-reverse' : 'row' },
+      ]}
+    >
+      <View style={componentStyles.widgetContainer}>
         <CurrencySelectorWidget
           symbol="$"
           decimal_digits={2}
@@ -26,7 +38,28 @@ const CurrencyConverterForm: FC<CurrencyConverterFormProps> = ({
           onAmountChange={setCurrencyAAmount}
         />
       </View>
-      <View style={[componentStyles.widgetContainer, { paddingLeft: gap }]}>
+      <View style={componentStyles.buttonContainer}>
+        <Pressable
+          onPress={switchCurrencyPairHandler}
+          android_ripple={{
+            color: styles.colors.light.rippleOnBrand,
+            radius: 25,
+          }}
+          style={({ pressed }) => [
+            {
+              opacity: pressed && isIOS() ? 0.7 : undefined,
+            },
+            componentStyles.switchCurrencyPairButton,
+          ]}
+        >
+          <MaterialIcons
+            name="swap-horiz"
+            color={isIOS() ? 'white' : styles.colors.onBrand}
+            size={styles.baseSize * 6}
+          />
+        </Pressable>
+      </View>
+      <View style={componentStyles.widgetContainer}>
         <CurrencySelectorWidget
           symbol="€"
           decimal_digits={2}
@@ -39,18 +72,27 @@ const CurrencyConverterForm: FC<CurrencyConverterFormProps> = ({
     </View>
   )
 }
+const SWITCH_CURRENCY_BUTTON_SIZE = 40
 
 const componentStyles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
     flexWrap: 'nowrap',
     width: '100%',
   },
   widgetContainer: {
-    flexShrink: 0,
-    flexGrow: 0,
-    flexBasis: '50%',
-    maxWidth: '50%',
+    flex: 1,
+  },
+  buttonContainer: {
+    paddingHorizontal: styles.baseSize * 2,
+    justifyContent: 'center',
+  },
+  switchCurrencyPairButton: {
+    backgroundColor: isIOS() ? PlatformColor('link') : styles.colors.brand,
+    width: SWITCH_CURRENCY_BUTTON_SIZE,
+    height: SWITCH_CURRENCY_BUTTON_SIZE,
+    borderRadius: isIOS() ? SWITCH_CURRENCY_BUTTON_SIZE : 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 })
 

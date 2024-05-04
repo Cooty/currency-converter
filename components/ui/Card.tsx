@@ -1,6 +1,8 @@
 import { FC, PropsWithChildren } from 'react'
 import { View, StyleSheet, ViewStyle } from 'react-native'
 import styles from '../../config/styles'
+import { shadowMedium } from '../../styles/mixins'
+import { isIOS } from '../../utils'
 
 export type CardProps = PropsWithChildren & {
   style?: ViewStyle
@@ -26,6 +28,8 @@ const Body: CardBodyType = ({ children, style }) => {
 
 Card.Body = Body
 
+const shadowStyles = isIOS() ? {} : shadowMedium
+
 const componentStyles = StyleSheet.create({
   card: {
     backgroundColor: styles.colors.light.background,
@@ -33,11 +37,7 @@ const componentStyles = StyleSheet.create({
     borderWidth: 1,
     borderStyle: 'solid',
     borderColor: styles.colors.light.divider,
-    elevation: 4,
-    shadowRadius: 6,
-    shadowOpacity: 0.25,
-    shadowColor: styles.colors.light.shadow,
-    shadowOffset: { width: -2, height: 4 },
+    ...shadowStyles,
   },
   body: {
     padding: styles.baseSize * 5,

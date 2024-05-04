@@ -35,7 +35,7 @@ function Navigator() {
             tabBarLabel: 'Convert',
             headerTitle: 'Convert currencies',
             tabBarIcon: ({ color, size }) => (
-              <MaterialIcons name="compare-arrows" color={color} size={size} />
+              <MaterialIcons name="swap-horiz" color={color} size={size} />
             ),
           }}
         />

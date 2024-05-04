@@ -1,6 +1,8 @@
 const styles = {
   baseSize: 4,
   baseFontSize: 16,
+  buttonFontSize: 18,
+  buttonFontWeight: '500',
   fontSizeIncrement: 2,
   defaultRadius: 20,
   colors: {
@@ -13,12 +15,14 @@ const styles = {
       divider: 'rgba(0, 0, 0, 0.1)',
       shadow: 'rgba(0, 0, 0, 0.8)',
       rippleOnBackground: 'rgba(0, 0, 0, 0.2)',
+      rippleOnBrand: 'rgba(255, 255, 255, 0.2)',
+      red: 'rgb(253 91 91)',
     },
     // TODO: Add colors for dark mode
     dark: {
       text: 'rgb(242 245 255)',
     },
   },
-}
+} as const
 
 export default styles
