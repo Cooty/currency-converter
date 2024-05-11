@@ -56,7 +56,7 @@ const CurrencyListOverlay: FC<CurrencyListOverlayProps> = ({
     <Modal
       visible={isVisible}
       animationType="slide"
-      presentationStyle="fullScreen"
+      presentationStyle={isIOS() ? 'pageSheet' : 'fullScreen'}
       hardwareAccelerated
     >
       <SafeAreaView style={componentStyles.modalInner}>
