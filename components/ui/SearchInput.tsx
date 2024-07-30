@@ -3,11 +3,11 @@ import {
   TextInput,
   TextInputProps,
   StyleSheet,
-  Button,
   View,
   Pressable,
 } from 'react-native'
-import { MaterialIcons, Fontisto, AntDesign } from '@expo/vector-icons'
+import { PlatformAdaptiveIcon } from './PlatformAdaptiveIcon'
+import Highlight from './Highlight'
 import { isAndroid, isIOS } from '../../utils'
 import styles from '../../config/styles'
 
@@ -15,9 +15,7 @@ type SearchInputProps = TextInputProps & {
   onCancel: () => void
 }
 
-const iOSBackground = '#e5e4e9'
 const iOSClearIconColor = '#8e8d92'
-const androidIconColor = styles.colors.light.textSecondary
 const iOSIconColor = '#a7a6a9'
 const iOSClearIconSize = styles.baseSize * 5
 const androidIconSize = styles.baseSize * 6
@@ -29,13 +27,12 @@ const iOSSearchIconPadding = styles.baseSize * 2
 const iOSSearchIconSize = 18
 const iOSPaddingStart =
   iOSSearchIconSize + iOSSearchIconStart + iOSSearchIconPadding
-const androidBorderRadius = styles.defaultRadius * 2
-const androidClearEnd = androidBorderRadius / 2
-const androidPaddingEnd =
-  androidClearEnd + androidIconSize + styles.baseSize * 3
-const androidIconStart = styles.baseSize * 3
-const androidPaddingStart =
-  androidIconStart + androidIconSize + styles.baseSize * 2
+const androidClearEnd = 0
+const androidPaddingEnd = 0
+const androidPaddingStart = 0
+const backButtonSize = styles.baseSize * 10
+const backButtonIconSize = isAndroid() ? 24 : 20
+const backButtonOffset = ((backButtonSize - backButtonIconSize) / 2) * -1
 
 const SearchInput: FC<SearchInputProps> = ({
   onChangeText,
@@ -66,8 +63,31 @@ const SearchInput: FC<SearchInputProps> = ({
   }
 
   return (
-    <View style={componentStyles.iOSCancelButtonContainer}>
-      <View style={componentStyles.iconContainer}>
+    <View style={componentStyles.outerContainer}>
+      <View style={componentStyles.backButtonContainer}>
+        <Highlight
+          rippleColor={styles.colors.rippleOnBrand}
+          style={componentStyles.backButton}
+          onPress={exitSearch}
+        >
+          {isAndroid() ? (
+            <PlatformAdaptiveIcon
+              name="back"
+              isPlatformAdaptive={false}
+              color={styles.colors.onBrand}
+              size={backButtonIconSize}
+            />
+          ) : (
+            <PlatformAdaptiveIcon
+              name="x"
+              isPlatformAdaptive={false}
+              color={styles.colors.onBrand}
+              size={backButtonIconSize}
+            />
+          )}
+        </Highlight>
+      </View>
+      <View style={componentStyles.inputWrapper}>
         {isIOS() && (
           <View
             style={[
@@ -75,35 +95,11 @@ const SearchInput: FC<SearchInputProps> = ({
               componentStyles.iOSSearchIconContainer,
             ]}
           >
-            <Fontisto
+            <PlatformAdaptiveIcon
               name="search"
               size={iOSSearchIconSize}
               color={iOSIconColor}
             />
-          </View>
-        )}
-        {isAndroid() && (
-          <View
-            style={[
-              componentStyles.iconContainerHelper,
-              componentStyles.androidStartIconsContainer,
-            ]}
-          >
-            {hasValue ? (
-              <Pressable onPress={exitSearch}>
-                <MaterialIcons
-                  name="arrow-back"
-                  size={androidIconSize}
-                  color={androidIconColor}
-                />
-              </Pressable>
-            ) : (
-              <MaterialIcons
-                name="search"
-                size={androidIconSize}
-                color={androidIconColor}
-              />
-            )}
           </View>
         )}
         <TextInput
@@ -113,43 +109,29 @@ const SearchInput: FC<SearchInputProps> = ({
           autoComplete="off"
           returnKeyType="search"
           style={componentStyles.input}
-          cursorColor={styles.colors.brand}
+          cursorColor={styles.colors.onBrand}
           onChangeText={onChangeTextHandler}
+          placeholderTextColor={
+            isAndroid() ? styles.colors.onBrandSecondary : undefined
+          }
         />
-        {isIOS() && hasValue && (
+        {hasValue && (
           <View
             style={[
               componentStyles.iconContainerHelper,
-              componentStyles.iOSClearButtonContainer,
+              componentStyles.clearButtonContainer,
             ]}
           >
             <Pressable onPress={onClearHandler}>
-              <AntDesign
-                name="closecircle"
-                size={iOSClearIconSize}
-                color={iOSClearIconColor}
-              />
-            </Pressable>
-          </View>
-        )}
-        {isAndroid() && hasValue && (
-          <View
-            style={[
-              componentStyles.iconContainerHelper,
-              componentStyles.androidClearButtonContainer,
-            ]}
-          >
-            <Pressable onPress={onClearHandler}>
-              <MaterialIcons
+              <PlatformAdaptiveIcon
                 name="close"
-                size={androidIconSize}
-                color={androidIconColor}
+                size={isAndroid() ? androidIconSize : iOSClearIconSize}
+                color={isAndroid() ? styles.colors.onBrand : iOSClearIconColor}
               />
             </Pressable>
           </View>
         )}
       </View>
-      {isIOS() && hasValue && <Button title="Cancel" onPress={exitSearch} />}
     </View>
   )
 }
@@ -157,39 +139,46 @@ const SearchInput: FC<SearchInputProps> = ({
 const componentStyles = StyleSheet.create({
   input: {
     width: '100%',
-    borderColor: isAndroid() ? styles.colors.light.divider : iOSBackground,
-    borderWidth: 1,
-    borderRadius: isAndroid() ? androidBorderRadius : styles.defaultRadius / 2,
-    backgroundColor: isAndroid()
-      ? styles.colors.light.background
-      : iOSBackground,
+    borderColor: styles.colors.light.divider,
+    borderWidth: isAndroid() ? undefined : 1,
+    fontSize: isAndroid() ? styles.baseFontSize : undefined,
+    color: isAndroid() ? styles.colors.onBrand : undefined,
+    borderRadius: isAndroid() ? undefined : styles.defaultRadius / 2,
+    backgroundColor: isAndroid() ? undefined : styles.colors.light.background,
     paddingEnd: isIOS() ? iOSPaddingEnd : androidPaddingEnd,
     paddingStart: isIOS() ? iOSPaddingStart : androidPaddingStart,
-    paddingVertical: 8,
+    paddingVertical: styles.baseSize * 2,
   },
-  iOSCancelButtonContainer: {
-    flexDirection: 'row',
-    gap: styles.baseSize * 2,
+  backButtonContainer: {
+    borderRadius: backButtonSize,
+    overflow: 'hidden',
+    marginStart: isAndroid() ? backButtonOffset : undefined,
+    marginEnd: isIOS() ? backButtonOffset : undefined,
+  },
+  backButton: {
+    width: backButtonSize,
+    height: backButtonSize,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  outerContainer: {
+    flexDirection: isAndroid() ? 'row' : 'row-reverse',
+    gap: styles.baseSize * 3,
     flexWrap: 'nowrap',
+    alignItems: 'center',
   },
-  iconContainer: {
+  inputWrapper: {
     flexDirection: 'row',
     flex: 1,
+    alignItems: 'center',
   },
-  iOSClearButtonContainer: {
-    end: iOSClearEnd,
-  },
-  androidClearButtonContainer: {
-    end: androidClearEnd,
+  clearButtonContainer: {
+    end: isAndroid() ? androidClearEnd : iOSClearEnd,
   },
   iOSSearchIconContainer: {
     start: iOSSearchIconStart,
   },
-  androidStartIconsContainer: {
-    start: androidIconStart,
-  },
   iconContainerHelper: {
-    height: '100%',
     position: 'absolute',
     justifyContent: 'center',
     zIndex: 2,

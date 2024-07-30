@@ -1,8 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-
-import { MaterialIcons } from '@expo/vector-icons'
-
+import { PlatformAdaptiveIcon } from '../components/ui/PlatformAdaptiveIcon'
 import ConvertScreen from '../screens/convert/ConvertScreen'
 import FavoritesScreen from '../screens/favorites/FavoritesScreen'
 import SettingsScreen from '../screens/settings/SettingsScreen'
@@ -35,7 +33,7 @@ function Navigator() {
             tabBarLabel: 'Convert',
             headerTitle: 'Convert currencies',
             tabBarIcon: ({ color, size }) => (
-              <MaterialIcons name="swap-horiz" color={color} size={size} />
+              <PlatformAdaptiveIcon name="convert" color={color} size={size} />
             ),
           }}
         />
@@ -46,7 +44,7 @@ function Navigator() {
             tabBarLabel: 'Favorites',
             headerTitle: 'Favorite currency pairs',
             tabBarIcon: ({ color, size }) => (
-              <MaterialIcons name="favorite" color={color} size={size} />
+              <PlatformAdaptiveIcon name="favorite" color={color} size={size} />
             ),
           }}
         />
@@ -57,7 +55,7 @@ function Navigator() {
             tabBarLabel: 'Settings',
             headerTitle: 'Settings',
             tabBarIcon: ({ color, size }) => (
-              <MaterialIcons name="settings" color={color} size={size} />
+              <PlatformAdaptiveIcon name="settings" color={color} size={size} />
             ),
           }}
         />

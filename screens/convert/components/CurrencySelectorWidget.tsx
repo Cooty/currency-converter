@@ -1,6 +1,5 @@
 import { FC } from 'react'
-import { Pressable, StyleSheet } from 'react-native'
-import { Entypo } from '@expo/vector-icons'
+import { StyleSheet, Platform, View } from 'react-native'
 import { Currency } from '../../../services/currency'
 import CurrencyDisplay from '../../../components/currency/CurrencyDisplay'
 import styles from '../../../config/styles'
@@ -8,7 +7,8 @@ import { Divider, Card } from '../../../components/ui/'
 import CurrencyInput, {
   CurrencyInputProps,
 } from '../../../components/currency/CurrencyInput'
-import { isIOS } from '../../../utils'
+import { PlatformAdaptiveIcon } from '../../../components/ui/PlatformAdaptiveIcon'
+import { Highlight } from '../../../components/ui/'
 
 type CurrencySelectorWidgetProps = Omit<
   Currency,
@@ -26,37 +26,36 @@ const CurrencySelectorWidget: FC<CurrencySelectorWidgetProps> = ({
   value,
   onSelect,
 }) => {
+  const CARD_PADDING = styles.baseSize * 3
+
   return (
     <Card>
-      <Card.Body style={{ paddingBottom: 0 }}>
-        <Pressable
-          onPress={() => onSelect()}
-          android_ripple={{
-            color: styles.colors.light.rippleOnBackground,
-          }}
-          style={({ pressed }) => [
-            // TODO: Try to use the Android ripple effect where available
-            // https://reactnative.dev/docs/improvingux#use-android-ripple
-            {
-              backgroundColor:
-                pressed && isIOS()
-                  ? styles.colors.light.rippleOnBackground
-                  : undefined,
-            },
-            componentStyles.pressablePadding,
-            componentStyles.selectArrowContainer,
-          ]}
-        >
-          <CurrencyDisplay code={code} />
-          <Entypo
-            name="select-arrows"
-            size={styles.baseSize * 4}
-            color={styles.colors.light.textSecondary}
-          />
-        </Pressable>
+      <Card.Body
+        style={{
+          paddingBottom: 0,
+          paddingHorizontal: CARD_PADDING,
+          paddingTop: CARD_PADDING,
+        }}
+      >
+        <View style={componentStyles.selectContainer}>
+          <Highlight onPress={onSelect} style={componentStyles.select}>
+            <CurrencyDisplay code={code} />
+            <PlatformAdaptiveIcon
+              name="select-arrows"
+              size={Platform.OS === 'android' ? 20 : 14}
+              color={styles.colors.light.text}
+            />
+          </Highlight>
+        </View>
       </Card.Body>
       <Divider />
-      <Card.Body style={{ paddingTop: 0 }}>
+      <Card.Body
+        style={{
+          paddingTop: 0,
+          paddingHorizontal: CARD_PADDING,
+          paddingBottom: CARD_PADDING,
+        }}
+      >
         <CurrencyInput
           value={value}
           onAmountChange={onAmountChange}
@@ -68,11 +67,12 @@ const CurrencySelectorWidget: FC<CurrencySelectorWidgetProps> = ({
 }
 
 const componentStyles = StyleSheet.create({
-  pressablePadding: {
-    padding: styles.baseSize,
+  selectContainer: {
+    overflow: 'hidden',
     borderRadius: styles.baseSize,
   },
-  selectArrowContainer: {
+  select: {
+    padding: styles.baseSize,
     flexDirection: 'row',
     flexWrap: 'nowrap',
     justifyContent: 'space-between',
