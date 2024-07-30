@@ -9,9 +9,9 @@ import {
   Modal,
 } from 'react-native'
 import { useHeaderHeight } from '@react-navigation/elements'
-import styles from '../../config/styles'
+import styles, { wrapperGutter } from '../../config/styles'
 import SearchInput from '../ui/SearchInput'
-import { isAndroid, isIOS } from '../../utils'
+import { isIOS } from '../../utils'
 import { Currency, CurrencyList } from '../../services/currency'
 import CurrencyListItem from './CurrencyListItem'
 import {
@@ -69,12 +69,12 @@ const CurrencyListOverlay: FC<CurrencyListOverlayProps> = ({
               componentStyles.modalHeader,
               {
                 height: headerHeight,
-                backgroundColor: isAndroid() ? styles.colors.brand : undefined,
               },
             ]}
           >
             <SearchInput
               value={searchValue}
+              textContentType="countryName"
               onChangeText={setSearchValue}
               placeholder="Start typing (eg.: USD or Dollars)"
               onCancel={onCancel}
@@ -106,10 +106,11 @@ const componentStyles = StyleSheet.create({
     width: '100%',
   },
   modalHeader: {
-    paddingHorizontal: styles.baseSize * 5,
+    paddingHorizontal: wrapperGutter,
     justifyContent: 'center',
     borderColor: styles.colors.light.divider,
-    borderBottomWidth: 1,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    backgroundColor: styles.colors.brand,
   },
   scrollableContent: {
     flex: 1,

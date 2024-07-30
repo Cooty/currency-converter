@@ -1,21 +1,11 @@
-import { View, StyleSheet, Button } from 'react-native'
-import { useWindowSizePercentage } from '../../../utils'
+import { PlatformAdaptiveButton } from '../../../components/ui'
 
 function History() {
-  const paddingBottom = useWindowSizePercentage(3, 'height')
-
   return (
-    <View style={[componentStyles.container, { paddingBottom }]}>
-      <Button title="History" />
-    </View>
+    <PlatformAdaptiveButton variant="secondary" icon="history">
+      History
+    </PlatformAdaptiveButton>
   )
 }
-
-const componentStyles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-})
 
 export default History

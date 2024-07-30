@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { StyleSheet, ScrollView, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
-import stylesConfig from '../../config/styles'
+import stylesConfig, { wrapperGutter } from '../../config/styles'
 import CurrencyConverterForm from './components/CurrencyConverterForm'
 import ResultText from './components/ResultText'
 import styles from '../../config/styles'
@@ -17,10 +17,9 @@ function ConvertScreen() {
   const openCurrencySelector = () => {
     setIsCurrencySelectorOpen(true)
   }
-  const additionalActionsPaddingBottom = useWindowSizePercentage(3, 'height')
+  const additionalActionsPaddingBottom = useWindowSizePercentage(2, 'height')
 
   function currencySelectionHandler(currency: Currency) {
-    console.log(currency)
     setIsCurrencySelectorOpen(false)
   }
 
@@ -29,7 +28,7 @@ function ConvertScreen() {
   }
 
   return (
-    <ScrollView contentContainerStyle={componentStyles.container}>
+    <View style={componentStyles.container}>
       <View style={{ marginBottom: styles.baseSize * 5 }}>
         <CurrencyConverterForm onSelect={openCurrencySelector} />
       </View>
@@ -43,6 +42,7 @@ function ConvertScreen() {
         style={[
           componentStyles.additionalActions,
           { paddingBottom: additionalActionsPaddingBottom },
+          { width: '60%', alignSelf: 'flex-end' },
         ]}
       >
         <AddToFavorites />
@@ -55,22 +55,21 @@ function ConvertScreen() {
         currencies={currencies}
       />
       <StatusBar style={isIOS() && isCurrencySelectorOpen ? 'dark' : 'light'} />
-    </ScrollView>
+    </View>
   )
 }
 
 const componentStyles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: stylesConfig.baseSize * 4,
+    padding: wrapperGutter,
     backgroundColor: stylesConfig.colors.light.background,
   },
   additionalActions: {
     flex: 1,
-    width: '100%',
-    alignItems: 'center',
+    alignItems: 'flex-end',
     justifyContent: 'flex-end',
-    gap: styles.baseSize * 5,
+    gap: styles.baseSize * 4,
   },
 })
 

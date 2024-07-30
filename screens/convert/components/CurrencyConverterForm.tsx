@@ -1,10 +1,9 @@
 import { FC, useState } from 'react'
-import { MaterialIcons } from '@expo/vector-icons'
-import { View, StyleSheet, Pressable, PlatformColor } from 'react-native'
+import { View, StyleSheet, Pressable } from 'react-native'
 import CurrencySelectorWidget from './CurrencySelectorWidget'
 import styles from '../../../config/styles'
-import { shadowMedium } from '../../../styles/mixins'
-import { isIOS, isAndroid } from '../../../utils'
+import { isIOS } from '../../../utils'
+import { PlatformAdaptiveIcon } from '../../../components/ui/PlatformAdaptiveIcon'
 
 interface CurrencyConverterFormProps {
   onSelect: () => void
@@ -42,7 +41,7 @@ const CurrencyConverterForm: FC<CurrencyConverterFormProps> = ({
         <Pressable
           onPress={switchCurrencyPairHandler}
           android_ripple={{
-            color: styles.colors.light.rippleOnBrand,
+            color: styles.colors.rippleOnBrand,
             radius: 25,
           }}
           style={({ pressed }) => [
@@ -52,9 +51,9 @@ const CurrencyConverterForm: FC<CurrencyConverterFormProps> = ({
             componentStyles.switchCurrencyPairButton,
           ]}
         >
-          <MaterialIcons
-            name="swap-horiz"
-            color={isIOS() ? 'white' : styles.colors.onBrand}
+          <PlatformAdaptiveIcon
+            name="convert"
+            color={isIOS() ? undefined : styles.colors.onBrand}
             size={styles.baseSize * 6}
           />
         </Pressable>
@@ -87,10 +86,10 @@ const componentStyles = StyleSheet.create({
     justifyContent: 'center',
   },
   switchCurrencyPairButton: {
-    backgroundColor: isIOS() ? PlatformColor('link') : styles.colors.brand,
+    backgroundColor: isIOS() ? 'rgba(0, 0, 0, 0)' : styles.colors.brand,
     width: SWITCH_CURRENCY_BUTTON_SIZE,
     height: SWITCH_CURRENCY_BUTTON_SIZE,
-    borderRadius: isIOS() ? SWITCH_CURRENCY_BUTTON_SIZE : 10,
+    borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },
