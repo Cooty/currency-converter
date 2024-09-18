@@ -13,7 +13,12 @@ import History from './components/History'
 
 function ConvertScreen() {
   const [isCurrencySelectorOpen, setIsCurrencySelectorOpen] = useState(false)
+  const [exchangeRate, setExchangeRate] = useState<undefined | number>()
+  const [baseCurrencyAmount, setBaseCurrencyAmount] = useState('1')
+  const [targetCurrencyAmount, setTargetCurrencyAmount] = useState('1')
   const { currencies } = useCurrencies()
+  const [baseCurrency, setBaseCurrency] = useState(currencies?.data['USD'])
+  const [targetCurrency, setTargetCurrency] = useState(currencies?.data['EUR'])
   const openCurrencySelector = () => {
     setIsCurrencySelectorOpen(true)
   }
@@ -32,17 +37,19 @@ function ConvertScreen() {
       <View style={{ marginBottom: styles.baseSize * 5 }}>
         <CurrencyConverterForm onSelect={openCurrencySelector} />
       </View>
-      <ResultText
-        currencyAAmount="10"
-        currencyBAmount="9.13"
-        currencyAName="US Dollar"
-        currencyBName="Euro"
-      />
+      {baseCurrency && targetCurrency && exchangeRate && (
+        <ResultText
+          baseCurrencyAmount={baseCurrencyAmount}
+          targetCurrencyAmount={targetCurrencyAmount}
+          baseCurrencyName={baseCurrency?.name}
+          targetCurrencyName={targetCurrency?.name}
+        />
+      )}
+
       <View
         style={[
           componentStyles.additionalActions,
           { paddingBottom: additionalActionsPaddingBottom },
-          { width: '60%', alignSelf: 'flex-end' },
         ]}
       >
         <AddToFavorites />
@@ -68,6 +75,8 @@ const componentStyles = StyleSheet.create({
   additionalActions: {
     flex: 1,
     alignItems: 'flex-end',
+    width: '60%',
+    alignSelf: 'flex-end',
     justifyContent: 'flex-end',
     gap: styles.baseSize * 4,
   },

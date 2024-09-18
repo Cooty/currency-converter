@@ -1,45 +1,49 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { View, StyleSheet, Pressable } from 'react-native'
 import CurrencySelectorWidget from './CurrencySelectorWidget'
 import styles from '../../../config/styles'
 import { isIOS } from '../../../utils'
 import { PlatformAdaptiveIcon } from '../../../components/ui/PlatformAdaptiveIcon'
+import { Currency } from '../../../services/currency'
 
 interface CurrencyConverterFormProps {
-  onSelect: () => void
+  fromCurrency: Currency
+  toCurrency: Currency
+  fromCurrencyAmount: string
+  toCurrencyAmount: string
+  onSelectFromCurrency: (currency: Currency) => void
+  onSelectToCurrency: (currency: Currency) => void
+  onChangeFromCurrency: (amount: string) => void
+  onChangeToCurrency: (amount: string) => void
+  onChangeCurrencyOrder: () => void
 }
 
 const CurrencyConverterForm: FC<CurrencyConverterFormProps> = ({
-  onSelect,
+  fromCurrency,
+  toCurrency,
+  fromCurrencyAmount,
+  toCurrencyAmount,
+  onSelectFromCurrency,
+  onSelectToCurrency,
+  onChangeFromCurrency,
+  onChangeToCurrency,
+  onChangeCurrencyOrder,
 }) => {
-  const [currencyAAmount, setCurrencyAAmount] = useState('')
-  const [currencyBAmount, setCurrencyBAmount] = useState('')
-  const [isSwitched, setIsSwitched] = useState(false)
-
-  function switchCurrencyPairHandler() {
-    setIsSwitched(!isSwitched)
-  }
-
   return (
-    <View
-      style={[
-        componentStyles.container,
-        { flexDirection: isSwitched ? 'row-reverse' : 'row' },
-      ]}
-    >
+    <View style={componentStyles.container}>
       <View style={componentStyles.widgetContainer}>
         <CurrencySelectorWidget
-          symbol="$"
-          decimal_digits={2}
-          code="USD"
-          value={currencyAAmount}
-          onSelect={onSelect}
-          onAmountChange={setCurrencyAAmount}
+          symbol={fromCurrency.symbol_native ?? fromCurrency.symbol}
+          decimal_digits={fromCurrency.decimal_digits}
+          code={fromCurrency.code}
+          value={fromCurrencyAmount}
+          onSelect={onSelectFromCurrency}
+          onAmountChange={onChangeFromCurrency}
         />
       </View>
       <View style={componentStyles.buttonContainer}>
         <Pressable
-          onPress={switchCurrencyPairHandler}
+          onPress={onChangeCurrencyOrder}
           android_ripple={{
             color: styles.colors.rippleOnBrand,
             radius: 25,
@@ -60,12 +64,12 @@ const CurrencyConverterForm: FC<CurrencyConverterFormProps> = ({
       </View>
       <View style={componentStyles.widgetContainer}>
         <CurrencySelectorWidget
-          symbol="€"
-          decimal_digits={2}
-          code="EUR"
-          value={currencyBAmount}
-          onSelect={onSelect}
-          onAmountChange={setCurrencyBAmount}
+          symbol={toCurrency.symbol_native ?? toCurrency.symbol}
+          decimal_digits={toCurrency.decimal_digits}
+          code={toCurrency.code}
+          value={toCurrencyAmount}
+          onSelect={onSelectToCurrency}
+          onAmountChange={onChangeToCurrency}
         />
       </View>
     </View>

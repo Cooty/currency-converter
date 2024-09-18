@@ -4,29 +4,29 @@ import AppText from '../../../components/ui/AppText'
 import styles from '../../../config/styles'
 
 interface ResultTextProps {
-  currencyAAmount: string
-  currencyBAmount: string
-  currencyAName: string
-  currencyBName: string
+  baseCurrencyAmount: string
+  targetCurrencyAmount: string
+  baseCurrencyName: string
+  targetCurrencyName: string
 }
 
 const ResultText: FC<ResultTextProps> = ({
-  currencyAAmount,
-  currencyBAmount,
-  currencyAName,
-  currencyBName,
+  baseCurrencyAmount,
+  targetCurrencyAmount,
+  baseCurrencyName,
+  targetCurrencyName,
 }) => {
   return (
     <View style={componentStyles.container}>
       <View>
         <Text style={componentStyles.currencyALine}>
-          <Text style={{ fontWeight: 'bold' }}>{currencyAAmount}</Text>{' '}
-          {currencyAName} equals
+          <Text style={{ fontWeight: 'bold' }}>{baseCurrencyAmount}</Text>{' '}
+          {baseCurrencyName} equals
         </Text>
 
         <AppText style={componentStyles.currencyBLine}>
-          <Text style={{ fontWeight: 'bold' }}>{currencyBAmount}</Text>{' '}
-          {currencyBName}
+          <Text style={{ fontWeight: 'bold' }}>{targetCurrencyAmount}</Text>{' '}
+          {targetCurrencyName}
         </AppText>
       </View>
     </View>

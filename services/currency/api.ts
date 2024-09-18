@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { makeCurrencyApiUrl } from '../api'
-import { CurrencyList } from './model'
+import { CurrencyList, ExchangeRates } from './model'
 
 /**
  * Gets the list of all available currencies either from the API or from the device cache
@@ -21,4 +21,23 @@ export async function getCurrencies() {
 
     return currencies
   }
+}
+
+interface GetLatestExchangeRateParams {
+  fromCurrency: string
+  toCurrency: string
+}
+
+export async function getLatestExchangeRate(
+  params: GetLatestExchangeRateParams
+) {
+  const apiURL = makeCurrencyApiUrl('latest', {
+    base_currency: params.fromCurrency,
+    currencies: params.toCurrency,
+  })
+
+  const request = await fetch(apiURL)
+  const exchangeRates = (await request.json()) as ExchangeRates
+
+  return exchangeRates.data[params.toCurrency]
 }

@@ -11,3 +11,7 @@ export interface Currency {
   code: string
   name_plural: string
 }
+
+export interface ExchangeRates {
+  data: Record<string, number>
+}
