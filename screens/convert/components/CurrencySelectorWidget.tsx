@@ -29,6 +29,15 @@ const CurrencySelectorWidget: FC<CurrencySelectorWidgetProps> = ({
 }) => {
   return (
     <Card style={componentStyles.card}>
+      <Card.Body style={componentStyles.inputContainer}>
+        <CurrencyInput
+          value={value}
+          onChangeText={onChangeText}
+          symbol={symbol}
+          frameStyle={componentStyles.inputFrame}
+          {...props}
+        />
+      </Card.Body>
       <Card.Body style={componentStyles.selectContainer}>
         <Highlight onPress={onSelect} style={componentStyles.select}>
           <CurrencyDisplay code={code} />
@@ -39,15 +48,6 @@ const CurrencySelectorWidget: FC<CurrencySelectorWidgetProps> = ({
           />
         </Highlight>
       </Card.Body>
-      <Card.Body style={componentStyles.inputContainer}>
-        <CurrencyInput
-          value={value}
-          onChangeText={onChangeText}
-          symbol={symbol}
-          frameStyle={componentStyles.inputFrame}
-          {...props}
-        />
-      </Card.Body>
     </Card>
   )
 }
@@ -57,11 +57,17 @@ const CARD_VERTICAL_PADDING = baseSize()
 
 const componentStyles = StyleSheet.create({
   card: { flexDirection: 'row' },
-  selectContainer: {
-    paddingHorizontal: CARD_HORIZONTAL_PADDING,
+  inputContainer: {
+    paddingRight: CARD_HORIZONTAL_PADDING,
     paddingVertical: CARD_VERTICAL_PADDING,
     borderRightWidth: 1,
     borderRightColor: theme.colors.light.divider,
+    flex: 1,
+  },
+  inputFrame: { width: '100%' },
+  selectContainer: {
+    paddingVertical: CARD_VERTICAL_PADDING,
+    paddingHorizontal: CARD_HORIZONTAL_PADDING,
     justifyContent: 'center',
   },
   select: {
@@ -71,13 +77,6 @@ const componentStyles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  inputContainer: {
-    paddingVertical: CARD_VERTICAL_PADDING,
-    paddingRight: CARD_HORIZONTAL_PADDING,
-    paddingLeft: baseSize(4),
-    flex: 1,
-  },
-  inputFrame: { width: '100%' },
 })
 
 export default CurrencySelectorWidget
