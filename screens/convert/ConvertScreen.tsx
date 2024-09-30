@@ -15,6 +15,7 @@ import {
   useCurrencies,
   getLatestExchangeRate,
   getAllCurrenciesAsArray,
+  getAllCurrenciesAsArraySortedAlphabetically,
 } from '../../services/currency'
 import { isIOS, useWindowSizePercentage } from '../../utils'
 import {
@@ -190,7 +191,9 @@ function ConvertScreen() {
               isVisible={isCurrencySelectorOpen}
               onCurrencySelection={currencySelectionHandler}
               onCancel={cancelCurrencySelectionHandler}
-              currencies={getAllCurrenciesAsArray(currencies)}
+              currencies={getAllCurrenciesAsArraySortedAlphabetically(
+                currencies
+              )}
             />
           )}
         </>
