@@ -1,15 +1,27 @@
 import { FC } from 'react'
-import { View, StyleSheet, TextInput, TextInputProps } from 'react-native'
+import {
+  View,
+  StyleSheet,
+  TextInput,
+  TextInputProps,
+  ViewStyle,
+  StyleProp,
+} from 'react-native'
 import { theme, baseFontSize, baseSize } from '../../styles/'
 import AppText from '../ui/AppText'
 
 export type CurrencyInputProps = {
   symbol: string
+  frameStyle?: StyleProp<ViewStyle>
 } & TextInputProps
 
-const CurrencyInput: FC<CurrencyInputProps> = ({ symbol, ...props }) => {
+const CurrencyInput: FC<CurrencyInputProps> = ({
+  symbol,
+  frameStyle,
+  ...props
+}) => {
   return (
-    <View style={componentStyles.inputWrapper}>
+    <View style={[componentStyles.inputWrapper, frameStyle]}>
       <AppText style={componentStyles.symbol}>{symbol}</AppText>
       <TextInput
         keyboardType="numeric"
@@ -32,6 +44,7 @@ const componentStyles = StyleSheet.create({
   },
   symbol: {
     fontWeight: 'bold',
+    color: theme.colors.light.textSecondary,
   },
   input: {
     backgroundColor: 'rgba(0, 0, 0, 0.0)',

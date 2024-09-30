@@ -1,4 +1,4 @@
-import { Platform, PlatformColor } from 'react-native'
+import { Platform, PlatformColor, StyleProp, ViewStyle } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
 import { SymbolView, ContentMode } from 'expo-symbols'
 import { IconNames } from './types'
@@ -10,11 +10,13 @@ export interface PlatformAdaptiveIconProps {
   color?: string
   size?: number
   isPlatformAdaptive?: boolean
+  style?: StyleProp<ViewStyle>
 }
 
 function PlatformAdaptiveIcon({
   name,
   color,
+  style,
   size = 24,
   isPlatformAdaptive = true,
 }: PlatformAdaptiveIconProps) {
@@ -33,11 +35,13 @@ function PlatformAdaptiveIcon({
     tintColor:
       typeof colorValue === 'string' ? RGBAToHexA(colorValue) : colorValue,
     resizeMode: 'scaleAspectFit' as ContentMode,
+    style,
   }
 
   const props = {
     size,
     color: colorValue,
+    style,
   }
 
   const shouldRenderIOSIcon = () => Platform.OS === 'ios' && isPlatformAdaptive

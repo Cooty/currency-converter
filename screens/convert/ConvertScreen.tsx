@@ -53,8 +53,6 @@ function ConvertScreen() {
         return
       }
       // change the order of currencies when the user selects the same currency as the target
-      console.log('selected currency is: ', currency.code)
-      console.log('current target currency is: ', targetCurrency?.code)
       if (currency.code === targetCurrency?.code) {
         setTargetCurrency(baseCurrency)
         setBaseCurrency(currency)

@@ -1,5 +1,5 @@
-import { FC } from 'react'
-import { View, StyleSheet, Pressable } from 'react-native'
+import { useRef, useState, useEffect } from 'react'
+import { View, StyleSheet, Pressable, Animated, Easing } from 'react-native'
 import CurrencySelectorWidget from './CurrencySelectorWidget'
 import { theme, baseSize } from '../../../styles/'
 import { isIOS } from '../../../utils'
@@ -22,7 +22,9 @@ interface CurrencyConverterFormProps {
   onTargetCurrencyAmountBlur: () => void
 }
 
-const CurrencyConverterForm: FC<CurrencyConverterFormProps> = ({
+const animationConfig = { duration: 200, useNativeDriver: true }
+
+function CurrencyConverterForm({
   baseCurrency,
   targetCurrency,
   baseCurrencyAmount,
@@ -36,25 +38,56 @@ const CurrencyConverterForm: FC<CurrencyConverterFormProps> = ({
   onBaseCurrencyAmountBlur,
   onTargetCurrencyAmountFocus,
   onTargetCurrencyAmountBlur,
-}) => {
+}: CurrencyConverterFormProps) {
+  const [isIconReversed, setIsIconReversed] = useState(false)
+  const iconSpinAnimValue = useRef(new Animated.Value(0)).current
+  const iconSpin = iconSpinAnimValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['90deg', '-90deg'],
+  })
+
+  function animateIconForward() {
+    Animated.timing(iconSpinAnimValue, {
+      toValue: 1,
+      ...animationConfig,
+    }).start()
+  }
+
+  function animateIconBackwards() {
+    Animated.timing(iconSpinAnimValue, {
+      toValue: 0,
+      ...animationConfig,
+    }).start()
+  }
+
+  useEffect(() => {
+    if (isIconReversed) {
+      animateIconForward()
+    } else {
+      animateIconBackwards()
+    }
+  }, [isIconReversed])
+
   return (
     <View style={componentStyles.container}>
-      <View style={componentStyles.widgetContainer}>
-        {/* Select widget for base currency */}
-        <CurrencySelectorWidget
-          symbol={baseCurrency.symbol_native ?? baseCurrency.symbol}
-          code={baseCurrency.code}
-          value={baseCurrencyAmount}
-          onSelect={onSelectBaseCurrency}
-          onChangeText={onChangeBaseCurrencyAmount}
-          onFocus={onBaseCurrencyAmountFocus}
-          onBlur={onBaseCurrencyAmountBlur}
-        />
-      </View>
+      {/* Select widget for base currency */}
+      <CurrencySelectorWidget
+        symbol={baseCurrency.symbol_native ?? baseCurrency.symbol}
+        code={baseCurrency.code}
+        value={baseCurrencyAmount}
+        onSelect={onSelectBaseCurrency}
+        onChangeText={onChangeBaseCurrencyAmount}
+        onFocus={onBaseCurrencyAmountFocus}
+        onBlur={onBaseCurrencyAmountBlur}
+      />
+
+      {/* Button for switching currency order (base <-> target) */}
       <View style={componentStyles.buttonContainer}>
-        {/* Button for switching currency order (base <-> target) */}
         <Pressable
-          onPress={onChangeCurrencyOrder}
+          onPress={() => {
+            setIsIconReversed(!isIconReversed)
+            onChangeCurrencyOrder()
+          }}
           android_ripple={{
             color: theme.colors.rippleOnBrand,
             radius: 25,
@@ -66,24 +99,26 @@ const CurrencyConverterForm: FC<CurrencyConverterFormProps> = ({
             componentStyles.switchCurrencyPairButton,
           ]}
         >
-          <PlatformAdaptiveIcon
-            name="convert"
-            color={isIOS() ? undefined : theme.colors.onBrand}
-            size={baseSize(6)}
-          />
+          <Animated.View style={{ transform: [{ rotate: iconSpin }] }}>
+            <PlatformAdaptiveIcon
+              name="convert"
+              color={isIOS() ? undefined : theme.colors.onBrand}
+              size={baseSize(6)}
+            />
+          </Animated.View>
         </Pressable>
       </View>
-      <View style={componentStyles.widgetContainer}>
-        <CurrencySelectorWidget
-          symbol={targetCurrency.symbol_native ?? targetCurrency.symbol}
-          code={targetCurrency.code}
-          value={targetCurrencyAmount}
-          onSelect={onSelectTargetCurrency}
-          onChangeText={onChangeTargetCurrencyAmount}
-          onFocus={onTargetCurrencyAmountFocus}
-          onBlur={onTargetCurrencyAmountBlur}
-        />
-      </View>
+
+      {/* Select widget for target currency */}
+      <CurrencySelectorWidget
+        symbol={targetCurrency.symbol_native ?? targetCurrency.symbol}
+        code={targetCurrency.code}
+        value={targetCurrencyAmount}
+        onSelect={onSelectTargetCurrency}
+        onChangeText={onChangeTargetCurrencyAmount}
+        onFocus={onTargetCurrencyAmountFocus}
+        onBlur={onTargetCurrencyAmountBlur}
+      />
     </View>
   )
 }
@@ -91,16 +126,11 @@ const SWITCH_CURRENCY_BUTTON_SIZE = 40
 
 const componentStyles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    flexWrap: 'nowrap',
     width: '100%',
-  },
-  widgetContainer: {
-    flex: 1,
+    gap: baseSize(2),
   },
   buttonContainer: {
-    paddingHorizontal: baseSize(2),
-    justifyContent: 'center',
+    alignItems: 'center',
   },
   switchCurrencyPairButton: {
     backgroundColor: isIOS() ? 'rgba(0, 0, 0, 0)' : theme.colors.brand,
