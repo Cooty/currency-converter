@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { View, Text, ViewStyle, StyleSheet } from 'react-native'
 import CountryFlag from 'react-native-country-flag'
 import { currencyCodeToCountryCode } from '../../utils'
-import styles from '../../config/styles'
+import { theme, baseFontSize, baseSize } from '../../styles/'
 import AppText from '../ui/AppText'
 
 interface CurrencyDisplayProps {
@@ -34,25 +34,25 @@ const CurrencyDisplay: FC<CurrencyDisplayProps> = ({ code, name, style }) => {
 const componentStyles = StyleSheet.create({
   flagAndCode: {
     flexDirection: 'row',
-    gap: styles.baseSize * 3,
+    gap: baseSize(3),
     alignItems: 'center',
   },
   code: {
     fontWeight: 'bold',
   },
   flag: {
-    borderRadius: styles.baseSize,
+    borderRadius: baseSize(),
     borderWidth: 1,
-    borderColor: styles.colors.light.divider,
+    borderColor: theme.colors.light.divider,
     flexGrow: 0,
     flexShrink: 0,
   },
   name: {
-    fontSize: 14,
-    color: styles.colors.light.textSecondary,
+    ...baseFontSize(-1),
+    color: theme.colors.light.textSecondary,
   },
   nameContainer: {
-    marginTop: styles.baseSize,
+    marginTop: baseSize(),
   },
 })
 

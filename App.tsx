@@ -7,12 +7,15 @@ import {
   CurrencyContext,
   CurrencyList,
 } from './services/currency'
+import ErrorScreen from './screens/error/ErrorScreen'
+import ErrorBoundary from './services/error/ErrorBoundary'
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false)
   const [currencies, setCurrencies] = useState<CurrencyList | undefined>(
     undefined
   )
+  const [error, setError] = useState<string | undefined>()
 
   useEffect(() => {
     async function prepare() {
@@ -20,8 +23,9 @@ export default function App() {
         const currencies = await getCurrencies()
         setCurrencies(currencies)
       } catch (e) {
-        // TODO: Render a generic error component if essential data for the app fails to load
         console.error(e)
+
+        setError((e as Error).message ?? 'Unexpected error, please try again!')
       } finally {
         // Tell the application to render
         setAppIsReady(true)
@@ -39,9 +43,15 @@ export default function App() {
 
   return (
     <View style={componentStyles.root} onLayout={onLayoutRootView}>
-      <CurrencyContext.Provider value={{ currencies }}>
-        <Navigator />
-      </CurrencyContext.Provider>
+      <ErrorBoundary fallback={<ErrorScreen />}>
+        {error ? (
+          <ErrorScreen message={error} />
+        ) : (
+          <CurrencyContext.Provider value={{ currencies }}>
+            <Navigator />
+          </CurrencyContext.Provider>
+        )}
+      </ErrorBoundary>
     </View>
   )
 }

@@ -1,7 +1,7 @@
 import { View, PlatformColor, StyleSheet } from 'react-native'
 import CurrencyDisplay from './CurrencyDisplay'
 import { Currency } from '../../services/currency'
-import styles, { wrapperGutter } from '../../config/styles'
+import { wrapperGutter, theme, baseSize } from '../../styles'
 import { isIOS } from '../../utils'
 import Highlight from '../ui/Highlight'
 
@@ -36,13 +36,13 @@ function CurrencyListItem({
 const componentStyles = StyleSheet.create({
   listItem: {
     paddingHorizontal: wrapperGutter,
-    paddingVertical: styles.baseSize,
+    paddingVertical: baseSize(),
     borderTopColor: isIOS()
       ? PlatformColor('separator')
-      : styles.colors.light.divider,
+      : theme.colors.light.divider,
   },
   tapTarget: {
-    padding: styles.baseSize,
+    padding: baseSize(),
   },
 })
 

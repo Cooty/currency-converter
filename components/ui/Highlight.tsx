@@ -8,7 +8,7 @@ import {
   ViewStyle,
 } from 'react-native'
 import { PropsWithChildren } from 'react'
-import styles from '../../config/styles'
+import { theme } from '../../styles/'
 import { isAndroid } from '../../utils'
 
 type HighlightProps = {
@@ -28,7 +28,7 @@ function Highlight({
   const SUPPORTS_NATIVE_FEEDBACK = isAndroid() && Number(Platform.Version) >= 21
   const defaultHitSlop = { top: 15, bottom: 15, right: 15, left: 15 }
   const androidRippleColor =
-    rippleColor ?? styles.colors.light.rippleOnBackground
+    rippleColor ?? theme.colors.light.rippleOnBackground
 
   if (SUPPORTS_NATIVE_FEEDBACK) {
     return (

@@ -1,29 +1,22 @@
 import { FC } from 'react'
-import { View, StyleSheet, Text, TextInput } from 'react-native'
-import styles from '../../config/styles'
+import { View, StyleSheet, TextInput, TextInputProps } from 'react-native'
+import { theme, baseFontSize, baseSize } from '../../styles/'
 import AppText from '../ui/AppText'
 
-export interface CurrencyInputProps {
+export type CurrencyInputProps = {
   symbol: string
-  value?: string
-  onAmountChange: (value: string) => void
-}
+} & TextInputProps
 
-const CurrencyInput: FC<CurrencyInputProps> = ({
-  symbol,
-  value,
-  onAmountChange,
-}) => {
+const CurrencyInput: FC<CurrencyInputProps> = ({ symbol, ...props }) => {
   return (
     <View style={componentStyles.inputWrapper}>
       <AppText style={componentStyles.symbol}>{symbol}</AppText>
       <TextInput
-        onChangeText={onAmountChange}
-        value={value}
         keyboardType="numeric"
         placeholder="0.00"
-        cursorColor={styles.colors.light.text}
+        cursorColor={theme.colors.light.text}
         style={componentStyles.input}
+        {...props}
       />
     </View>
   )
@@ -34,7 +27,7 @@ const componentStyles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'nowrap',
     alignItems: 'center',
-    gap: styles.baseSize * 2,
+    gap: baseSize(2),
     maxWidth: '100%',
   },
   symbol: {
@@ -45,10 +38,10 @@ const componentStyles = StyleSheet.create({
     flex: 1,
     maxWidth: '100%',
     borderWidth: 0,
-    color: styles.colors.light.text,
+    color: theme.colors.light.text,
     paddingHorizontal: 0,
-    paddingVertical: styles.baseSize * 2,
-    fontSize: styles.baseFontSize,
+    paddingVertical: baseSize(2),
+    ...baseFontSize(1),
   },
 })
 

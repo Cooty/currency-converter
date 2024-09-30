@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { View, StyleSheet, ViewStyle } from 'react-native'
-import styles from '../../config/styles'
+import { theme, baseSize } from '../../styles/'
 
 interface DividerProps {
   style?: ViewStyle
@@ -15,8 +15,8 @@ const componentStyles = StyleSheet.create({
     width: '100%',
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderStyle: 'solid',
-    borderColor: styles.colors.light.divider,
-    marginVertical: styles.baseSize * 4,
+    borderColor: theme.colors.light.divider,
+    marginVertical: baseSize(4),
   },
 })
 

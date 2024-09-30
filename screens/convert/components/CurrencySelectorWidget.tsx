@@ -2,17 +2,18 @@ import { FC } from 'react'
 import { StyleSheet, Platform, View } from 'react-native'
 import { Currency } from '../../../services/currency'
 import CurrencyDisplay from '../../../components/currency/CurrencyDisplay'
-import styles from '../../../config/styles'
+import { theme, baseSize } from '../../../styles/'
 import { Divider, Card } from '../../../components/ui/'
 import CurrencyInput, {
   CurrencyInputProps,
 } from '../../../components/currency/CurrencyInput'
 import { PlatformAdaptiveIcon } from '../../../components/ui/PlatformAdaptiveIcon'
 import { Highlight } from '../../../components/ui/'
+import { isAndroid } from '../../../utils'
 
 type CurrencySelectorWidgetProps = Omit<
   Currency,
-  'symbol_native' | 'rounding' | 'name_plural' | 'name'
+  'symbol_native' | 'rounding' | 'name_plural' | 'name' | 'decimal_digits'
 > &
   Omit<CurrencyInputProps, 'symbol'> & {
     onSelect: () => void
@@ -21,12 +22,12 @@ type CurrencySelectorWidgetProps = Omit<
 const CurrencySelectorWidget: FC<CurrencySelectorWidgetProps> = ({
   code,
   symbol,
-  decimal_digits,
-  onAmountChange,
+  onChangeText,
   value,
   onSelect,
+  ...props
 }) => {
-  const CARD_PADDING = styles.baseSize * 3
+  const CARD_PADDING = baseSize(3)
 
   return (
     <Card>
@@ -42,8 +43,8 @@ const CurrencySelectorWidget: FC<CurrencySelectorWidgetProps> = ({
             <CurrencyDisplay code={code} />
             <PlatformAdaptiveIcon
               name="select-arrows"
-              size={Platform.OS === 'android' ? 20 : 14}
-              color={styles.colors.light.text}
+              size={isAndroid() ? 20 : 14}
+              color={theme.colors.light.text}
             />
           </Highlight>
         </View>
@@ -58,8 +59,9 @@ const CurrencySelectorWidget: FC<CurrencySelectorWidgetProps> = ({
       >
         <CurrencyInput
           value={value}
-          onAmountChange={onAmountChange}
+          onChangeText={onChangeText}
           symbol={symbol}
+          {...props}
         />
       </Card.Body>
     </Card>
@@ -69,10 +71,10 @@ const CurrencySelectorWidget: FC<CurrencySelectorWidgetProps> = ({
 const componentStyles = StyleSheet.create({
   selectContainer: {
     overflow: 'hidden',
-    borderRadius: styles.baseSize,
+    borderRadius: baseSize(),
   },
   select: {
-    padding: styles.baseSize,
+    padding: baseSize(),
     flexDirection: 'row',
     flexWrap: 'nowrap',
     justifyContent: 'space-between',
