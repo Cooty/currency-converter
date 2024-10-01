@@ -1,6 +1,8 @@
-const styles = {
+const theme = {
   baseSize: 4,
   baseFontSize: 16,
+  minFontSize: 12,
+  baseLineHeightRatio: 1.5,
   buttonFontSize: 18,
   buttonFontWeight: '500',
   fontSizeIncrement: 2,
@@ -21,6 +23,7 @@ const styles = {
       shadow: 'rgba(0, 0, 0, 0.8)',
       rippleOnBackground: 'rgba(0, 0, 0, 0.2)',
       red: 'rgb(253, 91, 91)',
+      backdrop: 'rgba(0, 0, 0, 0.1)',
     },
     // TODO: Add colors for dark mode
     dark: {
@@ -29,6 +32,6 @@ const styles = {
   },
 } as const
 
-export const wrapperGutter = styles.baseSize * 4
+export const wrapperGutter = theme.baseSize * 4
 
-export default styles
+export default theme

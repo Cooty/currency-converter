@@ -9,7 +9,7 @@ import {
 import { PlatformAdaptiveIcon } from './PlatformAdaptiveIcon'
 import Highlight from './Highlight'
 import { isAndroid, isIOS } from '../../utils'
-import styles from '../../config/styles'
+import { baseFontSize, theme, baseSize } from '../../styles/'
 
 type SearchInputProps = TextInputProps & {
   onCancel: () => void
@@ -17,20 +17,20 @@ type SearchInputProps = TextInputProps & {
 
 const iOSClearIconColor = '#8e8d92'
 const iOSIconColor = '#a7a6a9'
-const iOSClearIconSize = styles.baseSize * 5
-const androidIconSize = styles.baseSize * 6
-const iOSClearEnd = styles.baseSize * 2
-const iOSTextFromClearPadding = styles.baseSize * 2
+const iOSClearIconSize = baseSize(5)
+const androidIconSize = baseSize(6)
+const iOSClearEnd = baseSize(2)
+const iOSTextFromClearPadding = baseSize(2)
 const iOSPaddingEnd = iOSClearIconSize + iOSClearEnd + iOSTextFromClearPadding
-const iOSSearchIconStart = styles.baseSize * 2
-const iOSSearchIconPadding = styles.baseSize * 2
+const iOSSearchIconStart = baseSize(2)
+const iOSSearchIconPadding = baseSize(2)
 const iOSSearchIconSize = 18
 const iOSPaddingStart =
   iOSSearchIconSize + iOSSearchIconStart + iOSSearchIconPadding
 const androidClearEnd = 0
 const androidPaddingEnd = 0
 const androidPaddingStart = 0
-const backButtonSize = styles.baseSize * 10
+const backButtonSize = baseSize(10)
 const backButtonIconSize = isAndroid() ? 24 : 20
 const backButtonOffset = ((backButtonSize - backButtonIconSize) / 2) * -1
 
@@ -66,7 +66,7 @@ const SearchInput: FC<SearchInputProps> = ({
     <View style={componentStyles.outerContainer}>
       <View style={componentStyles.backButtonContainer}>
         <Highlight
-          rippleColor={styles.colors.rippleOnBrand}
+          rippleColor={theme.colors.rippleOnBrand}
           style={componentStyles.backButton}
           onPress={exitSearch}
         >
@@ -74,14 +74,14 @@ const SearchInput: FC<SearchInputProps> = ({
             <PlatformAdaptiveIcon
               name="back"
               isPlatformAdaptive={false}
-              color={styles.colors.onBrand}
+              color={theme.colors.onBrand}
               size={backButtonIconSize}
             />
           ) : (
             <PlatformAdaptiveIcon
               name="x"
               isPlatformAdaptive={false}
-              color={styles.colors.onBrand}
+              color={theme.colors.onBrand}
               size={backButtonIconSize}
             />
           )}
@@ -109,10 +109,10 @@ const SearchInput: FC<SearchInputProps> = ({
           autoComplete="off"
           returnKeyType="search"
           style={componentStyles.input}
-          cursorColor={styles.colors.onBrand}
+          cursorColor={theme.colors.onBrand}
           onChangeText={onChangeTextHandler}
           placeholderTextColor={
-            isAndroid() ? styles.colors.onBrandSecondary : undefined
+            isAndroid() ? theme.colors.onBrandSecondary : undefined
           }
         />
         {hasValue && (
@@ -126,7 +126,7 @@ const SearchInput: FC<SearchInputProps> = ({
               <PlatformAdaptiveIcon
                 name="close"
                 size={isAndroid() ? androidIconSize : iOSClearIconSize}
-                color={isAndroid() ? styles.colors.onBrand : iOSClearIconColor}
+                color={isAndroid() ? theme.colors.onBrand : iOSClearIconColor}
               />
             </Pressable>
           </View>
@@ -139,15 +139,15 @@ const SearchInput: FC<SearchInputProps> = ({
 const componentStyles = StyleSheet.create({
   input: {
     width: '100%',
-    borderColor: styles.colors.light.divider,
+    borderColor: theme.colors.light.divider,
     borderWidth: isAndroid() ? undefined : 1,
-    fontSize: isAndroid() ? styles.baseFontSize : undefined,
-    color: isAndroid() ? styles.colors.onBrand : undefined,
-    borderRadius: isAndroid() ? undefined : styles.defaultRadius / 2,
-    backgroundColor: isAndroid() ? undefined : styles.colors.light.background,
+    color: isAndroid() ? theme.colors.onBrand : undefined,
+    borderRadius: isAndroid() ? undefined : theme.defaultRadius / 2,
+    backgroundColor: isAndroid() ? undefined : theme.colors.light.background,
     paddingEnd: isIOS() ? iOSPaddingEnd : androidPaddingEnd,
     paddingStart: isIOS() ? iOSPaddingStart : androidPaddingStart,
-    paddingVertical: styles.baseSize * 2,
+    paddingVertical: baseSize(2),
+    ...baseFontSize(),
   },
   backButtonContainer: {
     borderRadius: backButtonSize,
@@ -163,7 +163,7 @@ const componentStyles = StyleSheet.create({
   },
   outerContainer: {
     flexDirection: isAndroid() ? 'row' : 'row-reverse',
-    gap: styles.baseSize * 3,
+    gap: baseSize(3),
     flexWrap: 'nowrap',
     alignItems: 'center',
   },

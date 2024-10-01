@@ -9,7 +9,7 @@ import {
   Modal,
 } from 'react-native'
 import { useHeaderHeight } from '@react-navigation/elements'
-import styles, { wrapperGutter } from '../../config/styles'
+import { wrapperGutter, theme } from '../../styles/'
 import SearchInput from '../ui/SearchInput'
 import { isIOS } from '../../utils'
 import { Currency, CurrencyList } from '../../services/currency'
@@ -23,7 +23,7 @@ interface CurrencyListOverlayProps {
   isVisible: boolean
   onCurrencySelection: (currency: Currency) => void
   onCancel: () => void
-  currencies?: CurrencyList
+  currencies: Currency[]
 }
 
 const CurrencyListOverlay: FC<CurrencyListOverlayProps> = ({
@@ -34,21 +34,14 @@ const CurrencyListOverlay: FC<CurrencyListOverlayProps> = ({
 }) => {
   const headerHeight = useHeaderHeight()
   const [searchValue, setSearchValue] = useState('')
-  const [filteredCurrencies, setFilteredCurrencies] = useState<Currency[]>([])
-
-  useEffect(() => {
-    if (currencies) {
-      setFilteredCurrencies(getAllCurrenciesAsArray(currencies))
-    }
-  }, [currencies])
+  const [filteredCurrencies, setFilteredCurrencies] =
+    useState<Currency[]>(currencies)
 
   useEffect(() => {
     if (searchValue.length !== 0) {
       setFilteredCurrencies(filterCurrencies(searchValue, filteredCurrencies))
     } else {
-      setFilteredCurrencies(
-        currencies ? getAllCurrenciesAsArray(currencies) : []
-      )
+      setFilteredCurrencies(currencies)
     }
   }, [searchValue])
 
@@ -108,9 +101,9 @@ const componentStyles = StyleSheet.create({
   modalHeader: {
     paddingHorizontal: wrapperGutter,
     justifyContent: 'center',
-    borderColor: styles.colors.light.divider,
+    borderColor: theme.colors.light.divider,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    backgroundColor: styles.colors.brand,
+    backgroundColor: theme.colors.brand,
   },
   scrollableContent: {
     flex: 1,

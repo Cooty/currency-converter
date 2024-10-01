@@ -1,8 +1,8 @@
-import { Platform, PlatformColor } from 'react-native'
+import { Platform, PlatformColor, StyleProp, ViewStyle } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
 import { SymbolView, ContentMode } from 'expo-symbols'
 import { IconNames } from './types'
-import styles from '../../../config/styles'
+import { theme } from '../../../styles/'
 import { RGBAToHexA } from '../../../utils'
 
 export interface PlatformAdaptiveIconProps {
@@ -10,11 +10,13 @@ export interface PlatformAdaptiveIconProps {
   color?: string
   size?: number
   isPlatformAdaptive?: boolean
+  style?: StyleProp<ViewStyle>
 }
 
 function PlatformAdaptiveIcon({
   name,
   color,
+  style,
   size = 24,
   isPlatformAdaptive = true,
 }: PlatformAdaptiveIconProps) {
@@ -23,7 +25,7 @@ function PlatformAdaptiveIcon({
   if (!color && Platform.OS === 'ios') {
     colorValue = PlatformColor('link') as unknown as string
   } else if (!color && Platform.OS !== 'ios') {
-    colorValue = styles.colors.light.text
+    colorValue = theme.colors.light.text
   }
 
   let Icon = null
@@ -33,11 +35,13 @@ function PlatformAdaptiveIcon({
     tintColor:
       typeof colorValue === 'string' ? RGBAToHexA(colorValue) : colorValue,
     resizeMode: 'scaleAspectFit' as ContentMode,
+    style,
   }
 
   const props = {
     size,
     color: colorValue,
+    style,
   }
 
   const shouldRenderIOSIcon = () => Platform.OS === 'ios' && isPlatformAdaptive
@@ -56,7 +60,7 @@ function PlatformAdaptiveIcon({
     }
   } else if (name === 'settings') {
     if (shouldRenderIOSIcon()) {
-      Icon = <SymbolView name="gearshape.fill" {...iOSProps} />
+      Icon = <SymbolView name="gear" {...iOSProps} />
     } else {
       Icon = <MaterialIcons name="settings" {...props} />
     }

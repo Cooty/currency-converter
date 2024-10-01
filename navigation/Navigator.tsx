@@ -6,7 +6,7 @@ import FavoritesScreen from '../screens/favorites/FavoritesScreen'
 import SettingsScreen from '../screens/settings/SettingsScreen'
 
 import routes from './routes'
-import styles from '../config/styles'
+import { theme } from '../styles/'
 
 const Tab = createBottomTabNavigator()
 
@@ -17,13 +17,13 @@ function Navigator() {
         initialRouteName={routes.CONVERT}
         screenOptions={{
           headerStyle: {
-            backgroundColor: styles.colors.brand,
+            backgroundColor: theme.colors.brand,
           },
           headerTitleStyle: {
-            color: styles.colors.onBrand,
+            color: theme.colors.onBrand,
           },
-          tabBarActiveTintColor: styles.colors.brand,
-          tabBarInactiveTintColor: styles.colors.light.textSecondary,
+          tabBarActiveTintColor: theme.colors.brand,
+          tabBarInactiveTintColor: theme.colors.light.textSecondary,
         }}
       >
         <Tab.Screen

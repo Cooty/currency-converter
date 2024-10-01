@@ -12,7 +12,8 @@ export function makeCurrencyApiUrl(
   endpoint: CurrencyAPIEndpoints,
   params?: Record<string, string>
 ) {
-  const authParam = `apikey=${AppConfig.currencyAPIKey}`
+  // In production we'll use a proxy that adds the API key to the requests on the backend, cause we don't want to have API keys in the production bundle
+  const authParam = __DEV__ ? `apikey=${AppConfig.currencyAPIKey}` : ''
   const searchParams = params
     ? `?${urlParamsFromObject(params)}&${authParam}`
     : `?${authParam}`

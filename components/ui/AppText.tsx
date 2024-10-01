@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { Text, StyleSheet, TextProps } from 'react-native'
-import styles from '../../config/styles'
+import { theme, baseFontSize } from '../../styles/'
 
 const AppText: FC<TextProps> = ({ style, children, ...props }) => {
   const theme = 'light' // TODO: get this from some reactive global state
@@ -17,13 +17,13 @@ const AppText: FC<TextProps> = ({ style, children, ...props }) => {
 
 const componentStyles = StyleSheet.create({
   text: {
-    fontSize: styles.baseFontSize,
+    ...baseFontSize(0, true),
   },
   light: {
-    color: styles.colors.light.text,
+    color: theme.colors.light.text,
   },
   dark: {
-    color: styles.colors.dark.text,
+    color: theme.colors.dark.text,
   },
 })
 

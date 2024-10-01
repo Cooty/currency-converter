@@ -8,7 +8,7 @@ import {
 import { PropsWithChildren } from 'react'
 import Highlight from './Highlight'
 import { isAndroid, isIOS } from '../../utils'
-import styles from '../../config/styles'
+import { baseFontSize, theme } from '../../styles/'
 import { IconNames, PlatformAdaptiveIcon } from './PlatformAdaptiveIcon'
 
 type PlatformAdaptiveButtonProps = Omit<ButtonProps, 'title' | 'color'> & {
@@ -28,12 +28,12 @@ function PlatformAdaptiveButton({
 }: PlatformAdaptiveButtonProps) {
   const primaryBackgroundColor = isIOS()
     ? PlatformColor('link')
-    : styles.colors.brand
+    : theme.colors.brand
   const secondaryBackgroundColor = isIOS() ? IOS_SECONDARY_COLOR : undefined
-  const primaryTextColor = isIOS() ? styles.colors.white : styles.colors.onBrand
+  const primaryTextColor = isIOS() ? theme.colors.white : theme.colors.onBrand
   const primaryVariantColor = isIOS()
     ? PlatformColor('link')
-    : styles.colors.brand
+    : theme.colors.brand
   const textColor =
     variant === 'primary' ? primaryTextColor : primaryVariantColor
   const IOS_HORIZONTAL_GUTTER = 16
@@ -41,7 +41,7 @@ function PlatformAdaptiveButton({
   const IOS_HORIZONTAL_ICON_GUTTER = icon ? 12 : IOS_HORIZONTAL_GUTTER
   const ANDROID_HORIZONTAL_ICON_GUTTER = icon ? 12 : ANDROID_HORIZONTAL_GUTTER
   const ICON_SIZE = 18
-  const androidSecondaryBorderColor = styles.colors.brand
+  const androidSecondaryBorderColor = theme.colors.brand
 
   let backgroundColor = undefined
 
@@ -83,8 +83,8 @@ function PlatformAdaptiveButton({
         ]}
         rippleColor={
           variant === 'primary'
-            ? styles.colors.rippleOnBrand
-            : styles.colors.brandAlpha
+            ? theme.colors.rippleOnBrand
+            : theme.colors.brandAlpha
         }
         activeOpacity={0.7}
       >
@@ -110,6 +110,8 @@ function PlatformAdaptiveButton({
   )
 }
 
+const textFontSize = isIOS() ? baseFontSize(1) : baseFontSize()
+
 const componentStyles = StyleSheet.create({
   wrapper: {
     overflow: 'hidden',
@@ -126,8 +128,8 @@ const componentStyles = StyleSheet.create({
   },
   text: {
     fontWeight: isIOS() ? 400 : 500,
-    fontSize: isIOS() ? 18 : 16,
     textAlign: 'center',
+    ...textFontSize,
   },
 })
 

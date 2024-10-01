@@ -2,17 +2,18 @@ import { FC } from 'react'
 import { StyleSheet, Platform, View } from 'react-native'
 import { Currency } from '../../../services/currency'
 import CurrencyDisplay from '../../../components/currency/CurrencyDisplay'
-import styles from '../../../config/styles'
-import { Divider, Card } from '../../../components/ui/'
+import { theme, baseSize } from '../../../styles/'
+import { Card } from '../../../components/ui/'
 import CurrencyInput, {
   CurrencyInputProps,
 } from '../../../components/currency/CurrencyInput'
 import { PlatformAdaptiveIcon } from '../../../components/ui/PlatformAdaptiveIcon'
 import { Highlight } from '../../../components/ui/'
+import { isAndroid } from '../../../utils'
 
 type CurrencySelectorWidgetProps = Omit<
   Currency,
-  'symbol_native' | 'rounding' | 'name_plural' | 'name'
+  'symbol_native' | 'rounding' | 'name_plural' | 'name' | 'decimal_digits'
 > &
   Omit<CurrencyInputProps, 'symbol'> & {
     onSelect: () => void
@@ -21,58 +22,56 @@ type CurrencySelectorWidgetProps = Omit<
 const CurrencySelectorWidget: FC<CurrencySelectorWidgetProps> = ({
   code,
   symbol,
-  decimal_digits,
-  onAmountChange,
+  onChangeText,
   value,
   onSelect,
+  ...props
 }) => {
-  const CARD_PADDING = styles.baseSize * 3
-
   return (
-    <Card>
-      <Card.Body
-        style={{
-          paddingBottom: 0,
-          paddingHorizontal: CARD_PADDING,
-          paddingTop: CARD_PADDING,
-        }}
-      >
-        <View style={componentStyles.selectContainer}>
-          <Highlight onPress={onSelect} style={componentStyles.select}>
-            <CurrencyDisplay code={code} />
-            <PlatformAdaptiveIcon
-              name="select-arrows"
-              size={Platform.OS === 'android' ? 20 : 14}
-              color={styles.colors.light.text}
-            />
-          </Highlight>
-        </View>
-      </Card.Body>
-      <Divider />
-      <Card.Body
-        style={{
-          paddingTop: 0,
-          paddingHorizontal: CARD_PADDING,
-          paddingBottom: CARD_PADDING,
-        }}
-      >
+    <Card style={componentStyles.card}>
+      <Card.Body style={componentStyles.inputContainer}>
         <CurrencyInput
           value={value}
-          onAmountChange={onAmountChange}
+          onChangeText={onChangeText}
           symbol={symbol}
+          frameStyle={componentStyles.inputFrame}
+          {...props}
         />
+      </Card.Body>
+      <Card.Body style={componentStyles.selectContainer}>
+        <Highlight onPress={onSelect} style={componentStyles.select}>
+          <CurrencyDisplay code={code} />
+          <PlatformAdaptiveIcon
+            name="select-arrows"
+            size={isAndroid() ? 20 : 14}
+            color={theme.colors.light.textSecondary}
+          />
+        </Highlight>
       </Card.Body>
     </Card>
   )
 }
 
+const CARD_HORIZONTAL_PADDING = baseSize(2)
+const CARD_VERTICAL_PADDING = baseSize()
+
 const componentStyles = StyleSheet.create({
+  card: { flexDirection: 'row' },
+  inputContainer: {
+    paddingRight: CARD_HORIZONTAL_PADDING,
+    paddingVertical: CARD_VERTICAL_PADDING,
+    borderRightWidth: 1,
+    borderRightColor: theme.colors.light.divider,
+    flex: 1,
+  },
+  inputFrame: { width: '100%' },
   selectContainer: {
-    overflow: 'hidden',
-    borderRadius: styles.baseSize,
+    paddingVertical: CARD_VERTICAL_PADDING,
+    paddingHorizontal: CARD_HORIZONTAL_PADDING,
+    justifyContent: 'center',
   },
   select: {
-    padding: styles.baseSize,
+    padding: baseSize(),
     flexDirection: 'row',
     flexWrap: 'nowrap',
     justifyContent: 'space-between',
