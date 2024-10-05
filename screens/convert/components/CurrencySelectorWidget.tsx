@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { StyleSheet } from 'react-native'
 import { Currency } from '../../../services/currency'
 import CurrencyDisplay from '../../../components/currency/CurrencyDisplay'
@@ -22,16 +23,33 @@ function CurrencySelectorWidget({
   onChangeText,
   value,
   onSelect,
+  onFocus,
+  onBlur,
   ...props
 }: CurrencySelectorWidgetProps) {
+  const [isInputFocused, setIsInputFocused] = useState(false)
+
   return (
-    <Card style={componentStyles.card}>
+    <Card
+      style={[
+        componentStyles.card,
+        isInputFocused ? componentStyles.cardFocused : undefined,
+      ]}
+    >
       <Card.Body style={componentStyles.inputContainer}>
         <CurrencyInput
           value={value}
           onChangeText={onChangeText}
           symbol={symbol}
           frameStyle={componentStyles.inputFrame}
+          onFocus={(e) => {
+            onFocus?.(e)
+            setIsInputFocused(true)
+          }}
+          onBlur={(e) => {
+            onBlur?.(e)
+            setIsInputFocused(false)
+          }}
           {...props}
         />
       </Card.Body>
@@ -54,6 +72,9 @@ const CARD_VERTICAL_PADDING = baseSize()
 
 const componentStyles = StyleSheet.create({
   card: { flexDirection: 'row' },
+  cardFocused: {
+    borderColor: theme.colors.light.inputFocus,
+  },
   inputContainer: {
     paddingRight: CARD_HORIZONTAL_PADDING,
     paddingVertical: CARD_VERTICAL_PADDING,
