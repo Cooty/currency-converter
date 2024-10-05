@@ -7,3 +7,7 @@ export const shadowMedium = {
   shadowColor: theme.colors.light.shadow,
   shadowOffset: { width: -2, height: 4 },
 }
+
+export const underlinedText = {
+  textDecorationLine: 'underline',
+}

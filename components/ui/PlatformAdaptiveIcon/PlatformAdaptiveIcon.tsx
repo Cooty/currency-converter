@@ -100,6 +100,12 @@ function PlatformAdaptiveIcon({
     } else {
       Icon = <MaterialIcons name="query-stats" {...props} />
     }
+  } else if (name === 'info') {
+    if (shouldRenderIOSIcon()) {
+      Icon = <SymbolView name="info.circle.fill" {...iOSProps} />
+    } else {
+      Icon = <MaterialIcons name="info" {...props} />
+    }
   }
 
   return Icon

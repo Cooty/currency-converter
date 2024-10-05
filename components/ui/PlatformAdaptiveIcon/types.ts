@@ -8,3 +8,4 @@ export type IconNames =
   | 'back'
   | 'x'
   | 'history'
+  | 'info'

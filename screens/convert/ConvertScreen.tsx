@@ -7,6 +7,8 @@ import {
   DisplayExchangeRate,
   History,
   AddToFavorites,
+  Disclaimer,
+  DisclaimerModal,
 } from './components/'
 import CurrencyListOverlay from '../../components/currency/CurrencyListOverlay'
 import { Loader } from '../../components/ui'
@@ -14,7 +16,6 @@ import {
   Currency,
   useCurrencies,
   getLatestExchangeRate,
-  getAllCurrenciesAsArray,
   getAllCurrenciesAsArraySortedAlphabetically,
 } from '../../services/currency'
 import { isIOS, useWindowSizePercentage } from '../../utils'
@@ -29,6 +30,9 @@ type CurrencySelectionType = 'base' | 'target'
 function ConvertScreen() {
   const [isCurrencySelectorOpen, setIsCurrencySelectorOpen] = useState(false)
   const [exchangeRate, setExchangeRate] = useState<undefined | number>()
+  const [exchangeRateDatetime, setExchangeRateDatetime] = useState<
+    undefined | number
+  >()
   const [baseCurrencyAmount, setBaseCurrencyAmount] = useState('1')
   const [targetCurrencyAmount, setTargetCurrencyAmount] = useState('1')
   const { currencies } = useCurrencies()
@@ -40,6 +44,7 @@ function ConvertScreen() {
   const [openedCurrencySelection, setOpenedCurrencySelection] = useState<
     CurrencySelectionType | undefined
   >()
+  const [isDisclaimerOpen, setIsDisclaimerOpen] = useState(false)
 
   function openCurrencySelector() {
     setIsCurrencySelectorOpen(true)
@@ -136,6 +141,13 @@ function ConvertScreen() {
     }
   }, [targetCurrencyAmount])
 
+  // Set the datetime when the exchange rate was fetched
+  useEffect(() => {
+    if (exchangeRate) {
+      setExchangeRateDatetime(Date.now())
+    }
+  }, [exchangeRate])
+
   return (
     <View style={componentStyles.container}>
       {baseCurrency && targetCurrency && exchangeRate && currencies ? (
@@ -174,6 +186,15 @@ function ConvertScreen() {
             targetCurrencyName={targetCurrency.code}
           />
 
+          {/* Legal disclaimer */}
+          {exchangeRateDatetime && (
+            <Disclaimer
+              dateOfExchangeRate={exchangeRateDatetime}
+              onPressDisclaimer={() => setIsDisclaimerOpen(true)}
+            />
+          )}
+
+          {/* Container for History and Add-to-favorites buttons */}
           <View
             style={[
               componentStyles.additionalActions,
@@ -184,6 +205,7 @@ function ConvertScreen() {
             <History />
           </View>
 
+          {/* Currency selector overlay */}
           {isCurrencySelectorOpen && (
             <CurrencyListOverlay
               isVisible={isCurrencySelectorOpen}
@@ -192,6 +214,14 @@ function ConvertScreen() {
               currencies={getAllCurrenciesAsArraySortedAlphabetically(
                 currencies
               )}
+            />
+          )}
+
+          {/* Legal disclaimer overlay */}
+          {isDisclaimerOpen && (
+            <DisclaimerModal
+              isVisible={isDisclaimerOpen}
+              onCancel={() => setIsDisclaimerOpen(false)}
             />
           )}
         </>

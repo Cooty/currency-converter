@@ -1,6 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { PlatformAdaptiveIcon } from '../components/ui/PlatformAdaptiveIcon'
+import { PlatformAdaptiveIcon } from '../components/ui/'
 import ConvertScreen from '../screens/convert/ConvertScreen'
 import FavoritesScreen from '../screens/favorites/FavoritesScreen'
 import SettingsScreen from '../screens/settings/SettingsScreen'

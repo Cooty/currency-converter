@@ -17,13 +17,12 @@ const DisplayExchangeRate: FC<ResultTextProps> = ({
   return (
     <View style={componentStyles.container}>
       <View style={componentStyles.text}>
-        <Text style={componentStyles.secondary}>
-          <Text style={componentStyles.bold}>1</Text> {baseCurrencyName} ={' '}
-        </Text>
+        <AppText variant="secondary" style={componentStyles.base}>
+          1 {baseCurrencyName} ={' '}
+        </AppText>
 
-        <AppText style={componentStyles.highlighted}>
-          <Text style={componentStyles.bold}>{exchangeRate}</Text>{' '}
-          {targetCurrencyName}
+        <AppText style={componentStyles.target}>
+          {exchangeRate} {targetCurrencyName}
         </AppText>
       </View>
     </View>
@@ -38,14 +37,14 @@ const componentStyles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'baseline',
   },
-  secondary: {
+  base: {
+    fontWeight: 'bold',
     ...baseFontSize(4, true),
-    color: theme.colors.light.textSecondary,
   },
-  highlighted: {
+  target: {
+    fontWeight: 'bold',
     ...baseFontSize(8, true),
   },
-  bold: { fontWeight: 'bold' },
 })
 
 export default DisplayExchangeRate

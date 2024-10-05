@@ -11,7 +11,7 @@ function YStack({ children, style, ...props }: ViewProps) {
 
 const componentStyles = StyleSheet.create({
   yStack: {
-    gap: wrapperGutter,
+    rowGap: wrapperGutter,
   },
 })
 
