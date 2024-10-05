@@ -23,11 +23,14 @@ const theme = {
       shadow: 'rgba(0, 0, 0, 0.8)',
       rippleOnBackground: 'rgba(0, 0, 0, 0.2)',
       red: 'rgb(253, 91, 91)',
-      backdrop: 'rgba(0, 0, 0, 0.1)',
+      backdrop: 'rgba(0, 0, 0, 0.4)',
     },
     // TODO: Add colors for dark mode
     dark: {
       text: 'rgb(242, 245, 255)',
+      textSecondary: 'rgb(182, 188, 194)',
+      background: 'rgb(38, 40, 41)',
+      backdrop: 'rgba(0, 0, 0, 0.8)',
     },
   },
 } as const

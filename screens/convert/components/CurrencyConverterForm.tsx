@@ -3,7 +3,7 @@ import { View, StyleSheet, Pressable, Animated, Easing } from 'react-native'
 import CurrencySelectorWidget from './CurrencySelectorWidget'
 import { theme, baseSize } from '../../../styles/'
 import { isIOS } from '../../../utils'
-import { PlatformAdaptiveIcon } from '../../../components/ui/PlatformAdaptiveIcon'
+import { PlatformAdaptiveIcon } from '../../../components/ui'
 import { Currency } from '../../../services/currency'
 
 interface CurrencyConverterFormProps {

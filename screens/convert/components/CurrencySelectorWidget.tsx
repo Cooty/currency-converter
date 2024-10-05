@@ -1,14 +1,11 @@
-import { FC } from 'react'
-import { StyleSheet, Platform, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { Currency } from '../../../services/currency'
 import CurrencyDisplay from '../../../components/currency/CurrencyDisplay'
 import { theme, baseSize } from '../../../styles/'
-import { Card } from '../../../components/ui/'
+import { Card, Highlight, PlatformAdaptiveIcon } from '../../../components/ui/'
 import CurrencyInput, {
   CurrencyInputProps,
 } from '../../../components/currency/CurrencyInput'
-import { PlatformAdaptiveIcon } from '../../../components/ui/PlatformAdaptiveIcon'
-import { Highlight } from '../../../components/ui/'
 import { isAndroid } from '../../../utils'
 
 type CurrencySelectorWidgetProps = Omit<
@@ -19,14 +16,14 @@ type CurrencySelectorWidgetProps = Omit<
     onSelect: () => void
   }
 
-const CurrencySelectorWidget: FC<CurrencySelectorWidgetProps> = ({
+function CurrencySelectorWidget({
   code,
   symbol,
   onChangeText,
   value,
   onSelect,
   ...props
-}) => {
+}: CurrencySelectorWidgetProps) {
   return (
     <Card style={componentStyles.card}>
       <Card.Body style={componentStyles.inputContainer}>
