@@ -1,10 +1,10 @@
 import { FC, PropsWithChildren } from 'react'
-import { View, StyleSheet, ViewStyle } from 'react-native'
+import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native'
 import { theme, shadowMedium, baseSize } from '../../styles/'
 import { isIOS } from '../../utils'
 
 export type CardProps = PropsWithChildren & {
-  style?: ViewStyle
+  style?: StyleProp<ViewStyle>
 }
 
 type CardType = FC<CardProps> & {
@@ -13,7 +13,7 @@ type CardType = FC<CardProps> & {
 
 type CardBodyType = FC<
   PropsWithChildren & {
-    style?: ViewStyle
+    style?: StyleProp<ViewStyle>
   }
 >
 

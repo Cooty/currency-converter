@@ -24,6 +24,7 @@ const theme = {
       rippleOnBackground: 'rgba(0, 0, 0, 0.2)',
       red: 'rgb(253, 91, 91)',
       backdrop: 'rgba(0, 0, 0, 0.4)',
+      inputFocus: 'rgb(50, 96, 247)',
     },
     // TODO: Add colors for dark mode
     dark: {
