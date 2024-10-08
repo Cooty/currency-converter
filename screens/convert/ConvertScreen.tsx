@@ -18,12 +18,13 @@ import {
   getLatestExchangeRate,
   getAllCurrenciesAsArraySortedAlphabetically,
 } from '../../services/currency'
-import { isIOS, useWindowSizePercentage } from '../../utils'
+import { isIOS, useIsKeyboardVisible, useScreenAspectRatio } from '../../utils'
 import {
   convertBaseToTarget,
   convertTargetToBase,
   isAmountEmpty,
 } from './utils'
+import { useWindowDimensions } from 'react-native'
 
 type CurrencySelectionType = 'base' | 'target'
 
@@ -40,11 +41,15 @@ function ConvertScreen() {
   const [targetCurrency, setTargetCurrency] = useState<Currency | undefined>()
   const [typingIntoBaseAmount, setTypingIntoBaseAmount] = useState(false)
   const [typingIntoTargetAmount, setTypingIntoTargetAmount] = useState(false)
-  const additionalActionsPaddingBottom = useWindowSizePercentage(2, 'height')
   const [openedCurrencySelection, setOpenedCurrencySelection] = useState<
     CurrencySelectionType | undefined
   >()
   const [isDisclaimerOpen, setIsDisclaimerOpen] = useState(false)
+  const { height } = useWindowDimensions()
+  const isKeyboardVisible = useIsKeyboardVisible()
+  const aspectRatio = useScreenAspectRatio()
+  const isLandscape = aspectRatio === 'landscape'
+  const isShortLandscape = isLandscape && height < 800
 
   function openCurrencySelector() {
     setIsCurrencySelectorOpen(true)
@@ -149,10 +154,32 @@ function ConvertScreen() {
   }, [exchangeRate])
 
   return (
-    <View style={componentStyles.container}>
+    <View
+      style={[
+        componentStyles.container,
+        {
+          paddingTop: isShortLandscape ? wrapperGutter : '10%',
+        },
+      ]}
+    >
+      {/* Show content only whn all data is available... */}
       {baseCurrency && targetCurrency && exchangeRate && currencies ? (
-        <>
-          <View style={componentStyles.formContainer}>
+        <View
+          style={[
+            componentStyles.centeredColumn,
+            {
+              flexDirection: isLandscape ? 'row-reverse' : 'column',
+              maxWidth: isLandscape ? 960 : 640,
+            },
+          ]}
+        >
+          {/* Converter form */}
+          <View
+            style={{
+              flex: isLandscape ? 4 : undefined,
+              justifyContent: isLandscape ? 'center' : 'flex-start',
+            }}
+          >
             <CurrencyConverterForm
               onSelectBaseCurrency={() => {
                 setOpenedCurrencySelection('base')
@@ -180,29 +207,48 @@ function ConvertScreen() {
             />
           </View>
 
-          <DisplayExchangeRate
-            exchangeRate={convertBaseToTarget(1, exchangeRate)}
-            baseCurrencyName={baseCurrency.code}
-            targetCurrencyName={targetCurrency.code}
-          />
-
-          {/* Legal disclaimer */}
-          {exchangeRateDatetime && (
-            <Disclaimer
-              dateOfExchangeRate={exchangeRateDatetime}
-              onPressDisclaimer={() => setIsDisclaimerOpen(true)}
-            />
-          )}
-
-          {/* Container for History and Add-to-favorites buttons */}
+          {/* Second column for responsive layout (on landscape screens) */}
           <View
-            style={[
-              componentStyles.additionalActions,
-              { paddingBottom: additionalActionsPaddingBottom },
-            ]}
+            style={{
+              alignItems: isLandscape ? 'flex-start' : 'center',
+              justifyContent: isLandscape ? 'center' : 'flex-start',
+              flex: isLandscape ? 6 : 1,
+            }}
           >
-            <AddToFavorites />
-            <History />
+            {/* Display for the result */}
+            <DisplayExchangeRate
+              exchangeRate={convertBaseToTarget(1, exchangeRate)}
+              baseCurrencyName={baseCurrency.code}
+              targetCurrencyName={targetCurrency.code}
+            />
+            {/* Legal disclaimer */}
+            {exchangeRateDatetime && (
+              <Disclaimer
+                dateOfExchangeRate={exchangeRateDatetime}
+                onPressDisclaimer={() => setIsDisclaimerOpen(true)}
+              />
+            )}
+            {/* Container for History and Add-to-favorites buttons */}
+            {/* Don't show these on small screens when the keyboard is opened */}
+            {isKeyboardVisible && height < 920 ? null : (
+              <View
+                style={[
+                  {
+                    marginTop: isLandscape ? baseSize(6) : 0,
+                    flex: isLandscape ? undefined : 1,
+                    width: isLandscape ? '100%' : '60%',
+                    justifyContent: isLandscape ? 'flex-start' : 'flex-end',
+                    flexDirection: isLandscape ? 'row' : 'column',
+                  },
+                  componentStyles.additionalActions,
+                ]}
+              >
+                <AddToFavorites
+                  style={isLandscape ? { width: 'auto' } : undefined}
+                />
+                <History style={isLandscape ? { width: 'auto' } : undefined} />
+              </View>
+            )}
           </View>
 
           {/* Currency selector overlay */}
@@ -224,8 +270,9 @@ function ConvertScreen() {
               onCancel={() => setIsDisclaimerOpen(false)}
             />
           )}
-        </>
+        </View>
       ) : (
+        // ...until then, show a loading state
         <Loader />
       )}
 
@@ -237,16 +284,19 @@ function ConvertScreen() {
 const componentStyles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: wrapperGutter,
+    paddingHorizontal: wrapperGutter,
+    paddingBottom: wrapperGutter,
     backgroundColor: theme.colors.light.background,
+    gap: baseSize(5),
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  formContainer: { marginBottom: baseSize(5) },
-  additionalActions: {
+  centeredColumn: {
     flex: 1,
-    alignItems: 'flex-end',
-    width: '60%',
+    width: '100%',
+  },
+  additionalActions: {
     alignSelf: 'flex-end',
-    justifyContent: 'flex-end',
     gap: baseSize(4),
   },
 })

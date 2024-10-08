@@ -1,8 +1,13 @@
 import { PlatformAdaptiveButton } from '../../../components/ui'
+import { StyleProp, ViewStyle } from 'react-native'
 
-function AddToFavorites() {
+export interface AddToFavoritesProps {
+  style?: StyleProp<ViewStyle>
+}
+
+function AddToFavorites({ style }: AddToFavoritesProps) {
   return (
-    <PlatformAdaptiveButton icon="favorite" elevated>
+    <PlatformAdaptiveButton icon="favorite" elevated style={style}>
       Add to favorites
     </PlatformAdaptiveButton>
   )

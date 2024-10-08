@@ -54,7 +54,7 @@ const componentStyles = StyleSheet.create({
   row: {
     columnGap: baseSize(4),
     rowGap: baseSize(),
-    justifyContent: 'center',
+    // justifyContent: 'center',
     alignItems: 'center',
   },
   text: {

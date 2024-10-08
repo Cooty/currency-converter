@@ -15,24 +15,19 @@ const DisplayExchangeRate: FC<ResultTextProps> = ({
   targetCurrencyName,
 }) => {
   return (
-    <View style={componentStyles.container}>
-      <View style={componentStyles.text}>
-        <AppText variant="secondary" style={componentStyles.base}>
-          1 {baseCurrencyName} ={' '}
-        </AppText>
+    <View style={componentStyles.text}>
+      <AppText variant="secondary" style={componentStyles.base}>
+        1 {baseCurrencyName} ={' '}
+      </AppText>
 
-        <AppText style={componentStyles.target}>
-          {exchangeRate} {targetCurrencyName}
-        </AppText>
-      </View>
+      <AppText style={componentStyles.target}>
+        {exchangeRate} {targetCurrencyName}
+      </AppText>
     </View>
   )
 }
 
 const componentStyles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-  },
   text: {
     flexDirection: 'row',
     alignItems: 'baseline',
