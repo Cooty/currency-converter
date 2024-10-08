@@ -4,6 +4,8 @@ import {
   StyleSheet,
   Text,
   View,
+  StyleProp,
+  ViewStyle,
 } from 'react-native'
 import { PropsWithChildren } from 'react'
 import Highlight from './Highlight'
@@ -15,6 +17,7 @@ type PlatformAdaptiveButtonProps = Omit<ButtonProps, 'title' | 'color'> & {
   variant?: 'text' | 'primary' | 'secondary'
   icon?: IconNames
   elevated?: boolean
+  style?: StyleProp<ViewStyle>
 } & PropsWithChildren
 
 const IOS_SECONDARY_COLOR = '#dfebff'
@@ -25,6 +28,7 @@ function PlatformAdaptiveButton({
   children,
   icon,
   elevated = false,
+  style,
 }: PlatformAdaptiveButtonProps) {
   const primaryBackgroundColor = isIOS()
     ? PlatformColor('link')
@@ -60,6 +64,7 @@ function PlatformAdaptiveButton({
           borderColor: !isIOS() && elevated ? 'rgba(0, 0, 0, 0)' : undefined,
           borderWidth: !isIOS() && elevated ? 1 : undefined,
         },
+        style,
       ]}
     >
       <Highlight

@@ -1,8 +1,13 @@
+import { StyleProp, ViewStyle } from 'react-native'
 import { PlatformAdaptiveButton } from '../../../components/ui'
 
-function History() {
+export interface HistoryProps {
+  style?: StyleProp<ViewStyle>
+}
+
+function History({ style }: HistoryProps) {
   return (
-    <PlatformAdaptiveButton variant="secondary" icon="history">
+    <PlatformAdaptiveButton variant="secondary" icon="history" style={style}>
       History
     </PlatformAdaptiveButton>
   )
