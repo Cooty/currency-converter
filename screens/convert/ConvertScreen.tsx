@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
-import { theme, wrapperGutter, baseSize } from '../../styles/'
+import { wrapperGutter, baseSize } from '../../styles/'
 import {
   CurrencyConverterForm,
   DisplayExchangeRate,
@@ -11,7 +11,7 @@ import {
   DisclaimerModal,
 } from './components/'
 import CurrencyListOverlay from '../../components/currency/CurrencyListOverlay'
-import { Loader } from '../../components/ui'
+import { Loader, Container } from '../../components/ui'
 import {
   Currency,
   useCurrencies,
@@ -154,15 +154,14 @@ function ConvertScreen() {
   }, [exchangeRate])
 
   return (
-    <View
-      style={[
-        componentStyles.container,
-        {
-          paddingTop: isShortLandscape ? wrapperGutter : '10%',
-        },
-      ]}
+    <Container
+      style={{
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingTop: isShortLandscape ? wrapperGutter : '10%',
+      }}
     >
-      {/* Show content only whn all data is available... */}
+      {/* Show content only when all data is available... */}
       {baseCurrency && targetCurrency && exchangeRate && currencies ? (
         <View
           style={[
@@ -277,20 +276,11 @@ function ConvertScreen() {
       )}
 
       <StatusBar style={isIOS() && isCurrencySelectorOpen ? 'dark' : 'light'} />
-    </View>
+    </Container>
   )
 }
 
 const componentStyles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: wrapperGutter,
-    paddingBottom: wrapperGutter,
-    backgroundColor: theme.colors.light.background,
-    gap: baseSize(5),
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   centeredColumn: {
     flex: 1,
     width: '100%',
