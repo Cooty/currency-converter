@@ -1,7 +1,7 @@
 import { View, StyleSheet } from 'react-native'
 import AppText from '../../../components/ui/AppText'
 import { baseFontSize } from '../../../styles'
-import { formatAsCurrency } from '../../../utils'
+import { formatToLocalNumber } from '../../../utils'
 
 interface ResultProps {
   baseCurrencyAmount: string
@@ -22,11 +22,13 @@ function Result({
   return (
     <View style={componentStyles.text}>
       <AppText variant="secondary" style={componentStyles.base}>
-        {formatAsCurrency(baseCurrencyAmount, baseCurrencyCode, lang)} ={' '}
+        {formatToLocalNumber(baseCurrencyAmount, baseCurrencyCode, lang)}{' '}
+        {baseCurrencyCode} ={' '}
       </AppText>
 
       <AppText style={componentStyles.target}>
-        {formatAsCurrency(targetCurrencyAmount, targetCurrencyCode, lang)}
+        {formatToLocalNumber(targetCurrencyAmount, targetCurrencyCode, lang)}{' '}
+        {targetCurrencyCode}
       </AppText>
     </View>
   )
