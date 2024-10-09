@@ -1,3 +1,4 @@
 export function isAmountEmpty(amount: string) {
-  return amount === '' || parseInt(amount) <= 0 || isNaN(parseInt(amount))
+  const amountAsNumber = parseFloat(amount)
+  return amount === '' || amountAsNumber <= 0 || isNaN(amountAsNumber)
 }

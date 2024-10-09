@@ -1,4 +1,8 @@
-function formatAsCurrency(amount: number | string, code: string, lang: string) {
+function formatToLocalNumber(
+  amount: number | string,
+  code: string,
+  lang: string
+) {
   let number = amount
 
   if (typeof number === 'string') {
@@ -10,10 +14,10 @@ function formatAsCurrency(amount: number | string, code: string, lang: string) {
   }
 
   return new Intl.NumberFormat(lang, {
-    style: 'currency',
-    currency: code,
-    currencyDisplay: 'narrowSymbol',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 4,
+    roundingMode: 'halfFloor',
   }).format(number)
 }
 
-export default formatAsCurrency
+export default formatToLocalNumber

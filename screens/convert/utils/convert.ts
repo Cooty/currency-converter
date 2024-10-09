@@ -5,7 +5,7 @@ function getNumberOfZerosAfterDecimal(x: number) {
 function formatResult(result: number) {
   const numberOfZerosAfterDecimal = getNumberOfZerosAfterDecimal(result)
 
-  if (numberOfZerosAfterDecimal <= 1) {
+  if (result >= 1) {
     return result.toFixed(2)
   } else {
     return result.toFixed(numberOfZerosAfterDecimal + 2)
