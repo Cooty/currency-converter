@@ -56,7 +56,7 @@ function CurrencyListOverlay({
         // The soft-keyboard doesn't show up when adding `autoFocus` to the `<SearchInput />`
         // https://github.com/software-mansion/react-native-screens/issues/89
         if (isAndroid()) {
-          // We also ned the setTimeout otherwise it doesn't work
+          // We also need the setTimeout otherwise it doesn't work
           setTimeout(() => {
             searchInputRef.current?.focus()
           }, 50)
