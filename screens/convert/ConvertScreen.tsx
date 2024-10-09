@@ -4,7 +4,7 @@ import { StatusBar } from 'expo-status-bar'
 import { wrapperGutter, baseSize } from '../../styles/'
 import {
   CurrencyConverterForm,
-  DisplayExchangeRate,
+  Result,
   History,
   AddToFavorites,
   Disclaimer,
@@ -212,13 +212,15 @@ function ConvertScreen() {
               alignItems: isLandscape ? 'flex-start' : 'center',
               justifyContent: isLandscape ? 'center' : 'flex-start',
               flex: isLandscape ? 6 : 1,
+              paddingTop: isLandscape ? 0 : baseSize(5),
             }}
           >
             {/* Display for the result */}
-            <DisplayExchangeRate
-              exchangeRate={convertBaseToTarget(1, exchangeRate)}
-              baseCurrencyName={baseCurrency.code}
-              targetCurrencyName={targetCurrency.code}
+            <Result
+              baseCurrencyAmount={baseCurrencyAmount}
+              baseCurrencyCode={baseCurrency.code}
+              targetCurrencyAmount={targetCurrencyAmount}
+              targetCurrencyCode={targetCurrency.code}
             />
             {/* Legal disclaimer */}
             {exchangeRateDatetime && (
