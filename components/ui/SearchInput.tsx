@@ -1,4 +1,4 @@
-import { useState, FC } from 'react'
+import { useState, forwardRef, LegacyRef } from 'react'
 import {
   TextInput,
   TextInputProps,
@@ -34,11 +34,10 @@ const backButtonSize = baseSize(10)
 const backButtonIconSize = isAndroid() ? 24 : 20
 const backButtonOffset = ((backButtonSize - backButtonIconSize) / 2) * -1
 
-const SearchInput: FC<SearchInputProps> = ({
-  onChangeText,
-  onCancel,
-  ...props
-}) => {
+const SearchInput = forwardRef(function SearchInput(
+  { onChangeText, onCancel, ...props }: SearchInputProps,
+  ref
+) {
   const [hasValue, setHasValue] = useState(props.value ? true : false)
   const onChangeTextHandler = (text: string) => {
     if (onChangeText) {
@@ -114,6 +113,7 @@ const SearchInput: FC<SearchInputProps> = ({
           placeholderTextColor={
             isAndroid() ? theme.colors.onBrandSecondary : undefined
           }
+          ref={ref as LegacyRef<TextInput>}
         />
         {hasValue && (
           <View
@@ -134,7 +134,7 @@ const SearchInput: FC<SearchInputProps> = ({
       </View>
     </View>
   )
-}
+})
 
 const componentStyles = StyleSheet.create({
   input: {

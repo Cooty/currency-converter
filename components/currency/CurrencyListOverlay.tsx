@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react'
+import { useEffect, useRef, RefObject } from 'react'
 import { useState } from 'react'
 import {
   View,
@@ -7,35 +7,36 @@ import {
   ScrollView,
   StyleSheet,
   Modal,
+  TextInput,
 } from 'react-native'
 import { useHeaderHeight } from '@react-navigation/elements'
 import { wrapperGutter, theme } from '../../styles/'
 import SearchInput from '../ui/SearchInput'
-import { isIOS } from '../../utils'
-import { Currency, CurrencyList } from '../../services/currency'
+import { isIOS, isAndroid } from '../../utils'
+import { Currency } from '../../services/currency'
 import CurrencyListItem from './CurrencyListItem'
-import {
-  filterCurrencies,
-  getAllCurrenciesAsArray,
-} from '../../services/currency'
+import { filterCurrencies } from '../../services/currency'
 
 interface CurrencyListOverlayProps {
   isVisible: boolean
   onCurrencySelection: (currency: Currency) => void
   onCancel: () => void
   currencies: Currency[]
+  onShow?: () => void
 }
 
-const CurrencyListOverlay: FC<CurrencyListOverlayProps> = ({
+function CurrencyListOverlay({
   isVisible,
   currencies,
   onCurrencySelection,
   onCancel,
-}) => {
+  onShow,
+}: CurrencyListOverlayProps) {
   const headerHeight = useHeaderHeight()
   const [searchValue, setSearchValue] = useState('')
   const [filteredCurrencies, setFilteredCurrencies] =
     useState<Currency[]>(currencies)
+  const searchInputRef: RefObject<TextInput> = useRef(null)
 
   useEffect(() => {
     if (searchValue.length !== 0) {
@@ -51,6 +52,18 @@ const CurrencyListOverlay: FC<CurrencyListOverlayProps> = ({
       animationType="slide"
       presentationStyle={isIOS() ? 'pageSheet' : 'fullScreen'}
       hardwareAccelerated
+      onShow={() => {
+        // The soft-keyboard doesn't show up when adding `autoFocus` to the `<SearchInput />`
+        // https://github.com/software-mansion/react-native-screens/issues/89
+        if (isAndroid()) {
+          // We also ned the setTimeout otherwise it doesn't work
+          setTimeout(() => {
+            searchInputRef.current?.focus()
+          }, 50)
+        }
+
+        onShow?.()
+      }}
     >
       <SafeAreaView style={componentStyles.modalInner}>
         <KeyboardAvoidingView
@@ -66,15 +79,21 @@ const CurrencyListOverlay: FC<CurrencyListOverlayProps> = ({
             ]}
           >
             <SearchInput
+              // on iOS this works as expected but for Android we have to use a workaround
+              // the two might clash with each other
+              autoFocus={isIOS()}
               value={searchValue}
               textContentType="countryName"
               onChangeText={setSearchValue}
               placeholder="Start typing (eg.: USD or Dollars)"
               onCancel={onCancel}
-              autoFocus
+              ref={searchInputRef}
             />
           </View>
-          <ScrollView style={componentStyles.scrollableContent}>
+          <ScrollView
+            style={componentStyles.scrollableContent}
+            keyboardDismissMode="on-drag"
+          >
             {filteredCurrencies.map((currency, i) => (
               <CurrencyListItem
                 currency={currency}
