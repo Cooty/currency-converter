@@ -3,7 +3,14 @@
 Here you can find some reusable styes and utilities related to styling.
 
 Exports of each new file should be also reexported from the barrel file (`index.ts`) as named exports,
-tis way we van import components from the folder directly.
+this way we can import components from the folder directly.
+
+The app doesn't use any React Native UI library, we only rely on the built in styling capabilities of React Native.
+
+Try to use `StyleSheets` whenever possible, only use inline-styles when you need dynamic styles.
+
+By convention we name styles-sheets as `componentStyles` when defined in the components.
+Alternatively you can place styles-sheets in separate files (if they would grow too big). For example `MyComponent.tsx` can have a `MyComponent.styles.ts` adjacent to it.
 
 ## Mixins
 
