@@ -47,7 +47,9 @@ export default function App() {
         {error ? (
           <ErrorScreen message={error} />
         ) : (
-          <CurrencyContext.Provider value={{ currencies }}>
+          <CurrencyContext.Provider
+            value={currencies ? currencies.data : undefined}
+          >
             <Navigator />
           </CurrencyContext.Provider>
         )}
