@@ -35,6 +35,7 @@ function Navigator() {
             tabBarIcon: ({ color, size }) => (
               <PlatformAdaptiveIcon name="convert" color={color} size={size} />
             ),
+            tabBarHideOnKeyboard: true,
           }}
         />
         <Tab.Screen
