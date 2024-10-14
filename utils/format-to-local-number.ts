@@ -9,10 +9,6 @@ function formatToLocalNumber(
     number = Number(amount)
   }
 
-  if (Number.isNaN(number)) {
-    throw new Error(`${amount} can't be formatted as a currency amount!`)
-  }
-
   return new Intl.NumberFormat(lang, {
     minimumFractionDigits: 2,
     maximumFractionDigits: 4,
