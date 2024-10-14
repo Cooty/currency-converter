@@ -43,7 +43,7 @@ export default function App() {
 
   return (
     <View style={componentStyles.root} onLayout={onLayoutRootView}>
-      <ErrorBoundary fallback={<ErrorScreen />}>
+      <ErrorBoundary>
         {error ? (
           <ErrorScreen message={error} />
         ) : (

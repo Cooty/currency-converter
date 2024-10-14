@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { useMemo } from 'react'
 import {
   View,
   StyleSheet,
@@ -7,26 +7,37 @@ import {
   ViewStyle,
   StyleProp,
 } from 'react-native'
-import { theme, baseFontSize, baseSize } from '../../styles/'
-import AppText from '../ui/AppText'
+import { theme, baseFontSize, baseSize } from '../../../styles'
+import AppText from '../../ui/AppText'
+import { isValidInput, getDecimalSeparator } from './utils'
 
 export type CurrencyInputProps = {
   symbol: string
   frameStyle?: StyleProp<ViewStyle>
 } & TextInputProps
 
-const CurrencyInput: FC<CurrencyInputProps> = ({
+function CurrencyInput({
   symbol,
   frameStyle,
+  onChangeText,
   ...props
-}) => {
+}: CurrencyInputProps) {
+  const locale = 'en' // TODO: Replace this with a dynamic value based on the current language
+  const decimalSeparator = useMemo(() => getDecimalSeparator(locale), [locale])
+  const placeholder = `0${decimalSeparator}00`
+
   return (
     <View style={[componentStyles.inputWrapper, frameStyle]}>
       <AppText style={componentStyles.symbol}>{symbol}</AppText>
       <TextInput
         keyboardType="numeric"
-        placeholder="0.00"
+        placeholder={placeholder}
         cursorColor={theme.colors.light.text}
+        onChangeText={(text) => {
+          if (isValidInput(text, decimalSeparator)) {
+            onChangeText?.(text)
+          }
+        }}
         style={componentStyles.input}
         {...props}
       />

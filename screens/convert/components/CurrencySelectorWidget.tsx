@@ -6,7 +6,7 @@ import { theme, baseSize } from '../../../styles/'
 import { Card, Highlight, PlatformAdaptiveIcon } from '../../../components/ui/'
 import CurrencyInput, {
   CurrencyInputProps,
-} from '../../../components/currency/CurrencyInput'
+} from '../../../components/currency/CurrencyInput/CurrencyInput'
 import { isAndroid } from '../../../utils'
 
 type CurrencySelectorWidgetProps = Omit<
