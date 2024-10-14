@@ -15,6 +15,7 @@ import { Loader, Container } from '../../components/ui'
 import {
   Currency,
   useCurrencies,
+  useDefaultCurrencyPair,
   getLatestExchangeRate,
   getAllCurrenciesAsArraySortedAlphabetically,
 } from '../../services/currency'
@@ -34,9 +35,10 @@ function ConvertScreen() {
   const [exchangeRateDatetime, setExchangeRateDatetime] = useState<
     undefined | number
   >()
-  const [baseCurrencyAmount, setBaseCurrencyAmount] = useState('1')
-  const [targetCurrencyAmount, setTargetCurrencyAmount] = useState('1')
-  const { currencies } = useCurrencies()
+  const [baseCurrencyAmount, setBaseCurrencyAmount] = useState('')
+  const [targetCurrencyAmount, setTargetCurrencyAmount] = useState('')
+  const currencies = useCurrencies()
+  const defaultCurrencyPair = useDefaultCurrencyPair()
   const [baseCurrency, setBaseCurrency] = useState<Currency | undefined>()
   const [targetCurrency, setTargetCurrency] = useState<Currency | undefined>()
   const [typingIntoBaseAmount, setTypingIntoBaseAmount] = useState(false)
@@ -95,14 +97,13 @@ function ConvertScreen() {
     setTargetCurrency(baseCurrency)
   }
 
-  // Set the default currencies for base and target once we have them
+  // Set defaults as soon as they're ready
   useEffect(() => {
-    if (currencies) {
-      // TODO: Implement the selection of default pair here, it will come from the user's settings
-      setBaseCurrency(currencies.data['USD'])
-      setTargetCurrency(currencies.data['EUR'])
+    if (defaultCurrencyPair.base && defaultCurrencyPair.target) {
+      setBaseCurrency(defaultCurrencyPair.base)
+      setTargetCurrency(defaultCurrencyPair.target)
     }
-  }, [currencies])
+  }, [defaultCurrencyPair])
 
   // Get the exchange rate when currencies change
   useEffect(() => {
@@ -120,7 +121,7 @@ function ConvertScreen() {
     }
   }, [baseCurrency, targetCurrency])
 
-  // Base currency amount changes
+  // Base currency amount changes - Do the conversion from base to target
   useEffect(() => {
     if (
       exchangeRate &&
@@ -131,9 +132,12 @@ function ConvertScreen() {
         convertBaseToTarget(baseCurrencyAmount, exchangeRate)
       )
     }
+    if (isAmountEmpty(baseCurrencyAmount)) {
+      setTargetCurrencyAmount('')
+    }
   }, [baseCurrencyAmount])
 
-  // Target currency amount changes
+  // Target currency amount changes - Do the conversion from target to base
   useEffect(() => {
     if (
       exchangeRate &&
@@ -143,6 +147,10 @@ function ConvertScreen() {
       setBaseCurrencyAmount(
         convertTargetToBase(targetCurrencyAmount, exchangeRate)
       )
+    }
+
+    if (isAmountEmpty(targetCurrencyAmount)) {
+      setBaseCurrencyAmount('')
     }
   }, [targetCurrencyAmount])
 
@@ -161,8 +169,9 @@ function ConvertScreen() {
         paddingTop: isShortLandscape ? wrapperGutter : '10%',
       }}
     >
-      {/* Show content only when all data is available... */}
-      {baseCurrency && targetCurrency && exchangeRate && currencies ? (
+      {!currencies || !baseCurrency || !targetCurrency || !exchangeRate ? (
+        <Loader />
+      ) : (
         <View
           style={[
             componentStyles.centeredColumn,
@@ -215,20 +224,28 @@ function ConvertScreen() {
               paddingTop: isLandscape ? 0 : baseSize(5),
             }}
           >
-            {/* Display for the result */}
-            <Result
-              baseCurrencyAmount={baseCurrencyAmount}
-              baseCurrencyCode={baseCurrency.code}
-              targetCurrencyAmount={targetCurrencyAmount}
-              targetCurrencyCode={targetCurrency.code}
-            />
-            {/* Legal disclaimer */}
-            {exchangeRateDatetime && (
-              <Disclaimer
-                dateOfExchangeRate={exchangeRateDatetime}
-                onPressDisclaimer={() => setIsDisclaimerOpen(true)}
-              />
-            )}
+            {/* Display the result and the disclaimer (but only if the fields are not empty) */}
+            {baseCurrencyAmount !== '' &&
+              parseFloat(baseCurrencyAmount) !== 0 &&
+              targetCurrencyAmount !== '' &&
+              parseFloat(targetCurrencyAmount) !== 0 && (
+                <>
+                  <Result
+                    baseCurrencyAmount={baseCurrencyAmount}
+                    baseCurrencyCode={baseCurrency.code}
+                    targetCurrencyAmount={targetCurrencyAmount}
+                    targetCurrencyCode={targetCurrency.code}
+                  />
+                  {/* Legal disclaimer */}
+                  {exchangeRateDatetime && (
+                    <Disclaimer
+                      dateOfExchangeRate={exchangeRateDatetime}
+                      onPressDisclaimer={() => setIsDisclaimerOpen(true)}
+                    />
+                  )}
+                </>
+              )}
+
             {/* Container for History and Add-to-favorites buttons */}
             {/* Don't show these on small screens when the keyboard is opened */}
             {isKeyboardVisible && height < 920 ? null : (
@@ -272,9 +289,6 @@ function ConvertScreen() {
             />
           )}
         </View>
-      ) : (
-        // ...until then, show a loading state
-        <Loader />
       )}
 
       <StatusBar style={isIOS() && isCurrencySelectorOpen ? 'dark' : 'light'} />

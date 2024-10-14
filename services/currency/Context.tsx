@@ -1,5 +1,5 @@
 import { useContext, createContext } from 'react'
-import { CurrencyList } from './model'
+import { Currency, CurrencyList } from './model'
 
 interface CurrencyContextValue {
   currencies?: CurrencyList
@@ -9,6 +9,8 @@ export function useCurrencies() {
   return useContext(CurrencyContext)
 }
 
-export const CurrencyContext = createContext<CurrencyContextValue>({})
+export const CurrencyContext = createContext<
+  Record<string, Currency> | undefined
+>(undefined)
 
 CurrencyContext.displayName = 'CurrencyContext'
