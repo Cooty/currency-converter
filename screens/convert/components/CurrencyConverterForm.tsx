@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react'
-import { View, StyleSheet, Pressable, Animated, Easing } from 'react-native'
+import { View, StyleSheet, Pressable, Animated } from 'react-native'
 import CurrencySelectorWidget from './CurrencySelectorWidget'
 import { theme, baseSize } from '../../../styles/'
 import { isIOS } from '../../../utils'

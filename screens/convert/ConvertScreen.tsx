@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 import { wrapperGutter, baseSize } from '../../styles/'
@@ -38,7 +38,10 @@ function ConvertScreen() {
   const [baseCurrencyAmount, setBaseCurrencyAmount] = useState('')
   const [targetCurrencyAmount, setTargetCurrencyAmount] = useState('')
   const currencies = useCurrencies()
-  const defaultCurrencyPair = useDefaultCurrencyPair()
+  const defaultCurrencyPair = useMemo(
+    () => useDefaultCurrencyPair(),
+    [currencies]
+  )
   const [baseCurrency, setBaseCurrency] = useState<Currency | undefined>()
   const [targetCurrency, setTargetCurrency] = useState<Currency | undefined>()
   const [typingIntoBaseAmount, setTypingIntoBaseAmount] = useState(false)
