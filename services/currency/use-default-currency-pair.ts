@@ -1,13 +1,25 @@
+import { useState, useEffect } from 'react'
 import { useCurrencies } from './Context'
 import { CurrencyPair } from './model'
 
 export function useDefaultCurrencyPair(): CurrencyPair {
+  const [defaultCurrencyPair, setDefaultCurrencyPair] = useState<CurrencyPair>({
+    base: undefined,
+    target: undefined,
+  })
   const currencies = useCurrencies()
-  // TODO: Make this dynamic
-  return {
-    base: currencies ? currencies['USD'] : undefined,
-    target: currencies ? currencies['EUR'] : undefined,
-  }
+
+  useEffect(() => {
+    if (currencies) {
+      // TODO: Make this dynamic, based on setting
+      setDefaultCurrencyPair({
+        base: currencies['USD'],
+        target: currencies['EUR'],
+      })
+    }
+  }, [currencies])
+
+  return defaultCurrencyPair
 }
 
 export default useDefaultCurrencyPair
