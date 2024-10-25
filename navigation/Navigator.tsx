@@ -4,17 +4,19 @@ import { PlatformAdaptiveIcon } from '../components/ui/'
 import ConvertScreen from '../screens/convert/ConvertScreen'
 import FavoritesScreen from '../screens/favorites/FavoritesScreen'
 import SettingsScreen from '../screens/settings/SettingsScreen'
-
-import routes from './routes'
 import { theme } from '../styles/'
+import { RootTabsParamList } from './types'
+import { useDefaultCurrencyCodes } from '../services/currency'
 
-const Tab = createBottomTabNavigator()
+const Tab = createBottomTabNavigator<RootTabsParamList>()
 
 function Navigator() {
+  const defaultCurrencyCodes = useDefaultCurrencyCodes()
+
   return (
     <NavigationContainer>
       <Tab.Navigator
-        initialRouteName={routes.CONVERT}
+        initialRouteName="Convert"
         screenOptions={{
           headerStyle: {
             backgroundColor: theme.colors.brand,
@@ -27,8 +29,12 @@ function Navigator() {
         }}
       >
         <Tab.Screen
-          name={routes.CONVERT}
+          name="Convert"
           component={ConvertScreen}
+          initialParams={{
+            baseCurrencyCode: defaultCurrencyCodes.base,
+            targetCurrencyCode: defaultCurrencyCodes.target,
+          }}
           options={{
             tabBarLabel: 'Convert',
             headerTitle: 'Convert currencies',
@@ -39,7 +45,7 @@ function Navigator() {
           }}
         />
         <Tab.Screen
-          name={routes.FAVORITES}
+          name="Favorites"
           component={FavoritesScreen}
           options={{
             tabBarLabel: 'Favorites',
@@ -50,7 +56,7 @@ function Navigator() {
           }}
         />
         <Tab.Screen
-          name={routes.SETTINGS}
+          name="Settings"
           component={SettingsScreen}
           options={{
             tabBarLabel: 'Settings',

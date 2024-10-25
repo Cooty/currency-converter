@@ -1,20 +1,53 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { ScrollView, StyleSheet } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
+import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs'
+import { Container } from '../../components/ui'
+import { CurrencyPairListItem } from '../../components/currency'
+import { CurrencyPair, useStoredExchangeRates } from '../../services/currency'
+import { EmptyState } from './components'
+import type { RootTabsParamList } from '../../navigation/types'
 
-function FavoritesScreen() {
+type FavoritesScreenProps = BottomTabScreenProps<RootTabsParamList, 'Favorites'>
+
+function FavoritesScreen({ navigation }: FavoritesScreenProps) {
+  const { getFavorites } = useStoredExchangeRates()
+  const favorites = getFavorites()
+
+  function onPressCurrencyPair(currencyPair: CurrencyPair) {
+    navigation.navigate('Convert', {
+      baseCurrencyCode: currencyPair.base.code,
+      targetCurrencyCode: currencyPair.target.code,
+    })
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Favorites screen</Text>
+    <Container style={componentStyles.container}>
+      {favorites ? (
+        <ScrollView style={componentStyles.scrollView}>
+          {favorites.map((stored, i) => (
+            <CurrencyPairListItem
+              currencyPair={{ base: stored.base, target: stored.target }}
+              key={`favorite-${stored.base?.code}-${stored.target?.code}-${i}`}
+              isFirst={i === 0}
+              onPress={onPressCurrencyPair}
+            />
+          ))}
+        </ScrollView>
+      ) : (
+        <EmptyState />
+      )}
+
       <StatusBar style="light" />
-    </View>
+    </Container>
   )
 }
 
-const styles = StyleSheet.create({
+const componentStyles = StyleSheet.create({
   container: {
+    padding: 0,
+  },
+  scrollView: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 })
 

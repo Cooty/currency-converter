@@ -1,6 +1,7 @@
-import { useState, useEffect, useMemo } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { useState, useEffect } from 'react'
+import { StyleSheet, View, useWindowDimensions } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
+import type { ConvertScreenProps, CurrencySelectionType } from './types'
 import { wrapperGutter, baseSize } from '../../styles/'
 import {
   CurrencyConverterForm,
@@ -15,7 +16,6 @@ import { Loader, Container } from '../../components/ui'
 import {
   Currency,
   useCurrencies,
-  useDefaultCurrencyPair,
   getLatestExchangeRate,
   getAllCurrenciesAsArraySortedAlphabetically,
 } from '../../services/currency'
@@ -25,11 +25,8 @@ import {
   convertTargetToBase,
   isAmountEmpty,
 } from './utils'
-import { useWindowDimensions } from 'react-native'
 
-type CurrencySelectionType = 'base' | 'target'
-
-function ConvertScreen() {
+function ConvertScreen({ route }: ConvertScreenProps) {
   const [isCurrencySelectorOpen, setIsCurrencySelectorOpen] = useState(false)
   const [exchangeRate, setExchangeRate] = useState<undefined | number>()
   const [exchangeRateDatetime, setExchangeRateDatetime] = useState<
@@ -38,7 +35,6 @@ function ConvertScreen() {
   const [baseCurrencyAmount, setBaseCurrencyAmount] = useState('')
   const [targetCurrencyAmount, setTargetCurrencyAmount] = useState('')
   const currencies = useCurrencies()
-  const defaultCurrencyPair = useDefaultCurrencyPair()
   const [baseCurrency, setBaseCurrency] = useState<Currency | undefined>()
   const [targetCurrency, setTargetCurrency] = useState<Currency | undefined>()
   const [typingIntoBaseAmount, setTypingIntoBaseAmount] = useState(false)
@@ -99,11 +95,11 @@ function ConvertScreen() {
 
   // Set defaults as soon as they're ready
   useEffect(() => {
-    if (defaultCurrencyPair.base && defaultCurrencyPair.target) {
-      setBaseCurrency(defaultCurrencyPair.base)
-      setTargetCurrency(defaultCurrencyPair.target)
+    if (currencies) {
+      setBaseCurrency(currencies[route.params.baseCurrencyCode])
+      setTargetCurrency(currencies[route.params.targetCurrencyCode])
     }
-  }, [defaultCurrencyPair])
+  }, [route.params, currencies])
 
   // Get the exchange rate when currencies change
   useEffect(() => {
@@ -254,16 +250,23 @@ function ConvertScreen() {
                   {
                     marginTop: isLandscape ? baseSize(6) : 0,
                     flex: isLandscape ? undefined : 1,
-                    width: isLandscape ? '100%' : '60%',
+                    width: isLandscape ? '100%' : '70%',
                     justifyContent: isLandscape ? 'flex-start' : 'flex-end',
                     flexDirection: isLandscape ? 'row' : 'column',
                   },
                   componentStyles.additionalActions,
                 ]}
               >
-                <AddToFavorites
-                  style={isLandscape ? { width: 'auto' } : undefined}
-                />
+                {exchangeRateDatetime && (
+                  <AddToFavorites
+                    base={baseCurrency}
+                    target={targetCurrency}
+                    exchangeRate={exchangeRate}
+                    retrievedAt={exchangeRateDatetime}
+                    style={isLandscape ? { width: 'auto' } : undefined}
+                  />
+                )}
+
                 <History style={isLandscape ? { width: 'auto' } : undefined} />
               </View>
             )}

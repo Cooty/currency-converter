@@ -1,8 +1,8 @@
 import { Currency } from './Currencies'
 
 interface CurrencyPair {
-  base: Currency | undefined
-  target: Currency | undefined
+  base: Currency
+  target: Currency
 }
 
 export default CurrencyPair
