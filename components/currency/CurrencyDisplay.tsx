@@ -5,7 +5,7 @@ import { currencyCodeToCountryCode } from '../../utils'
 import { theme, baseFontSize, baseSize } from '../../styles/'
 import AppText from '../ui/AppText'
 
-interface CurrencyDisplayProps {
+export interface CurrencyDisplayProps {
   code: string
   name?: string
   style?: ViewStyle

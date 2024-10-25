@@ -6,3 +6,4 @@ export { default as unixTimeStampToLocalDateTime } from './unix-timestamp-to-loc
 export { default as useIsKeyboardVisible } from './use-is-keyboard-visible'
 export { default as useScreenAspectRatio } from './use-screen-aspect-ratio'
 export { default as formatToLocalNumber } from './format-to-local-number'
+export { default as isObjectEmpty } from './is-object-empty'

@@ -17,7 +17,7 @@ import { Currency } from '../../services/currency'
 import CurrencyListItem from './CurrencyListItem'
 import { filterCurrencies } from '../../services/currency'
 
-interface CurrencyListOverlayProps {
+export interface CurrencyListOverlayProps {
   isVisible: boolean
   onCurrencySelection: (currency: Currency) => void
   onCancel: () => void

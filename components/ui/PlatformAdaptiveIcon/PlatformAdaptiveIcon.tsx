@@ -58,6 +58,12 @@ function PlatformAdaptiveIcon({
     } else {
       Icon = <MaterialIcons name="favorite" {...props} />
     }
+  } else if (name === 'unfavorite') {
+    if (shouldRenderIOSIcon()) {
+      Icon = <SymbolView name="heart.slash.fill" {...iOSProps} />
+    } else {
+      Icon = <MaterialIcons name="heart-broken" {...props} />
+    }
   } else if (name === 'settings') {
     if (shouldRenderIOSIcon()) {
       Icon = <SymbolView name="gear" {...iOSProps} />

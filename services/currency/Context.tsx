@@ -1,10 +1,6 @@
 import { useContext, createContext } from 'react'
 import { Currency, CurrencyList } from './model'
 
-interface CurrencyContextValue {
-  currencies?: CurrencyList
-}
-
 export function useCurrencies() {
   return useContext(CurrencyContext)
 }

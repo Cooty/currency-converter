@@ -1,11 +1,12 @@
 import { useEffect, useState, useCallback } from 'react'
 import { View, StyleSheet } from 'react-native'
 import * as SplashScreen from 'expo-splash-screen'
-import Navigator from './navigation/Navigator'
+import { Navigator } from './navigation'
 import {
   getCurrencies,
   CurrencyContext,
   CurrencyList,
+  StoredExchangeRateContextProvider,
 } from './services/currency'
 import ErrorScreen from './screens/error/ErrorScreen'
 import ErrorBoundary from './services/error/ErrorBoundary'
@@ -50,7 +51,9 @@ export default function App() {
           <CurrencyContext.Provider
             value={currencies ? currencies.data : undefined}
           >
-            <Navigator />
+            <StoredExchangeRateContextProvider>
+              <Navigator />
+            </StoredExchangeRateContextProvider>
           </CurrencyContext.Provider>
         )}
       </ErrorBoundary>
