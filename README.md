@@ -22,3 +22,7 @@ If you want the currency converter to actually work, you'll also need an API key
 > ⚠️ **Important**: Never commit `.env` files into git, they are ignored for a reason!
 
 Also in production we use a proxy for the API which adds the API key [on the backend](https://reactnative.dev/docs/security#storing-sensitive-info), this way we avoid compiling the API key into the release bundle.
+
+### Naming convention
+
+We use `kebab-case` for all files and folders, regardless of their content (yes, even for classes and for React components).

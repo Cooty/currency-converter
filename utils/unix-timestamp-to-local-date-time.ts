@@ -1,4 +1,4 @@
-function unixTimeStampToLocalDateTime(timestamp: number, lang = 'en') {
+export function unixTimeStampToLocalDateTime(timestamp: number, lang = 'en') {
   const date = new Date(timestamp)
 
   const month = date.toLocaleDateString(lang, { month: 'short' })
@@ -13,5 +13,3 @@ function unixTimeStampToLocalDateTime(timestamp: number, lang = 'en') {
 
   return `${month} ${day} ${year}, ${hours}:${minutes}`
 }
-
-export default unixTimeStampToLocalDateTime

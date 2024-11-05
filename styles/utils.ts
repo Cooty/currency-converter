@@ -1,4 +1,4 @@
-import theme from './theme'
+import { theme } from './theme'
 
 /**
  * Calculates sizing for gutters, spacing, etc, based on the

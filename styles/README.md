@@ -23,7 +23,7 @@ You can add them directly as values in a style object or you can spread them int
 ```ts
 // MyComponent.tsx
 import { StyleSheet } from 'react-native'
-import { shadowMedium } from '../../styles/'
+import { shadowMedium } from '../styles/'
 
 const componentStyles = StyleSheet.create({
   hasShadow: shadowMedium,
@@ -35,7 +35,7 @@ or
 ```ts
 // MyComponent.tsx
 import { StyleSheet } from 'react-native'
-import { shadowMedium } from '../../styles/'
+import { shadowMedium } from '../styles/'
 
 const componentStyles = StyleSheet.create({
   box: {

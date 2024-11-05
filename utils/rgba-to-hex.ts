@@ -1,4 +1,4 @@
-function RGBAToHexA(rgba: string, forceRemoveAlpha = false) {
+export function RGBAToHexA(rgba: string, forceRemoveAlpha = false) {
   if (rgba.startsWith('#')) {
     return rgba
   }
@@ -16,5 +16,3 @@ function RGBAToHexA(rgba: string, forceRemoveAlpha = false) {
       .join('')
   ) // Puts the array to together to a string
 }
-
-export default RGBAToHexA

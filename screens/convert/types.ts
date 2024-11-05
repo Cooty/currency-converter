@@ -1,5 +1,5 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs'
-import { RootTabsParamList } from '../../navigation/types'
+import { RootTabsParamList } from '../../routing/types'
 
 export type CurrencySelectionType = 'base' | 'target'
 
