@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { StyleSheet } from 'react-native'
-import { Currency } from '../../../features/currency'
+import { Currency } from '../model'
 import {
-  CurrencyDisplay,
   CurrencyInput,
   CurrencyInputProps,
-} from '../../../features/currency/components'
+} from './currency-input/currency-input'
+import { CurrencyDisplay } from './currency-display'
 import { theme, baseSize } from '../../../styles'
 import { Card, Highlight, PlatformAdaptiveIcon } from '../../../components'
 import { isAndroid } from '../../../utils'
@@ -29,31 +29,34 @@ export function CurrencySelectorWidget({
   ...props
 }: CurrencySelectorWidgetProps) {
   const [isInputFocused, setIsInputFocused] = useState(false)
+  const hasAmount = value !== undefined && onChangeText !== undefined
 
   return (
     <Card
       style={[
-        componentStyles.card,
+        { flexDirection: hasAmount ? 'row' : 'column' },
         isInputFocused ? componentStyles.cardFocused : undefined,
       ]}
     >
-      <Card.Body style={componentStyles.inputContainer}>
-        <CurrencyInput
-          value={value}
-          onChangeText={onChangeText}
-          symbol={symbol}
-          frameStyle={componentStyles.inputFrame}
-          onFocus={(e) => {
-            onFocus?.(e)
-            setIsInputFocused(true)
-          }}
-          onBlur={(e) => {
-            onBlur?.(e)
-            setIsInputFocused(false)
-          }}
-          {...props}
-        />
-      </Card.Body>
+      {hasAmount && (
+        <Card.Body style={componentStyles.inputContainer}>
+          <CurrencyInput
+            value={value}
+            onChangeText={onChangeText}
+            symbol={symbol}
+            frameStyle={componentStyles.inputFrame}
+            onFocus={(e) => {
+              onFocus?.(e)
+              setIsInputFocused(true)
+            }}
+            onBlur={(e) => {
+              onBlur?.(e)
+              setIsInputFocused(false)
+            }}
+            {...props}
+          />
+        </Card.Body>
+      )}
       <Card.Body style={componentStyles.selectContainer}>
         <Highlight onPress={onSelect} style={componentStyles.select}>
           <CurrencyDisplay code={code} />
@@ -72,7 +75,6 @@ const CARD_HORIZONTAL_PADDING = baseSize(2)
 const CARD_VERTICAL_PADDING = baseSize()
 
 const componentStyles = StyleSheet.create({
-  card: { flexDirection: 'row' },
   cardFocused: {
     borderColor: theme.colors.light.inputFocus,
   },

@@ -14,10 +14,9 @@ import {
 import { CurrencyListOverlay } from '../../features/currency/components/'
 import { Loader, Container } from '../../components'
 import {
-  Currency,
   useCurrencies,
   getLatestExchangeRate,
-  getAllCurrenciesAsArraySortedAlphabetically,
+  useCurrencyPairSelection,
 } from '../../features/currency'
 import { isIOS } from '../../utils'
 import {
@@ -28,7 +27,18 @@ import {
 import { useIsKeyboardVisible, useScreenAspectRatio } from '../../hooks'
 
 export function ConvertScreen({ route }: ConvertScreenProps) {
-  const [isCurrencySelectorOpen, setIsCurrencySelectorOpen] = useState(false)
+  const {
+    isCurrencySelectorOpen,
+    baseCurrency,
+    setBaseCurrency,
+    targetCurrency,
+    setTargetCurrency,
+    openCurrencySelector,
+    currencySelectionHandler,
+    cancelCurrencySelectionHandler,
+    changeCurrencyOrder,
+    setOpenedCurrencySelection,
+  } = useCurrencyPairSelection()
   const [exchangeRate, setExchangeRate] = useState<undefined | number>()
   const [exchangeRateDatetime, setExchangeRateDatetime] = useState<
     undefined | number
@@ -36,63 +46,14 @@ export function ConvertScreen({ route }: ConvertScreenProps) {
   const [baseCurrencyAmount, setBaseCurrencyAmount] = useState('')
   const [targetCurrencyAmount, setTargetCurrencyAmount] = useState('')
   const currencies = useCurrencies()
-  const [baseCurrency, setBaseCurrency] = useState<Currency | undefined>()
-  const [targetCurrency, setTargetCurrency] = useState<Currency | undefined>()
   const [typingIntoBaseAmount, setTypingIntoBaseAmount] = useState(false)
   const [typingIntoTargetAmount, setTypingIntoTargetAmount] = useState(false)
-  const [openedCurrencySelection, setOpenedCurrencySelection] = useState<
-    CurrencySelectionType | undefined
-  >()
   const [isDisclaimerOpen, setIsDisclaimerOpen] = useState(false)
   const { height } = useWindowDimensions()
   const isKeyboardVisible = useIsKeyboardVisible()
   const aspectRatio = useScreenAspectRatio()
   const isLandscape = aspectRatio === 'landscape'
   const isShortLandscape = isLandscape && height < 800
-
-  function openCurrencySelector() {
-    setIsCurrencySelectorOpen(true)
-  }
-
-  function currencySelectionHandler(currency: Currency) {
-    if (openedCurrencySelection === 'base') {
-      // return early if the currency is the same as already selected
-      if (currency.code === baseCurrency?.code) {
-        setIsCurrencySelectorOpen(false)
-        return
-      }
-      // change the order of currencies when the user selects the same currency as the target
-      if (currency.code === targetCurrency?.code) {
-        setTargetCurrency(baseCurrency)
-        setBaseCurrency(currency)
-      } else {
-        setBaseCurrency(currency)
-      }
-    } else {
-      // return early if the currency is the same as already selected
-      if (currency.code === targetCurrency?.code) {
-        setIsCurrencySelectorOpen(false)
-        return
-      }
-      // change the order of currencies when the user selects the same currency as the base
-      if (currency.code === baseCurrency?.code) {
-        setBaseCurrency(targetCurrency)
-        setTargetCurrency(currency)
-      }
-      setTargetCurrency(currency)
-    }
-    setIsCurrencySelectorOpen(false)
-  }
-
-  function cancelCurrencySelectionHandler() {
-    setIsCurrencySelectorOpen(false)
-    setOpenedCurrencySelection(undefined)
-  }
-
-  function changeCurrencyOrder() {
-    setBaseCurrency(targetCurrency)
-    setTargetCurrency(baseCurrency)
-  }
 
   // Set defaults as soon as they're ready
   useEffect(() => {
@@ -279,9 +240,6 @@ export function ConvertScreen({ route }: ConvertScreenProps) {
               isVisible={isCurrencySelectorOpen}
               onCurrencySelection={currencySelectionHandler}
               onCancel={cancelCurrencySelectionHandler}
-              currencies={getAllCurrenciesAsArraySortedAlphabetically(
-                currencies
-              )}
             />
           )}
 

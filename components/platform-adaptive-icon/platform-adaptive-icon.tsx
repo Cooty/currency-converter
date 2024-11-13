@@ -112,6 +112,12 @@ export function PlatformAdaptiveIcon({
     } else {
       Icon = <MaterialIcons name="info" {...props} />
     }
+  } else if (name === 'star-outlined') {
+    if (shouldRenderIOSIcon()) {
+      Icon = <SymbolView name="star" {...iOSProps} />
+    } else {
+      Icon = <MaterialIcons name="star-border" {...props} />
+    }
   }
 
   return Icon

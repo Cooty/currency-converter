@@ -16,33 +16,36 @@ import { isIOS, isAndroid } from '../../../utils'
 import { Currency } from '../model'
 import { CurrencyListItem } from './currency-list-item'
 import { filterCurrencies } from '../utils'
+import { useCurrencies } from '../context'
+import { getAllCurrenciesAsArraySortedAlphabetically } from '../utils'
 
 export interface CurrencyListOverlayProps {
   isVisible: boolean
   onCurrencySelection: (currency: Currency) => void
   onCancel: () => void
-  currencies: Currency[]
   onShow?: () => void
 }
 
 export function CurrencyListOverlay({
   isVisible,
-  currencies,
   onCurrencySelection,
   onCancel,
   onShow,
 }: CurrencyListOverlayProps) {
   const headerHeight = useHeaderHeight()
   const [searchValue, setSearchValue] = useState('')
+  const currencies = useCurrencies()
+  const sortedCurrencies =
+    getAllCurrenciesAsArraySortedAlphabetically(currencies)
   const [filteredCurrencies, setFilteredCurrencies] =
-    useState<Currency[]>(currencies)
+    useState<Currency[]>(sortedCurrencies)
   const searchInputRef: RefObject<TextInput> = useRef(null)
 
   useEffect(() => {
     if (searchValue.length !== 0) {
       setFilteredCurrencies(filterCurrencies(searchValue, filteredCurrencies))
     } else {
-      setFilteredCurrencies(currencies)
+      setFilteredCurrencies(sortedCurrencies)
     }
   }, [searchValue])
 

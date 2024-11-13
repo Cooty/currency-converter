@@ -21,6 +21,7 @@ export type PlatformAdaptiveButtonProps = Omit<
   icon?: IconNames
   elevated?: boolean
   style?: StyleProp<ViewStyle>
+  hug?: boolean
 } & PropsWithChildren
 
 const IOS_SECONDARY_COLOR = '#dfebff'
@@ -32,6 +33,7 @@ export function PlatformAdaptiveButton({
   icon,
   elevated = false,
   style,
+  hug = false,
 }: PlatformAdaptiveButtonProps) {
   const primaryBackgroundColor = isIOS()
     ? PlatformColor('link')
@@ -63,6 +65,8 @@ export function PlatformAdaptiveButton({
       style={[
         componentStyles.wrapper,
         {
+          width: hug ? undefined : '100%',
+          flexDirection: hug ? 'row' : 'column',
           elevation: elevated && variant !== 'text' ? 3 : undefined,
           borderColor: !isIOS() && elevated ? 'rgba(0, 0, 0, 0)' : undefined,
           borderWidth: !isIOS() && elevated ? 1 : undefined,
@@ -124,7 +128,6 @@ const componentStyles = StyleSheet.create({
   wrapper: {
     overflow: 'hidden',
     borderRadius: 40,
-    width: '100%',
   },
   buttonFrame: {
     height: 40,

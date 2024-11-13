@@ -18,8 +18,12 @@ export function filterCurrencies(query: string, currencies: Currency[]) {
 }
 
 export function getAllCurrenciesAsArraySortedAlphabetically(
-  currencies: Record<string, Currency>
+  currencies?: Record<string, Currency>
 ) {
+  if (!currencies) {
+    return []
+  }
+
   return Object.keys(currencies)
     .map((key) => currencies[key])
     .sort((a, b) => {

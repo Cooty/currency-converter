@@ -10,3 +10,4 @@ export type IconNames =
   | 'x'
   | 'history'
   | 'info'
+  | 'star-outlined'

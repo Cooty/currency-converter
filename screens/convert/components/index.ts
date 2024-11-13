@@ -1,6 +1,5 @@
 export * from './add-to-favorites'
 export * from './currency-converter-form'
-export * from './currency-selector-widget'
 export * from './history'
 export * from './result'
 export * from './disclaimer'
