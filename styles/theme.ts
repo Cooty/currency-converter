@@ -1,4 +1,4 @@
-const theme = {
+export const theme = {
   baseSize: 4,
   baseFontSize: 16,
   minFontSize: 12,
@@ -37,5 +37,3 @@ const theme = {
 } as const
 
 export const wrapperGutter = theme.baseSize * 4
-
-export default theme

@@ -1,0 +1,12 @@
+import { useContext, createContext } from 'react'
+import { Currency } from '../model'
+
+export function useCurrencies() {
+  return useContext(CurrencyContext)
+}
+
+export const CurrencyContext = createContext<
+  Record<string, Currency> | undefined
+>(undefined)
+
+CurrencyContext.displayName = 'CurrencyContext'

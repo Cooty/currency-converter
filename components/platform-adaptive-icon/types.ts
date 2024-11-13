@@ -1,0 +1,13 @@
+export type IconNames =
+  | 'favorite'
+  | 'unfavorite'
+  | 'convert'
+  | 'settings'
+  | 'close'
+  | 'select-arrows'
+  | 'search'
+  | 'back'
+  | 'x'
+  | 'history'
+  | 'info'
+  | 'star-outlined'

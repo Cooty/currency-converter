@@ -1,4 +1,4 @@
-function formatToLocalNumber(
+export function formatToLocalNumber(
   amount: number | string,
   code: string,
   lang: string
@@ -15,5 +15,3 @@ function formatToLocalNumber(
     roundingMode: 'halfFloor',
   }).format(number)
 }
-
-export default formatToLocalNumber
