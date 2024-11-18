@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { theme, wrapperGutter } from '../../styles/'
+import { wrapperGutter } from '../../styles/'
+import { useTheme } from '../../features/theming'
 import { AppText, AppTitle, YStack } from '../../components/'
 
 export interface ErrorScreenProps {
@@ -8,8 +9,12 @@ export interface ErrorScreenProps {
 }
 
 export function ErrorScreen({ message }: ErrorScreenProps) {
+  const { theme } = useTheme()
+
   return (
-    <SafeAreaView style={componentStyles.container}>
+    <SafeAreaView
+      style={[componentStyles.container, { backgroundColor: theme.background }]}
+    >
       <YStack>
         <AppTitle style={componentStyles.textCenter}>
           Whoops Something Went Wrong 😞
@@ -30,7 +35,6 @@ const componentStyles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: theme.colors.light.background,
   },
   textCenter: { textAlign: 'center' },
 })

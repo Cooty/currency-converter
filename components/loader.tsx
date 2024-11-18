@@ -4,7 +4,7 @@ import {
   ActivityIndicatorProps,
   StyleSheet,
 } from 'react-native'
-import { theme } from '../styles'
+import { colors, useTheme } from '../features/theming'
 
 type LoaderProps = {
   activityIndicatorProps?: ActivityIndicatorProps
@@ -15,6 +15,8 @@ function Loader({
   hasBackgroundColor = false,
   activityIndicatorProps,
 }: LoaderProps) {
+  const { theme } = useTheme()
+
   return (
     <View
       style={[
@@ -22,14 +24,14 @@ function Loader({
         StyleSheet.absoluteFill,
         {
           backgroundColor: hasBackgroundColor
-            ? theme.colors.light.backdrop
+            ? theme.backdrop
             : undefined,
         },
       ]}
     >
       <ActivityIndicator
         size="large"
-        color={theme.colors.brand}
+        color={colors.brand}
         {...activityIndicatorProps}
       />
     </View>

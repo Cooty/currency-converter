@@ -1,5 +1,6 @@
 import { Text, StyleSheet, TextProps } from 'react-native'
-import { theme, baseFontSize } from '../styles'
+import { baseFontSize } from '../styles'
+import { useTheme } from '../features/theming'
 
 type TextVariants = 'primary' | 'secondary'
 
@@ -13,15 +14,16 @@ export function AppText({
   variant = 'primary',
   ...props
 }: AppTexTextProps) {
-  const theme = 'light' // TODO: get this from some reactive global state
+  const { theme } = useTheme()
   const variantStyles =
-    variant === 'primary' ? primaryVariantStyles : secondaryVariantStyles
+    variant === 'primary'
+      ? {
+          color: theme.text,
+        }
+      : { color: theme.textSecondary }
 
   return (
-    <Text
-      style={[componentStyles.text, variantStyles[theme], style]}
-      {...props}
-    >
+    <Text style={[componentStyles.text, variantStyles, style]} {...props}>
       {children}
     </Text>
   )
@@ -30,23 +32,5 @@ export function AppText({
 const componentStyles = StyleSheet.create({
   text: {
     ...baseFontSize(0, true),
-  },
-})
-
-const primaryVariantStyles = StyleSheet.create({
-  light: {
-    color: theme.colors.light.text,
-  },
-  dark: {
-    color: theme.colors.dark.text,
-  },
-})
-
-const secondaryVariantStyles = StyleSheet.create({
-  light: {
-    color: theme.colors.light.textSecondary,
-  },
-  dark: {
-    color: theme.colors.dark.textSecondary,
   },
 })

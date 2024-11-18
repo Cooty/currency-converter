@@ -1,7 +1,7 @@
 import { ListItem, PlatformAdaptiveIcon, XStack } from '../../../components/'
 import { CurrencyPair } from '../model'
 import { CurrencyDisplay } from './currency-display'
-import { theme } from '../../../styles'
+import { useTheme } from '../../theming'
 
 export interface CurrencyPairListItemProps {
   currencyPair: CurrencyPair
@@ -14,6 +14,8 @@ export function CurrencyPairListItem({
   onPress,
   isFirst,
 }: CurrencyPairListItemProps) {
+  const { theme } = useTheme()
+
   return (
     <ListItem isFirst={isFirst} onPress={() => onPress(currencyPair)}>
       <XStack style={{ alignItems: 'center' }}>
@@ -21,10 +23,7 @@ export function CurrencyPairListItem({
           code={currencyPair.base.code}
           name={currencyPair.base.name}
         />
-        <PlatformAdaptiveIcon
-          name="convert"
-          color={theme.colors.light.textSecondary}
-        />
+        <PlatformAdaptiveIcon name="convert" color={theme.textSecondary} />
         <CurrencyDisplay
           code={currencyPair.target.code}
           name={currencyPair.target.name}

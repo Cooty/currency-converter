@@ -2,7 +2,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { PlatformAdaptiveIcon } from '../components'
 import { ConvertScreen, FavoritesScreen, SettingsScreen } from '../screens'
-import { theme } from '../styles'
+import { colors, useTheme } from '../features/theming'
 import { RootTabsParamList } from './types'
 import { useDefaultCurrencyCodes } from '../features/currency'
 
@@ -10,6 +10,7 @@ const Tab = createBottomTabNavigator<RootTabsParamList>()
 
 export function RootTabs() {
   const defaultCurrencyCodes = useDefaultCurrencyCodes()
+  const { theme, themeName } = useTheme()
 
   return (
     <NavigationContainer>
@@ -17,13 +18,17 @@ export function RootTabs() {
         initialRouteName="Convert"
         screenOptions={{
           headerStyle: {
-            backgroundColor: theme.colors.brand,
+            backgroundColor: colors.brand,
           },
           headerTitleStyle: {
-            color: theme.colors.onBrand,
+            color: colors.onBrand,
           },
-          tabBarActiveTintColor: theme.colors.brand,
-          tabBarInactiveTintColor: theme.colors.light.textSecondary,
+          tabBarActiveTintColor:
+            themeName === 'light' ? colors.brand : theme.text,
+          tabBarInactiveTintColor: theme.textSecondary,
+          tabBarStyle: {
+            backgroundColor: theme.background,
+          },
         }}
       >
         <Tab.Screen

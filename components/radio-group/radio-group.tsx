@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { View, Platform, StyleSheet } from 'react-native'
 import { RadioGroupProps } from './types'
 import { RadioButton } from './radio-button'
-import { baseSize, theme, wrapperGutter } from '../../styles'
+import { baseSize, tokens, wrapperGutter } from '../../styles'
+import { useTheme } from '../../features/theming'
 
 export function RadioGroup({
   options,
@@ -10,15 +11,19 @@ export function RadioGroup({
   onChange,
   style,
 }: RadioGroupProps) {
+  const { theme } = useTheme()
   const [selectedValue, setSelectedValue] = useState(initialValue)
 
   return (
-    <View style={[componentStyles.container, style]}>
+    <View
+      style={[componentStyles.container, { borderColor: theme.divider }, style]}
+    >
       {options.map(({ label, value, hint }, i) => (
         <View
           style={[
             componentStyles.itemRow,
             i === options.length - 1 && { borderBottomWidth: 0 },
+            { borderColor: theme.divider },
           ]}
           key={value}
         >
@@ -43,8 +48,7 @@ const componentStyles = StyleSheet.create({
     ...Platform.select({
       ios: {
         borderWidth: 1,
-        borderColor: theme.colors.light.divider,
-        borderRadius: theme.defaultRadius,
+        borderRadius: tokens.defaultRadius,
       },
       android: {
         rowGap: baseSize(),
@@ -55,7 +59,6 @@ const componentStyles = StyleSheet.create({
     ...Platform.select({
       ios: {
         borderBottomWidth: 1,
-        borderColor: theme.colors.light.divider,
         paddingHorizontal: wrapperGutter,
         paddingVertical: baseSize(),
       },

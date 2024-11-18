@@ -2,8 +2,8 @@ import { Platform, PlatformColor, StyleProp, ViewStyle } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
 import { SymbolView, ContentMode } from 'expo-symbols'
 import { IconNames } from './types'
-import { theme } from '../../styles'
 import { RGBAToHexA } from '../../utils'
+import { useTheme } from '../../features/theming'
 
 export interface PlatformAdaptiveIconProps {
   name: IconNames
@@ -21,11 +21,12 @@ export function PlatformAdaptiveIcon({
   isPlatformAdaptive = true,
 }: PlatformAdaptiveIconProps) {
   let colorValue = color as string
+  const { theme } = useTheme()
 
   if (!color && Platform.OS === 'ios') {
     colorValue = PlatformColor('link') as unknown as string
   } else if (!color && Platform.OS !== 'ios') {
-    colorValue = theme.colors.light.text
+    colorValue = theme.text
   }
 
   let Icon = null

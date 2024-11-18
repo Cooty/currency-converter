@@ -1,7 +1,8 @@
 import { FC, PropsWithChildren } from 'react'
 import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native'
-import { theme, shadowMedium, baseSize } from '../styles'
+import { tokens, shadowMedium, baseSize } from '../styles'
 import { isIOS } from '../utils'
+import { useTheme } from '../features/theming'
 
 export type CardProps = PropsWithChildren & {
   style?: StyleProp<ViewStyle>
@@ -16,9 +17,18 @@ type CardBodyType = FC<
     style?: StyleProp<ViewStyle>
   }
 >
-
 export const Card: CardType = ({ children, style }) => {
-  return <View style={[componentStyles.card, style]}>{children}</View>
+  const { theme, themeName } = useTheme()
+
+  const themeStyles = {
+    backgroundColor: themeName === 'light' ? theme.background : theme.elevation,
+    borderColor: theme.divider,
+    borderWidth: themeName === 'light' ? 1 : undefined,
+  }
+
+  return (
+    <View style={[componentStyles.card, themeStyles, style]}>{children}</View>
+  )
 }
 
 const Body: CardBodyType = ({ children, style }) => {
@@ -31,11 +41,8 @@ const shadowStyles = isIOS() ? {} : shadowMedium
 
 const componentStyles = StyleSheet.create({
   card: {
-    backgroundColor: theme.colors.light.background,
-    borderRadius: theme.defaultRadius,
-    borderWidth: 1,
+    borderRadius: tokens.defaultRadius,
     borderStyle: 'solid',
-    borderColor: theme.colors.light.divider,
     ...shadowStyles,
   },
   body: {

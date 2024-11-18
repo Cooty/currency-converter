@@ -6,7 +6,8 @@ import {
   CurrencyInputProps,
 } from './currency-input/currency-input'
 import { CurrencyDisplay } from './currency-display'
-import { theme, baseSize } from '../../../styles'
+import { baseSize } from '../../../styles'
+import { useTheme } from '../../theming'
 import { Card, Highlight, PlatformAdaptiveIcon } from '../../../components'
 import { isAndroid } from '../../../utils'
 
@@ -28,6 +29,7 @@ export function CurrencySelectorWidget({
   onBlur,
   ...props
 }: CurrencySelectorWidgetProps) {
+  const { theme } = useTheme()
   const [isInputFocused, setIsInputFocused] = useState(false)
   const hasAmount = value !== undefined && onChangeText !== undefined
 
@@ -35,11 +37,20 @@ export function CurrencySelectorWidget({
     <Card
       style={[
         { flexDirection: hasAmount ? 'row' : 'column' },
-        isInputFocused ? componentStyles.cardFocused : undefined,
+        isInputFocused
+          ? {
+              borderColor: theme.inputFocus,
+            }
+          : undefined,
       ]}
     >
       {hasAmount && (
-        <Card.Body style={componentStyles.inputContainer}>
+        <Card.Body
+          style={[
+            componentStyles.inputContainer,
+            { borderRightColor: theme.divider },
+          ]}
+        >
           <CurrencyInput
             value={value}
             onChangeText={onChangeText}
@@ -63,7 +74,7 @@ export function CurrencySelectorWidget({
           <PlatformAdaptiveIcon
             name="select-arrows"
             size={isAndroid() ? 20 : 14}
-            color={theme.colors.light.textSecondary}
+            color={theme.textSecondary}
           />
         </Highlight>
       </Card.Body>
@@ -75,14 +86,10 @@ const CARD_HORIZONTAL_PADDING = baseSize(2)
 const CARD_VERTICAL_PADDING = baseSize()
 
 const componentStyles = StyleSheet.create({
-  cardFocused: {
-    borderColor: theme.colors.light.inputFocus,
-  },
   inputContainer: {
     paddingRight: CARD_HORIZONTAL_PADDING,
     paddingVertical: CARD_VERTICAL_PADDING,
     borderRightWidth: 1,
-    borderRightColor: theme.colors.light.divider,
     flex: 1,
   },
   inputFrame: { width: '100%' },

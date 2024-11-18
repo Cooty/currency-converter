@@ -11,6 +11,11 @@ import {
 } from './features/currency'
 import { ErrorScreen } from './screens'
 import ErrorBoundary from './features/error/error-boundary'
+import {
+  ThemeProvider,
+  getSavedThemeSetting,
+  ThemeOptions,
+} from './features/theming'
 
 function App() {
   const [appIsReady, setAppIsReady] = useState(false)
@@ -18,12 +23,20 @@ function App() {
     undefined
   )
   const [error, setError] = useState<string | undefined>()
+  const [initialThemeSetting, setInitialThemeSetting] = useState<
+    ThemeOptions | undefined
+  >()
 
   useEffect(() => {
     async function prepare() {
       try {
         const currencies = await getCurrencies()
         setCurrencies(currencies)
+        const savedThemeSetting = await getSavedThemeSetting()
+        console.log('savedThemeSetting', savedThemeSetting)
+        if (savedThemeSetting) {
+          setInitialThemeSetting(savedThemeSetting)
+        }
       } catch (e) {
         console.error(e)
 
@@ -43,21 +56,27 @@ function App() {
     }
   }, [appIsReady])
 
+  if (!appIsReady) {
+    return null
+  }
+
   return (
     <View style={componentStyles.root} onLayout={onLayoutRootView}>
-      <ErrorBoundary>
-        {error ? (
-          <ErrorScreen message={error} />
-        ) : (
-          <CurrencyContext.Provider
-            value={currencies ? currencies.data : undefined}
-          >
-            <StoredExchangeRateContextProvider>
-              <RootTabs />
-            </StoredExchangeRateContextProvider>
-          </CurrencyContext.Provider>
-        )}
-      </ErrorBoundary>
+      <ThemeProvider initialThemeSetting={initialThemeSetting}>
+        <ErrorBoundary>
+          {error ? (
+            <ErrorScreen message={error} />
+          ) : (
+            <CurrencyContext.Provider
+              value={currencies ? currencies.data : undefined}
+            >
+              <StoredExchangeRateContextProvider>
+                <RootTabs />
+              </StoredExchangeRateContextProvider>
+            </CurrencyContext.Provider>
+          )}
+        </ErrorBoundary>
+      </ThemeProvider>
     </View>
   )
 }
