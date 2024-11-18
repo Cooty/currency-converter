@@ -13,7 +13,6 @@ export async function getSavedThemeSetting() {
 
 export function saveThemeSetting(themeOption: ThemeOptions) {
   try {
-    console.log('saving', themeOption)
     AsyncStorage.setItem(STORAGE_KEY, themeOption)
   } catch (e) {
     console.error(e)

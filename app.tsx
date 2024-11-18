@@ -33,7 +33,6 @@ function App() {
         const currencies = await getCurrencies()
         setCurrencies(currencies)
         const savedThemeSetting = await getSavedThemeSetting()
-        console.log('savedThemeSetting', savedThemeSetting)
         if (savedThemeSetting) {
           setInitialThemeSetting(savedThemeSetting)
         }
