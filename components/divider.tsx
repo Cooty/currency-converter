@@ -1,13 +1,18 @@
-import { FC } from 'react'
 import { View, StyleSheet, ViewStyle } from 'react-native'
-import { theme, baseSize } from '../styles'
+import { baseSize } from '../styles'
+import { useTheme } from '../features/theming'
 
 interface DividerProps {
   style?: ViewStyle
 }
 
-export const Divider: FC<DividerProps> = ({ style }) => {
-  return <View style={[componentStyles.divider, style]} />
+export function Divider({ style }: DividerProps) {
+  const { theme } = useTheme()
+  return (
+    <View
+      style={[componentStyles.divider, { borderColor: theme.divider }, style]}
+    />
+  )
 }
 
 const componentStyles = StyleSheet.create({
@@ -15,7 +20,6 @@ const componentStyles = StyleSheet.create({
     width: '100%',
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderStyle: 'solid',
-    borderColor: theme.colors.light.divider,
     marginVertical: baseSize(4),
   },
 })

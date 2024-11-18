@@ -11,7 +11,9 @@ import { Highlight } from '../highlight'
 import { AppText } from '../app-text'
 import { YStack } from '../y-stack'
 import { RadioButtonProps } from './types'
-import { baseSize, theme, baseFontSize } from '../../styles'
+import { baseSize, baseFontSize } from '../../styles'
+import { useTheme } from '../../features/theming'
+import { colors } from '../../features/theming'
 import { isIOS } from '../../utils'
 
 const TAP_AREA_SIZE = 40
@@ -39,6 +41,8 @@ export function RadioButton({
   onChecked,
   hint,
 }: RadioButtonProps) {
+  const { themeName, theme } = useTheme()
+
   if (isIOS()) {
     return (
       <Highlight
@@ -74,12 +78,16 @@ export function RadioButton({
         >
           <Highlight
             style={componentStyles.indicatorContainer}
-            rippleColor={theme.colors.brandAlpha}
+            rippleColor={
+              themeName === 'light'
+                ? colors.brandAlpha
+                : theme.rippleOnBackground
+            }
             onPress={() => onChecked(value)}
           >
             <MaterialIcons
               name={checked ? 'radio-button-checked' : 'radio-button-unchecked'}
-              color={theme.colors.brand}
+              color={themeName === 'light' ? colors.brand : theme.text}
               size={24}
             />
           </Highlight>

@@ -10,7 +10,9 @@ import {
 import { PropsWithChildren } from 'react'
 import { Highlight } from './highlight'
 import { isAndroid, isIOS } from '../utils'
-import { baseFontSize, theme } from '../styles'
+import { baseFontSize } from '../styles'
+import { colors } from '../features/theming'
+import { useTheme } from '../features/theming'
 import { IconNames, PlatformAdaptiveIcon } from './platform-adaptive-icon'
 
 export type PlatformAdaptiveButtonProps = Omit<
@@ -25,6 +27,10 @@ export type PlatformAdaptiveButtonProps = Omit<
 } & PropsWithChildren
 
 const IOS_SECONDARY_COLOR = '#dfebff'
+const ICON_SIZE = 18
+const IOS_HORIZONTAL_GUTTER = 16
+const ANDROID_HORIZONTAL_GUTTER = 24
+const primaryBackgroundColor = isIOS() ? PlatformColor('link') : colors.brand
 
 export function PlatformAdaptiveButton({
   variant = 'primary',
@@ -35,22 +41,24 @@ export function PlatformAdaptiveButton({
   style,
   hug = false,
 }: PlatformAdaptiveButtonProps) {
-  const primaryBackgroundColor = isIOS()
-    ? PlatformColor('link')
-    : theme.colors.brand
+  const { themeName, theme } = useTheme()
   const secondaryBackgroundColor = isIOS() ? IOS_SECONDARY_COLOR : undefined
-  const primaryTextColor = isIOS() ? theme.colors.white : theme.colors.onBrand
-  const primaryVariantColor = isIOS()
+  const primaryTextColor = isIOS() ? colors.white : colors.onBrand
+  const androidSecondaryTextColor =
+    themeName === 'light' ? colors.brand : theme.text
+  const secondaryTextColor = isIOS()
     ? PlatformColor('link')
-    : theme.colors.brand
+    : androidSecondaryTextColor
   const textColor =
-    variant === 'primary' ? primaryTextColor : primaryVariantColor
-  const IOS_HORIZONTAL_GUTTER = 16
-  const ANDROID_HORIZONTAL_GUTTER = 24
+    variant === 'primary' ? primaryTextColor : secondaryTextColor
+  const secondaryRippleColor =
+    themeName === 'light' ? colors.brandAlpha : theme.rippleOnBackground
+
   const IOS_HORIZONTAL_ICON_GUTTER = icon ? 12 : IOS_HORIZONTAL_GUTTER
   const ANDROID_HORIZONTAL_ICON_GUTTER = icon ? 12 : ANDROID_HORIZONTAL_GUTTER
-  const ICON_SIZE = 18
-  const androidSecondaryBorderColor = theme.colors.brand
+
+  const androidSecondaryBorderColor =
+    themeName === 'light' ? colors.brand : theme.text
 
   let backgroundColor = undefined
 
@@ -94,9 +102,7 @@ export function PlatformAdaptiveButton({
           },
         ]}
         rippleColor={
-          variant === 'primary'
-            ? theme.colors.rippleOnBrand
-            : theme.colors.brandAlpha
+          variant === 'primary' ? colors.rippleOnBrand : secondaryRippleColor
         }
         activeOpacity={0.7}
       >

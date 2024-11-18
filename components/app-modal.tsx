@@ -1,10 +1,11 @@
 import { ReactNode } from 'react'
 import { Modal, View, ScrollView, StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { theme, wrapperGutter, shadowMedium } from '../styles'
+import { wrapperGutter, shadowMedium } from '../styles'
 import { Card } from './card'
 import { Highlight } from './highlight'
 import { PlatformAdaptiveIcon } from './platform-adaptive-icon'
+import { useTheme } from '../features/theming'
 
 export interface AppModalProps {
   isVisible: boolean
@@ -17,6 +18,8 @@ export interface AppModalProps {
  * that will get rendered inside of a `<Card />`.
  */
 export function AppModal({ isVisible, children, onCancel }: AppModalProps) {
+  const { theme } = useTheme()
+
   return (
     // https://reactnative.dev/docs/modal
     <Modal
@@ -33,12 +36,14 @@ export function AppModal({ isVisible, children, onCancel }: AppModalProps) {
               something like <IconButton /> where the background
               and the icon are configurable. For now it's only used here so it's OK.
            */}
-          <View style={componentStyles.closeButtonCircle}>
+          <View
+            style={[
+              componentStyles.closeButtonCircle,
+              { backgroundColor: theme.background },
+            ]}
+          >
             <Highlight style={componentStyles.closeButton} onPress={onCancel}>
-              <PlatformAdaptiveIcon
-                name="close"
-                color={theme.colors.light.text}
-              />
+              <PlatformAdaptiveIcon name="close" color={theme.text} />
             </Highlight>
           </View>
         </View>
@@ -56,7 +61,13 @@ export function AppModal({ isVisible, children, onCancel }: AppModalProps) {
           Maybe we can add this only for larger screens (eg. tablets) on a small phone it would just result in the
           user accidentally closing the modal by tapping outside or scrolling.
        */}
-      <View style={[componentStyles.backdrop, StyleSheet.absoluteFill]} />
+      <View
+        style={[
+          componentStyles.backdrop,
+          StyleSheet.absoluteFill,
+          { backgroundColor: theme.backdrop },
+        ]}
+      />
     </Modal>
   )
 }
@@ -65,7 +76,6 @@ const CLOSE_BUTTON_SIZE = 40
 
 const componentStyles = StyleSheet.create({
   backdrop: {
-    backgroundColor: theme.colors.light.backdrop,
     zIndex: 1,
   },
   container: {
@@ -81,7 +91,6 @@ const componentStyles = StyleSheet.create({
     padding: wrapperGutter,
   },
   closeButtonCircle: {
-    backgroundColor: theme.colors.light.background,
     width: CLOSE_BUTTON_SIZE,
     height: CLOSE_BUTTON_SIZE,
     borderRadius: CLOSE_BUTTON_SIZE,

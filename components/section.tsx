@@ -1,6 +1,7 @@
 import { PropsWithChildren, ReactNode } from 'react'
 import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native'
-import { wrapperGutter, theme, baseSize } from '../styles'
+import { wrapperGutter, baseSize } from '../styles'
+import { useTheme } from '../features/theming'
 import type { AppTitleProps } from './app-title'
 import { AppTitle } from './app-title'
 
@@ -18,13 +19,15 @@ export function Section({
   title,
   titleProps,
 }: SectionProps) {
+  const { theme } = useTheme()
+
   return (
     <View
       style={[
         componentStyles.section,
         {
           borderBottomWidth: !isLast ? StyleSheet.hairlineWidth : undefined,
-          borderBottomColor: !isLast ? theme.colors.light.divider : undefined,
+          borderBottomColor: !isLast ? theme.divider : undefined,
         },
         style,
       ]}

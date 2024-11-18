@@ -3,11 +3,10 @@ import {
   View,
   StyleSheet,
   GestureResponderEvent,
-  PlatformColor,
 } from 'react-native'
 import { Highlight } from './highlight'
-import { wrapperGutter, theme, baseSize } from '../styles'
-import { isIOS } from '../utils'
+import { wrapperGutter, baseSize } from '../styles'
+import { useTheme } from '../features/theming'
 
 export type ListItemProps = ViewProps & {
   isFirst?: boolean
@@ -15,11 +14,13 @@ export type ListItemProps = ViewProps & {
 }
 
 export function ListItem({ style, children, isFirst, onPress }: ListItemProps) {
+  const { theme } = useTheme()
   return (
     <View
       style={[
         componentStyles.listItem,
         { borderTopWidth: isFirst ? undefined : StyleSheet.hairlineWidth },
+        { borderTopColor: theme.divider },
         style,
       ]}
     >
@@ -38,9 +39,6 @@ const componentStyles = StyleSheet.create({
   listItem: {
     paddingHorizontal: wrapperGutter,
     paddingVertical: baseSize(),
-    borderTopColor: isIOS()
-      ? PlatformColor('separator')
-      : theme.colors.light.divider,
   },
   insideBox: {
     padding: baseSize(),

@@ -1,3 +1,5 @@
+import type { ThemeOptions } from './types'
+
 export const themeOptions = [
   {
     label: 'System',
@@ -13,3 +15,6 @@ export const themeOptions = [
     value: 'dark',
   },
 ]
+
+export const STORAGE_KEY = 'theme_setting'
+export const DEFAULT_SETTING = 'system' as ThemeOptions

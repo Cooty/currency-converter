@@ -8,8 +8,8 @@ import {
   ViewStyle,
 } from 'react-native'
 import { PropsWithChildren } from 'react'
-import { theme } from '../styles'
 import { isAndroid } from '../utils'
+import { useTheme } from '../features/theming'
 
 export type HighlightProps = {
   onPress?: (cur: GestureResponderEvent) => void
@@ -27,8 +27,8 @@ export function Highlight({
 }: HighlightProps) {
   const SUPPORTS_NATIVE_FEEDBACK = isAndroid() && Number(Platform.Version) >= 21
   const defaultHitSlop = { top: 15, bottom: 15, right: 15, left: 15 }
-  const androidRippleColor =
-    rippleColor ?? theme.colors.light.rippleOnBackground
+  const { theme } = useTheme()
+  const androidRippleColor = rippleColor ?? theme.rippleOnBackground
 
   if (SUPPORTS_NATIVE_FEEDBACK) {
     return (

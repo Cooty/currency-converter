@@ -1,5 +1,6 @@
 import { StyleSheet, StyleProp, TextStyle } from 'react-native'
-import { baseSize, baseFontSize, theme, underlinedText } from '../../../styles'
+import { baseSize, baseFontSize, underlinedText } from '../../../styles'
+import { useTheme } from '../../../features/theming'
 import { unixTimeStampToLocalDateTime } from '../../../utils'
 import {
   XStack,
@@ -17,10 +18,12 @@ export function Disclaimer({
   dateOfExchangeRate,
   onPressDisclaimer,
 }: DisclaimerProps) {
+  const { theme } = useTheme()
+
   return (
     <XStack style={componentStyles.row}>
       <AppText
-        style={componentStyles.text}
+        style={[componentStyles.text, { color: theme.textSecondary }]}
         numberOfLines={1}
         variant="secondary"
       >
@@ -36,7 +39,7 @@ export function Disclaimer({
           <PlatformAdaptiveIcon
             name="info"
             size={20}
-            color={theme.colors.light.textSecondary}
+            color={theme.textSecondary}
           />
           <AppText
             variant="secondary"
@@ -58,7 +61,6 @@ const componentStyles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    color: theme.colors.light.textSecondary,
     ...baseFontSize(-1, true),
   },
   iconAndText: {

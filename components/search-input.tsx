@@ -9,7 +9,8 @@ import {
 import { PlatformAdaptiveIcon } from './platform-adaptive-icon'
 import { Highlight } from './highlight'
 import { isAndroid, isIOS } from '../utils'
-import { baseFontSize, theme, baseSize } from '../styles'
+import { baseFontSize, tokens, baseSize } from '../styles'
+import { colors, useTheme } from '../features/theming'
 
 export type SearchInputProps = TextInputProps & {
   onCancel: () => void
@@ -38,6 +39,7 @@ export const SearchInput = forwardRef(function SearchInput(
   { onChangeText, onCancel, ...props }: SearchInputProps,
   ref
 ) {
+  const { theme } = useTheme()
   const [hasValue, setHasValue] = useState(props.value ? true : false)
   const onChangeTextHandler = (text: string) => {
     if (onChangeText) {
@@ -65,7 +67,7 @@ export const SearchInput = forwardRef(function SearchInput(
     <View style={componentStyles.outerContainer}>
       <View style={componentStyles.backButtonContainer}>
         <Highlight
-          rippleColor={theme.colors.rippleOnBrand}
+          rippleColor={colors.rippleOnBrand}
           style={componentStyles.backButton}
           onPress={exitSearch}
         >
@@ -73,14 +75,14 @@ export const SearchInput = forwardRef(function SearchInput(
             <PlatformAdaptiveIcon
               name="back"
               isPlatformAdaptive={false}
-              color={theme.colors.onBrand}
+              color={colors.onBrand}
               size={backButtonIconSize}
             />
           ) : (
             <PlatformAdaptiveIcon
               name="x"
               isPlatformAdaptive={false}
-              color={theme.colors.onBrand}
+              color={colors.onBrand}
               size={backButtonIconSize}
             />
           )}
@@ -107,11 +109,18 @@ export const SearchInput = forwardRef(function SearchInput(
           autoCorrect={false}
           autoComplete="off"
           returnKeyType="search"
-          style={componentStyles.input}
-          cursorColor={theme.colors.onBrand}
+          style={[
+            componentStyles.input,
+            {
+              borderColor: theme.divider,
+              backgroundColor: isAndroid() ? undefined : theme.background,
+              color: isAndroid() ? colors.onBrand : theme.text,
+            },
+          ]}
+          cursorColor={colors.onBrand}
           onChangeText={onChangeTextHandler}
           placeholderTextColor={
-            isAndroid() ? theme.colors.onBrandSecondary : undefined
+            isAndroid() ? colors.onBrandSecondary : theme.textSecondary
           }
           ref={ref as LegacyRef<TextInput>}
         />
@@ -126,7 +135,7 @@ export const SearchInput = forwardRef(function SearchInput(
               <PlatformAdaptiveIcon
                 name="close"
                 size={isAndroid() ? androidIconSize : iOSClearIconSize}
-                color={isAndroid() ? theme.colors.onBrand : iOSClearIconColor}
+                color={isAndroid() ? colors.onBrand : iOSClearIconColor}
               />
             </Pressable>
           </View>
@@ -139,11 +148,8 @@ export const SearchInput = forwardRef(function SearchInput(
 const componentStyles = StyleSheet.create({
   input: {
     width: '100%',
-    borderColor: theme.colors.light.divider,
     borderWidth: isAndroid() ? undefined : 1,
-    color: isAndroid() ? theme.colors.onBrand : undefined,
-    borderRadius: isAndroid() ? undefined : theme.defaultRadius / 2,
-    backgroundColor: isAndroid() ? undefined : theme.colors.light.background,
+    borderRadius: isAndroid() ? undefined : tokens.defaultRadius / 2,
     paddingEnd: isIOS() ? iOSPaddingEnd : androidPaddingEnd,
     paddingStart: isIOS() ? iOSPaddingStart : androidPaddingStart,
     paddingVertical: baseSize(2),

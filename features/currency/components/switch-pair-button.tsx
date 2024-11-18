@@ -1,5 +1,6 @@
 import { View, Pressable, Animated, StyleSheet } from 'react-native'
-import { theme, baseSize } from '../../../styles'
+import { baseSize } from '../../../styles'
+import { colors } from '../../theming'
 import { isIOS } from '../../../utils'
 import { PlatformAdaptiveIcon } from '../../../components'
 import { useState, useRef, useEffect } from 'react'
@@ -54,7 +55,7 @@ export function SwitchPairButton({
           onSwitch()
         }}
         android_ripple={{
-          color: theme.colors.rippleOnBrand,
+          color: colors.rippleOnBrand,
           radius: 25,
         }}
         style={({ pressed }) => [
@@ -67,7 +68,7 @@ export function SwitchPairButton({
         <Animated.View style={{ transform: [{ rotate: iconSpin }] }}>
           <PlatformAdaptiveIcon
             name="convert"
-            color={isIOS() ? undefined : theme.colors.onBrand}
+            color={isIOS() ? undefined : colors.onBrand}
             size={baseSize(6)}
           />
         </Animated.View>
@@ -83,7 +84,7 @@ const componentStyles = StyleSheet.create({
     alignItems: 'center',
   },
   switchCurrencyPairButton: {
-    backgroundColor: isIOS() ? 'rgba(0, 0, 0, 0)' : theme.colors.brand,
+    backgroundColor: isIOS() ? 'rgba(0, 0, 0, 0)' : colors.brand,
     width: SWITCH_CURRENCY_BUTTON_SIZE,
     height: SWITCH_CURRENCY_BUTTON_SIZE,
     borderRadius: 10,

@@ -1,15 +1,26 @@
 import { View, ViewProps, StyleSheet } from 'react-native'
-import { theme, wrapperGutter, baseSize } from '../styles'
+import { wrapperGutter, baseSize } from '../styles'
+import { useTheme } from '../features/theming'
 
 export function Container({ style, children }: ViewProps) {
-  return <View style={[componentStyles.container, style]}>{children}</View>
+  const { theme } = useTheme()
+  return (
+    <View
+      style={[
+        componentStyles.container,
+        { backgroundColor: theme.background },
+        style,
+      ]}
+    >
+      {children}
+    </View>
+  )
 }
 
 const componentStyles = StyleSheet.create({
   container: {
     flex: 1,
     padding: wrapperGutter,
-    backgroundColor: theme.colors.light.background,
     gap: baseSize(5),
   },
 })

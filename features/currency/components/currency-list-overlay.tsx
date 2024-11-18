@@ -10,7 +10,8 @@ import {
   TextInput,
 } from 'react-native'
 import { useHeaderHeight } from '@react-navigation/elements'
-import { wrapperGutter, theme } from '../../../styles'
+import { wrapperGutter } from '../../../styles'
+import { colors, useTheme } from '../../theming'
 import { SearchInput } from '../../../components/'
 import { isIOS, isAndroid } from '../../../utils'
 import { Currency } from '../model'
@@ -33,6 +34,7 @@ export function CurrencyListOverlay({
   onShow,
 }: CurrencyListOverlayProps) {
   const headerHeight = useHeaderHeight()
+  const { theme } = useTheme()
   const [searchValue, setSearchValue] = useState('')
   const currencies = useCurrencies()
   const sortedCurrencies =
@@ -68,7 +70,12 @@ export function CurrencyListOverlay({
         onShow?.()
       }}
     >
-      <SafeAreaView style={componentStyles.modalInner}>
+      <SafeAreaView
+        style={[
+          componentStyles.modalInner,
+          { backgroundColor: theme.background },
+        ]}
+      >
         <KeyboardAvoidingView
           behavior={isIOS() ? 'height' : undefined}
           style={componentStyles.modalInner}
@@ -78,6 +85,7 @@ export function CurrencyListOverlay({
               componentStyles.modalHeader,
               {
                 height: headerHeight,
+                borderColor: theme.divider,
               },
             ]}
           >
@@ -123,9 +131,8 @@ const componentStyles = StyleSheet.create({
   modalHeader: {
     paddingHorizontal: wrapperGutter,
     justifyContent: 'center',
-    borderColor: theme.colors.light.divider,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    backgroundColor: theme.colors.brand,
+    backgroundColor: colors.brand,
   },
   scrollableContent: {
     flex: 1,
