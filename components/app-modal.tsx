@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import { Modal, View, ScrollView, StyleSheet } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { wrapperGutter, shadowMedium } from '../styles'
 import { Card } from './card'
 import { Highlight } from './highlight'
@@ -19,6 +19,7 @@ export interface AppModalProps {
  */
 export function AppModal({ isVisible, children, onCancel }: AppModalProps) {
   const { theme } = useTheme()
+  const { top } = useSafeAreaInsets()
 
   return (
     // https://reactnative.dev/docs/modal
@@ -28,9 +29,9 @@ export function AppModal({ isVisible, children, onCancel }: AppModalProps) {
       animationType="fade"
       transparent
     >
-      <SafeAreaView style={componentStyles.container}>
+      <View style={componentStyles.container}>
         {/* Container for the close button (maybe a title if we ever want one) */}
-        <View style={componentStyles.header}>
+        <View style={[componentStyles.header, { paddingTop: top }]}>
           {/* Close button
               Might want to pull this out to it's own component,
               something like <IconButton /> where the background
@@ -43,7 +44,7 @@ export function AppModal({ isVisible, children, onCancel }: AppModalProps) {
             ]}
           >
             <Highlight style={componentStyles.closeButton} onPress={onCancel}>
-              <PlatformAdaptiveIcon name="close" color={theme.text} />
+              <PlatformAdaptiveIcon name="x" color={theme.text} />
             </Highlight>
           </View>
         </View>
@@ -56,7 +57,7 @@ export function AppModal({ isVisible, children, onCancel }: AppModalProps) {
             <Card.Body>{children}</Card.Body>
           </Card>
         </ScrollView>
-      </SafeAreaView>
+      </View>
       {/* Backdrop layer, it's absolutely positioned layer so we can attach the close action to it.
           Maybe we can add this only for larger screens (eg. tablets) on a small phone it would just result in the
           user accidentally closing the modal by tapping outside or scrolling.
