@@ -6,6 +6,7 @@
     "orientation": "default",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
     "jsEngine": "hermes",
     "splash": {
       "image": "./assets/splash.png",
