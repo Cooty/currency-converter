@@ -1,5 +1,5 @@
 {
-  "name": "currency-converter",
+  "name": "easy-currency-converter",
   "version": "1.0.0",
   "main": "./app.tsx",
   "scripts": {
