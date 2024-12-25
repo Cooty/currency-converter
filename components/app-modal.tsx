@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import { Modal, View, ScrollView, StyleSheet } from 'react-native'
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { wrapperGutter, shadowMedium } from '../styles'
 import { Card } from './card'
 import { Highlight } from './highlight'
@@ -20,7 +20,6 @@ export interface AppModalProps {
 export function AppModal({ isVisible, children, onCancel }: AppModalProps) {
   const { theme } = useTheme()
   const { top } = useSafeAreaInsets()
-  console.log(top)
 
   return (
     // https://reactnative.dev/docs/modal
