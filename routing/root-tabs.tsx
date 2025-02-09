@@ -1,4 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { PlatformAdaptiveIcon } from '../components'
 import { ConvertScreen, FavoritesScreen, SettingsScreen } from '../screens'
@@ -11,12 +12,15 @@ const Tab = createBottomTabNavigator<RootTabsParamList>()
 export function RootTabs() {
   const defaultCurrencyCodes = useDefaultCurrencyCodes()
   const { theme, themeName } = useTheme()
+  const { bottom } = useSafeAreaInsets()
 
   return (
     <NavigationContainer>
       <Tab.Navigator
         initialRouteName="Convert"
         screenOptions={{
+          tabBarAllowFontScaling: true,
+          animation: 'fade',
           headerStyle: {
             backgroundColor: colors.brand,
           },
@@ -28,6 +32,10 @@ export function RootTabs() {
           tabBarInactiveTintColor: theme.textSecondary,
           tabBarStyle: {
             backgroundColor: theme.background,
+            height: 70 + bottom,
+          },
+          tabBarItemStyle: {
+            paddingTop: 10,
           },
         }}
       >
