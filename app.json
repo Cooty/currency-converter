@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Easy Currency Converter",
+    "name": "Currency Converter",
     "slug": "easy-currency-converter",
     "version": "1.0.0",
     "orientation": "default",
@@ -8,23 +8,25 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "jsEngine": "hermes",
+    "primaryColor": "#002395",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#002395"
     },
     "assetBundlePatterns": ["**/*"],
+    "platforms": ["ios", "android"],
+    "githubUrl": "https://github.com/Cooty/currency-converter",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.cooty.easyCurrencyConverter"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
+        "backgroundColor": "#002395"
+      },
+      "package": "com.cooty.easyCurrencyConverter"
     },
     "extra": {
       "eas": {
