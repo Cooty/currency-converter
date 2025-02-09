@@ -2,6 +2,7 @@ import { registerRootComponent } from 'expo'
 import { useEffect, useState, useCallback } from 'react'
 import { View, StyleSheet } from 'react-native'
 import * as SplashScreen from 'expo-splash-screen'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { RootTabs } from './routing'
 import {
   getCurrencies,
@@ -61,21 +62,23 @@ function App() {
 
   return (
     <View style={componentStyles.root} onLayout={onLayoutRootView}>
-      <ThemeProvider initialThemeSetting={initialThemeSetting}>
-        <ErrorBoundary>
-          {error ? (
-            <ErrorScreen message={error} />
-          ) : (
-            <CurrencyContext.Provider
-              value={currencies ? currencies.data : undefined}
-            >
-              <StoredExchangeRateContextProvider>
-                <RootTabs />
-              </StoredExchangeRateContextProvider>
-            </CurrencyContext.Provider>
-          )}
-        </ErrorBoundary>
-      </ThemeProvider>
+      <SafeAreaProvider>
+        <ThemeProvider initialThemeSetting={initialThemeSetting}>
+          <ErrorBoundary>
+            {error ? (
+              <ErrorScreen message={error} />
+            ) : (
+              <CurrencyContext.Provider
+                value={currencies ? currencies.data : undefined}
+              >
+                <StoredExchangeRateContextProvider>
+                  <RootTabs />
+                </StoredExchangeRateContextProvider>
+              </CurrencyContext.Provider>
+            )}
+          </ErrorBoundary>
+        </ThemeProvider>
+      </SafeAreaProvider>
     </View>
   )
 }
