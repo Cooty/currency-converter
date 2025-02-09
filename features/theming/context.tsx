@@ -9,10 +9,7 @@ import { useColorScheme } from 'react-native'
 import type { ThemeNames, ThemeOptions } from './types'
 import { colors, ThemeType } from './colors'
 import { DEFAULT_SETTING } from './constants'
-import {
-  DEFAULT_SETTING as DEFAULT_THEME_SETTING,
-  saveThemeSetting,
-} from '../theming'
+import { saveThemeSetting } from './utils'
 
 interface ThemeContextValue {
   themeSetting: ThemeOptions
@@ -46,7 +43,7 @@ export function ThemeProvider({
   initialThemeSetting,
 }: ThemeProviderProps) {
   const [themeSetting, setThemeSetting] = useState(
-    initialThemeSetting ?? DEFAULT_THEME_SETTING
+    initialThemeSetting ?? DEFAULT_SETTING
   )
   const [themeName, setThemeName] = useState('light' as ThemeNames)
   const systemThemeSetting = useColorScheme()
