@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet } from 'react-native'
 import { Section, RadioGroup } from '../../../../components'
 import {
@@ -39,7 +39,9 @@ export function DefaultCurrencySettings(props: SectionPropsWithoutTitle) {
   return (
     <>
       <Section title="Default currency pair" {...props}>
-        <LeadText>What to show when opening the app?</LeadText>
+        <LeadText style={{ marginBottom: baseSize(3) }}>
+          What to show when opening the app?
+        </LeadText>
         <RadioGroup
           options={[
             { label: 'Default currency pair', value: 'default' },
@@ -87,6 +89,7 @@ export function DefaultCurrencySettings(props: SectionPropsWithoutTitle) {
 
 const componentStyles = StyleSheet.create({
   verticalSpacingBlock: {
-    marginTop: baseSize(3),
+    marginTop: baseSize(5),
+    marginBottom: baseSize(3),
   },
 })

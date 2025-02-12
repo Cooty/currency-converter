@@ -1,9 +1,16 @@
 import { PropsWithChildren, ReactNode } from 'react'
-import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native'
+import {
+  View,
+  StyleSheet,
+  StyleProp,
+  ViewStyle,
+  useWindowDimensions,
+} from 'react-native'
 import { wrapperGutter, baseSize } from '../styles'
 import { useTheme } from '../features/theming'
 import type { AppTitleProps } from './app-title'
 import { AppTitle } from './app-title'
+import { useSafeAreaGutter } from '../hooks'
 
 export type SectionProps = PropsWithChildren & {
   title?: ReactNode
@@ -20,6 +27,11 @@ export function Section({
   titleProps,
 }: SectionProps) {
   const { theme } = useTheme()
+  const safeAreaGutter = useSafeAreaGutter()
+  const { width } = useWindowDimensions()
+  const wrapperHorizontalGutter =
+    width > 400 ? wrapperGutter * 2 : wrapperGutter
+  const wrapperVerticalGutter = wrapperGutter * 2
 
   return (
     <View
@@ -28,6 +40,8 @@ export function Section({
         {
           borderBottomWidth: !isLast ? StyleSheet.hairlineWidth : undefined,
           borderBottomColor: !isLast ? theme.divider : undefined,
+          paddingHorizontal: safeAreaGutter + wrapperHorizontalGutter,
+          paddingVertical: wrapperVerticalGutter,
         },
         style,
       ]}
@@ -35,7 +49,7 @@ export function Section({
       {title && (
         <AppTitle
           priority={2}
-          style={{ marginBottom: baseSize(1) }}
+          style={{ marginBottom: baseSize(4) }}
           {...titleProps}
         >
           {title}

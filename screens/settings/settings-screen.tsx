@@ -27,7 +27,8 @@ export function SettingsScreen() {
 
 const componentStyles = StyleSheet.create({
   container: {
-    padding: 0,
+    paddingHorizontal: 0,
+    paddingVertical: 0,
   },
   scrollView: {
     flex: 1,

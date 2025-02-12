@@ -1,14 +1,14 @@
-import { useEffect, useRef, RefObject } from 'react'
-import { useState } from 'react'
+import { useState, useEffect, useRef, RefObject } from 'react'
 import {
   View,
   KeyboardAvoidingView,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   Modal,
   TextInput,
+  useWindowDimensions,
 } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import { useHeaderHeight } from '@react-navigation/elements'
 import { wrapperGutter } from '../../../styles'
 import { colors, useTheme } from '../../theming'
@@ -19,6 +19,7 @@ import { CurrencyListItem } from './currency-list-item'
 import { filterCurrencies } from '../utils'
 import { useCurrencies } from '../context'
 import { getAllCurrenciesAsArraySortedAlphabetically } from '../utils'
+import { useSafeAreaGutter } from '../../../hooks'
 
 export interface CurrencyListOverlayProps {
   isVisible: boolean
@@ -42,6 +43,10 @@ export function CurrencyListOverlay({
   const [filteredCurrencies, setFilteredCurrencies] =
     useState<Currency[]>(sortedCurrencies)
   const searchInputRef: RefObject<TextInput> = useRef(null)
+  const safeAreaGutter = useSafeAreaGutter()
+  const { width } = useWindowDimensions()
+  const wrapperHorizontalGutter =
+    width > 400 ? wrapperGutter * 2 : wrapperGutter
 
   useEffect(() => {
     if (searchValue.length !== 0) {
@@ -73,8 +78,11 @@ export function CurrencyListOverlay({
       <SafeAreaView
         style={[
           componentStyles.modalInner,
-          { backgroundColor: theme.background },
+          {
+            backgroundColor: theme.background,
+          },
         ]}
+        edges={['top', 'bottom']}
       >
         <KeyboardAvoidingView
           behavior={isIOS() ? 'height' : undefined}
@@ -86,6 +94,7 @@ export function CurrencyListOverlay({
               {
                 height: headerHeight,
                 borderColor: theme.divider,
+                paddingHorizontal: wrapperHorizontalGutter + safeAreaGutter,
               },
             ]}
           >
@@ -129,7 +138,6 @@ const componentStyles = StyleSheet.create({
     width: '100%',
   },
   modalHeader: {
-    paddingHorizontal: wrapperGutter,
     justifyContent: 'center',
     borderBottomWidth: StyleSheet.hairlineWidth,
     backgroundColor: colors.brand,

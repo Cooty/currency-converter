@@ -60,7 +60,7 @@ const componentStyles = StyleSheet.create({
       ios: {
         borderBottomWidth: 1,
         paddingHorizontal: wrapperGutter,
-        paddingVertical: baseSize(),
+        paddingVertical: baseSize(2),
       },
     }),
   },

@@ -1,9 +1,8 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   StyleSheet,
   View,
   useWindowDimensions,
-  TouchableWithoutFeedback,
   Keyboard,
   Pressable,
 } from 'react-native'
@@ -147,6 +146,7 @@ export function ConvertScreen({ route }: ConvertScreenProps) {
               componentStyles.centeredColumn,
               {
                 flexDirection: isLandscape ? 'row-reverse' : 'column',
+                columnGap: isLandscape ? wrapperGutter : 0,
                 maxWidth: isLandscape ? 960 : 640,
               },
             ]}
@@ -154,7 +154,7 @@ export function ConvertScreen({ route }: ConvertScreenProps) {
             {/* Converter form */}
             <View
               style={{
-                flex: isLandscape ? 4 : undefined,
+                flex: isLandscape ? 6 : undefined,
                 justifyContent: isLandscape ? 'center' : 'flex-start',
               }}
             >
@@ -190,7 +190,7 @@ export function ConvertScreen({ route }: ConvertScreenProps) {
               style={{
                 alignItems: isLandscape ? 'flex-start' : 'center',
                 justifyContent: isLandscape ? 'center' : 'flex-start',
-                flex: isLandscape ? 6 : 1,
+                flex: isLandscape ? 4 : 1,
                 paddingTop: isLandscape ? 0 : baseSize(5),
               }}
             >
@@ -226,7 +226,6 @@ export function ConvertScreen({ route }: ConvertScreenProps) {
                       flex: isLandscape ? undefined : 1,
                       width: isLandscape ? '100%' : '70%',
                       justifyContent: isLandscape ? 'flex-start' : 'flex-end',
-                      flexDirection: isLandscape ? 'row' : 'column',
                     },
                     componentStyles.additionalActions,
                   ]}
@@ -237,12 +236,12 @@ export function ConvertScreen({ route }: ConvertScreenProps) {
                       target={targetCurrency}
                       exchangeRate={exchangeRate}
                       retrievedAt={exchangeRateDatetime}
-                      style={isLandscape ? { width: 'auto' } : undefined}
+                      style={isLandscape ? { flexDirection: 'row' } : undefined}
                     />
                   )}
 
                   <History
-                    style={isLandscape ? { width: 'auto' } : undefined}
+                    style={isLandscape ? { flexDirection: 'row' } : undefined}
                   />
                 </View>
               )}

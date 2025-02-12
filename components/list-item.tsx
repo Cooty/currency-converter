@@ -3,9 +3,11 @@ import {
   View,
   StyleSheet,
   GestureResponderEvent,
+  useWindowDimensions,
 } from 'react-native'
 import { Highlight } from './highlight'
 import { wrapperGutter, baseSize } from '../styles'
+import { useSafeAreaGutter } from '../hooks'
 import { useTheme } from '../features/theming'
 
 export type ListItemProps = ViewProps & {
@@ -15,12 +17,20 @@ export type ListItemProps = ViewProps & {
 
 export function ListItem({ style, children, isFirst, onPress }: ListItemProps) {
   const { theme } = useTheme()
+  const safeAreaGutter = useSafeAreaGutter()
+  const { width } = useWindowDimensions()
+  const wrapperHorizontalGutter =
+    width > 400 ? wrapperGutter * 2 : wrapperGutter
+
   return (
     <View
       style={[
         componentStyles.listItem,
-        { borderTopWidth: isFirst ? undefined : StyleSheet.hairlineWidth },
-        { borderTopColor: theme.divider },
+        {
+          borderTopWidth: isFirst ? undefined : StyleSheet.hairlineWidth,
+          paddingHorizontal: wrapperHorizontalGutter + safeAreaGutter,
+          borderTopColor: theme.divider,
+        },
         style,
       ]}
     >
@@ -37,8 +47,7 @@ export function ListItem({ style, children, isFirst, onPress }: ListItemProps) {
 
 const componentStyles = StyleSheet.create({
   listItem: {
-    paddingHorizontal: wrapperGutter,
-    paddingVertical: baseSize(),
+    paddingVertical: baseSize(2),
   },
   insideBox: {
     padding: baseSize(),

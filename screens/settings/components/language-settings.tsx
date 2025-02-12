@@ -1,6 +1,6 @@
+import { useState } from 'react'
 import { Section, RadioGroup } from '../../../components'
 import { localeOptions } from '../../../features/i18n'
-import { useState } from 'react'
 import { SectionPropsWithoutTitle } from './types'
 
 export function LanguageSettings(props: SectionPropsWithoutTitle) {
