@@ -1,11 +1,5 @@
 import { useState, forwardRef, LegacyRef } from 'react'
-import {
-  TextInput,
-  TextInputProps,
-  StyleSheet,
-  View,
-  Pressable,
-} from 'react-native'
+import { TextInput, TextInputProps, StyleSheet, View } from 'react-native'
 import { PlatformAdaptiveIcon } from './platform-adaptive-icon'
 import { Highlight } from './highlight'
 import { isAndroid, isIOS } from '../utils'

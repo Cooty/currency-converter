@@ -1,5 +1,6 @@
-import { View, Pressable, Animated, StyleSheet } from 'react-native'
-import { baseSize } from '../../../styles'
+import { View, Animated, StyleSheet, Platform } from 'react-native'
+import { Highlight } from '../../../components'
+import { baseSize, tokens } from '../../../styles'
 import { colors } from '../../theming'
 import { isIOS } from '../../../utils'
 import { PlatformAdaptiveIcon } from '../../../components'
@@ -49,45 +50,51 @@ export function SwitchPairButton({
 
   return (
     <View style={componentStyles.buttonContainer}>
-      <Pressable
-        onPress={() => {
-          setIsIconReversed(!isIconReversed)
-          onSwitch()
-        }}
-        android_ripple={{
-          color: colors.rippleOnBrand,
-          radius: 25,
-        }}
-        style={({ pressed }) => [
-          {
-            opacity: pressed && isIOS() ? 0.7 : undefined,
-          },
-          componentStyles.switchCurrencyPairButton,
-        ]}
-      >
-        <Animated.View style={{ transform: [{ rotate: iconSpin }] }}>
-          <PlatformAdaptiveIcon
-            name="convert"
-            color={isIOS() ? undefined : colors.onBrand}
-            size={baseSize(6)}
-          />
-        </Animated.View>
-      </Pressable>
+      <View style={componentStyles.androidRippleCrop}>
+        <Highlight
+          onPress={() => {
+            setIsIconReversed(!isIconReversed)
+            onSwitch()
+          }}
+          style={componentStyles.switchCurrencyPairButton}
+        >
+          <Animated.View style={{ transform: [{ rotate: iconSpin }] }}>
+            <PlatformAdaptiveIcon
+              name="convert"
+              color={isIOS() ? undefined : colors.onBrand}
+              size={baseSize(6)}
+            />
+          </Animated.View>
+        </Highlight>
+      </View>
     </View>
   )
 }
 
-const SWITCH_CURRENCY_BUTTON_SIZE = 40
+const SWITCH_CURRENCY_BUTTON_SIZE = isIOS()
+  ? tokens.iosMinTapArea
+  : tokens.androidMinTapArea
+const BORDER_RADIUS = tokens.defaultRadius / 2
 
 const componentStyles = StyleSheet.create({
   buttonContainer: {
     alignItems: 'center',
   },
+  androidRippleCrop: {
+    ...Platform.select({
+      android: {
+        width: SWITCH_CURRENCY_BUTTON_SIZE,
+        height: SWITCH_CURRENCY_BUTTON_SIZE,
+        overflow: 'hidden',
+        borderRadius: BORDER_RADIUS,
+      },
+    }),
+  },
   switchCurrencyPairButton: {
     backgroundColor: isIOS() ? 'rgba(0, 0, 0, 0)' : colors.brand,
     width: SWITCH_CURRENCY_BUTTON_SIZE,
     height: SWITCH_CURRENCY_BUTTON_SIZE,
-    borderRadius: 10,
+    borderRadius: BORDER_RADIUS,
     justifyContent: 'center',
     alignItems: 'center',
   },
