@@ -31,7 +31,9 @@ const iOSPaddingStart =
 const androidClearEnd = 0
 const androidPaddingEnd = 0
 const androidPaddingStart = 0
-const backButtonSize = baseSize(10)
+const backButtonSize = isAndroid()
+  ? tokens.androidMinTapArea
+  : tokens.iosMinTapArea
 const backButtonIconSize = isAndroid() ? 24 : 20
 const backButtonOffset = ((backButtonSize - backButtonIconSize) / 2) * -1
 
@@ -131,13 +133,16 @@ export const SearchInput = forwardRef(function SearchInput(
               componentStyles.clearButtonContainer,
             ]}
           >
-            <Pressable onPress={onClearHandler}>
+            <Highlight
+              onPress={onClearHandler}
+              style={componentStyles.clearButton}
+            >
               <PlatformAdaptiveIcon
                 name="close"
                 size={isAndroid() ? androidIconSize : iOSClearIconSize}
                 color={isAndroid() ? colors.onBrand : iOSClearIconColor}
               />
-            </Pressable>
+            </Highlight>
           </View>
         )}
       </View>
@@ -148,6 +153,7 @@ export const SearchInput = forwardRef(function SearchInput(
 const componentStyles = StyleSheet.create({
   input: {
     width: '100%',
+    height: isAndroid() ? tokens.androidMinTapArea : tokens.iosMinTapArea,
     borderWidth: isAndroid() ? undefined : 1,
     borderRadius: isAndroid() ? undefined : tokens.defaultRadius / 2,
     paddingEnd: isIOS() ? iOSPaddingEnd : androidPaddingEnd,
@@ -180,6 +186,14 @@ const componentStyles = StyleSheet.create({
   },
   clearButtonContainer: {
     end: isAndroid() ? androidClearEnd : iOSClearEnd,
+    borderRadius: isAndroid() ? tokens.androidMinTapArea : undefined,
+    overflow: isAndroid() ? 'hidden' : undefined,
+  },
+  clearButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: isAndroid() ? tokens.androidMinTapArea : tokens.iosMinTapArea,
+    height: isAndroid() ? tokens.androidMinTapArea : tokens.iosMinTapArea,
   },
   iOSSearchIconContainer: {
     start: iOSSearchIconStart,

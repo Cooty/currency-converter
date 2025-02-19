@@ -11,13 +11,13 @@ import { Highlight } from '../highlight'
 import { AppText } from '../app-text'
 import { YStack } from '../y-stack'
 import { RadioButtonProps } from './types'
-import { baseSize, baseFontSize } from '../../styles'
+import { baseSize, baseFontSize, tokens } from '../../styles'
 import { useTheme } from '../../features/theming'
 import { colors } from '../../features/theming'
 import { isIOS } from '../../utils'
 
-const TAP_AREA_SIZE = 44
-const TAP_AREA_SIZE_ANDROID = 48
+const TAP_AREA_SIZE = tokens.iosMinTapArea
+const TAP_AREA_SIZE_ANDROID = tokens.androidMinTapArea
 
 function LabelAndHint({
   label,
