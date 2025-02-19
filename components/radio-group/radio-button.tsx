@@ -16,7 +16,8 @@ import { useTheme } from '../../features/theming'
 import { colors } from '../../features/theming'
 import { isIOS } from '../../utils'
 
-const TAP_AREA_SIZE = 40
+const TAP_AREA_SIZE = 44
+const TAP_AREA_SIZE_ANDROID = 48
 
 function LabelAndHint({
   label,
@@ -70,9 +71,9 @@ export function RadioButton({
       >
         <View
           style={{
-            width: TAP_AREA_SIZE,
-            height: TAP_AREA_SIZE,
-            borderRadius: TAP_AREA_SIZE,
+            width: TAP_AREA_SIZE_ANDROID,
+            height: TAP_AREA_SIZE_ANDROID,
+            borderRadius: TAP_AREA_SIZE_ANDROID,
             overflow: 'hidden',
           }}
         >
@@ -112,8 +113,16 @@ const componentStyles = StyleSheet.create({
     }),
   },
   indicatorContainer: {
-    width: TAP_AREA_SIZE,
-    height: TAP_AREA_SIZE,
+    ...Platform.select({
+      ios: {
+        width: TAP_AREA_SIZE,
+        height: TAP_AREA_SIZE,
+      },
+      android: {
+        width: TAP_AREA_SIZE_ANDROID,
+        height: TAP_AREA_SIZE_ANDROID,
+      },
+    }),
     justifyContent: 'center',
     alignItems: 'center',
   },
