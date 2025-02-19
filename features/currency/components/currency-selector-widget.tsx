@@ -6,7 +6,7 @@ import {
   CurrencyInputProps,
 } from './currency-input/currency-input'
 import { CurrencyDisplay } from './currency-display'
-import { baseSize } from '../../../styles'
+import { baseSize, tokens } from '../../../styles'
 import { useTheme } from '../../theming'
 import { Card, Highlight, PlatformAdaptiveIcon } from '../../../components'
 import { isAndroid } from '../../../utils'
@@ -69,7 +69,13 @@ export function CurrencySelectorWidget({
         </Card.Body>
       )}
       <Card.Body style={componentStyles.selectContainer}>
-        <Highlight onPress={onSelect} style={componentStyles.select}>
+        <Highlight
+          onPress={onSelect}
+          style={[
+            componentStyles.select,
+            { paddingHorizontal: !hasAmount ? baseSize(2) : undefined },
+          ]}
+        >
           <CurrencyDisplay code={code} />
           <PlatformAdaptiveIcon
             name="select-arrows"
@@ -83,7 +89,7 @@ export function CurrencySelectorWidget({
 }
 
 const CARD_HORIZONTAL_PADDING = baseSize(2)
-const CARD_VERTICAL_PADDING = baseSize()
+const CARD_VERTICAL_PADDING = 0
 
 const componentStyles = StyleSheet.create({
   inputContainer: {
@@ -99,7 +105,7 @@ const componentStyles = StyleSheet.create({
     justifyContent: 'center',
   },
   select: {
-    padding: baseSize(),
+    height: isAndroid() ? tokens.androidMinTapArea : tokens.iosMinTapArea,
     flexDirection: 'row',
     flexWrap: 'nowrap',
     justifyContent: 'space-between',

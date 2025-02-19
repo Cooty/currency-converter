@@ -7,9 +7,10 @@ import {
   ViewStyle,
   StyleProp,
 } from 'react-native'
-import { baseFontSize, baseSize } from '../../../../styles'
+import { baseFontSize, baseSize, tokens } from '../../../../styles'
 import { useTheme } from '../../../theming'
 import { AppText } from '../../../../components/'
+import { isAndroid } from '../../../../utils'
 import { isValidInput, getDecimalSeparator } from './utils'
 
 export type CurrencyInputProps = {
@@ -62,6 +63,7 @@ const componentStyles = StyleSheet.create({
     fontWeight: 'bold',
   },
   input: {
+    height: isAndroid() ? tokens.androidMinTapArea : tokens.iosMinTapArea,
     backgroundColor: 'rgba(0, 0, 0, 0.0)',
     flex: 1,
     maxWidth: '100%',

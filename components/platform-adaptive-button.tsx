@@ -10,7 +10,7 @@ import {
 import { PropsWithChildren } from 'react'
 import { Highlight } from './highlight'
 import { isAndroid, isIOS } from '../utils'
-import { baseFontSize } from '../styles'
+import { baseFontSize, tokens } from '../styles'
 import { colors } from '../features/theming'
 import { useTheme } from '../features/theming'
 import { IconNames, PlatformAdaptiveIcon } from './platform-adaptive-icon'
@@ -130,17 +130,19 @@ export function PlatformAdaptiveButton({
 
 const textFontSize = isIOS() ? baseFontSize(1) : baseFontSize()
 
+const BORDER_RADIUS = tokens.defaultRadius * 2
+
 const componentStyles = StyleSheet.create({
   wrapper: {
     overflow: 'hidden',
-    borderRadius: 40,
+    borderRadius: BORDER_RADIUS,
   },
   buttonFrame: {
-    height: 40,
+    height: isIOS() ? tokens.iosMinTapArea : tokens.androidMinTapArea,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 40,
+    borderRadius: BORDER_RADIUS,
     gap: isIOS() ? 4 : 8,
   },
   text: {

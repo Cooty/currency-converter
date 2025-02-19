@@ -11,12 +11,13 @@ import { Highlight } from '../highlight'
 import { AppText } from '../app-text'
 import { YStack } from '../y-stack'
 import { RadioButtonProps } from './types'
-import { baseSize, baseFontSize } from '../../styles'
+import { baseSize, baseFontSize, tokens } from '../../styles'
 import { useTheme } from '../../features/theming'
 import { colors } from '../../features/theming'
 import { isIOS } from '../../utils'
 
-const TAP_AREA_SIZE = 40
+const TAP_AREA_SIZE = tokens.iosMinTapArea
+const TAP_AREA_SIZE_ANDROID = tokens.androidMinTapArea
 
 function LabelAndHint({
   label,
@@ -70,9 +71,9 @@ export function RadioButton({
       >
         <View
           style={{
-            width: TAP_AREA_SIZE,
-            height: TAP_AREA_SIZE,
-            borderRadius: TAP_AREA_SIZE,
+            width: TAP_AREA_SIZE_ANDROID,
+            height: TAP_AREA_SIZE_ANDROID,
+            borderRadius: TAP_AREA_SIZE_ANDROID,
             overflow: 'hidden',
           }}
         >
@@ -112,8 +113,16 @@ const componentStyles = StyleSheet.create({
     }),
   },
   indicatorContainer: {
-    width: TAP_AREA_SIZE,
-    height: TAP_AREA_SIZE,
+    ...Platform.select({
+      ios: {
+        width: TAP_AREA_SIZE,
+        height: TAP_AREA_SIZE,
+      },
+      android: {
+        width: TAP_AREA_SIZE_ANDROID,
+        height: TAP_AREA_SIZE_ANDROID,
+      },
+    }),
     justifyContent: 'center',
     alignItems: 'center',
   },

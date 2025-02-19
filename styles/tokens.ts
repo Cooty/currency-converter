@@ -7,6 +7,8 @@ export const tokens = {
   buttonFontWeight: '500',
   fontSizeIncrement: 2,
   defaultRadius: 20,
+  androidMinTapArea: 48,
+  iosMinTapArea: 44,
 } as const
 
 export const wrapperGutter = tokens.baseSize * 4
