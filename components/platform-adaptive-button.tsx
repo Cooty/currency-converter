@@ -71,59 +71,66 @@ export function PlatformAdaptiveButton({
   return (
     <View
       style={[
-        componentStyles.wrapper,
         {
           width: hug ? undefined : '100%',
           flexDirection: hug ? 'row' : 'column',
-          elevation: elevated && variant !== 'text' ? 3 : undefined,
-          borderColor: !isIOS() && elevated ? 'rgba(0, 0, 0, 0)' : undefined,
-          borderWidth: !isIOS() && elevated ? 1 : undefined,
         },
         style,
       ]}
     >
-      <Highlight
-        onPress={onPress}
+      <View
         style={[
-          componentStyles.buttonFrame,
+          componentStyles.wrapper,
           {
-            backgroundColor,
-            paddingEnd: isIOS()
-              ? IOS_HORIZONTAL_GUTTER
-              : ANDROID_HORIZONTAL_GUTTER,
-            paddingStart: isIOS()
-              ? IOS_HORIZONTAL_ICON_GUTTER
-              : ANDROID_HORIZONTAL_ICON_GUTTER,
-            borderWidth: isAndroid() && variant === 'secondary' ? 1 : undefined,
-            borderColor:
-              isAndroid() && variant === 'secondary'
-                ? androidSecondaryBorderColor
-                : undefined,
+            elevation:
+              isAndroid() && elevated && variant !== 'text' ? 3 : undefined,
           },
         ]}
-        rippleColor={
-          variant === 'primary' ? colors.rippleOnBrand : secondaryRippleColor
-        }
-        activeOpacity={0.7}
       >
-        {icon && (
-          <PlatformAdaptiveIcon
-            name={icon}
-            size={ICON_SIZE}
-            color={textColor as string}
-          />
-        )}
-        <Text
+        <Highlight
+          onPress={onPress}
           style={[
-            componentStyles.text,
+            componentStyles.buttonFrame,
             {
-              color: textColor,
+              backgroundColor,
+              paddingEnd: isIOS()
+                ? IOS_HORIZONTAL_GUTTER
+                : ANDROID_HORIZONTAL_GUTTER,
+              paddingStart: isIOS()
+                ? IOS_HORIZONTAL_ICON_GUTTER
+                : ANDROID_HORIZONTAL_ICON_GUTTER,
+              borderWidth:
+                isAndroid() && variant === 'secondary' ? 1 : undefined,
+              borderColor:
+                isAndroid() && variant === 'secondary'
+                  ? androidSecondaryBorderColor
+                  : undefined,
             },
           ]}
+          rippleColor={
+            variant === 'primary' ? colors.rippleOnBrand : secondaryRippleColor
+          }
+          activeOpacity={0.7}
         >
-          {children}
-        </Text>
-      </Highlight>
+          {icon && (
+            <PlatformAdaptiveIcon
+              name={icon}
+              size={ICON_SIZE}
+              color={textColor as string}
+            />
+          )}
+          <Text
+            style={[
+              componentStyles.text,
+              {
+                color: textColor,
+              },
+            ]}
+          >
+            {children}
+          </Text>
+        </Highlight>
+      </View>
     </View>
   )
 }
