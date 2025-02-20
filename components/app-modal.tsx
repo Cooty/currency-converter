@@ -1,11 +1,12 @@
 import { ReactNode } from 'react'
 import { Modal, View, ScrollView, StyleSheet } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { wrapperGutter, shadowMedium } from '../styles'
+import { wrapperGutter, shadowMedium, tokens } from '../styles'
 import { Card } from './card'
 import { Highlight } from './highlight'
 import { PlatformAdaptiveIcon } from './platform-adaptive-icon'
 import { useTheme } from '../features/theming'
+import { isAndroid } from '../utils'
 
 export interface AppModalProps {
   isVisible: boolean
@@ -73,7 +74,9 @@ export function AppModal({ isVisible, children, onCancel }: AppModalProps) {
   )
 }
 
-const CLOSE_BUTTON_SIZE = 40
+const CLOSE_BUTTON_SIZE = isAndroid()
+  ? tokens.androidMinTapArea
+  : tokens.iosMinTapArea
 
 const componentStyles = StyleSheet.create({
   backdrop: {
@@ -99,8 +102,8 @@ const componentStyles = StyleSheet.create({
     ...shadowMedium,
   },
   closeButton: {
-    width: '100%',
-    height: '100%',
+    width: CLOSE_BUTTON_SIZE,
+    height: CLOSE_BUTTON_SIZE,
     justifyContent: 'center',
     alignItems: 'center',
   },
