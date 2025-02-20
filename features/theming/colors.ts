@@ -8,7 +8,7 @@ export const colors = {
   rippleOnBrand: 'rgba(255, 255, 255, 0.2)',
   light: {
     text: 'rgb(0, 5, 22)',
-    textSecondary: 'rgba(59, 64, 69, 0.7)',
+    textSecondary: 'rgba(59, 64, 69, 0.8)',
     background: 'rgba(255, 255, 255, 1)',
     elevation: 'rgba(255, 255, 255, 1)',
     divider: 'rgba(0, 0, 0, 0.1)',
