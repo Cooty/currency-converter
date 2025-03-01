@@ -20,7 +20,6 @@ export function SettingsScreen() {
         <AskForReview />
         <SupportUs isLast />
       </ScrollView>
-      <StatusBar style="light" />
     </Container>
   )
 }

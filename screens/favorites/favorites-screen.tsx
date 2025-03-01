@@ -39,8 +39,6 @@ export function FavoritesScreen({ navigation }: FavoritesScreenProps) {
       ) : (
         <EmptyState />
       )}
-
-      <StatusBar style="light" />
     </Container>
   )
 }
