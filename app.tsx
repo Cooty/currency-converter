@@ -2,6 +2,7 @@ import { registerRootComponent } from 'expo'
 import { useState, useEffect } from 'react'
 import { View, StyleSheet } from 'react-native'
 import * as SplashScreen from 'expo-splash-screen'
+import { StatusBar } from 'expo-status-bar'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { RootTabs } from './routing'
 import {
@@ -41,6 +42,7 @@ function App() {
           </ThemeProvider>
         </ErrorBoundary>
       </SafeAreaProvider>
+      <StatusBar style="light" />
     </View>
   )
 }

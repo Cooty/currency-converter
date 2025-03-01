@@ -265,10 +265,6 @@ export function ConvertScreen({ route }: ConvertScreenProps) {
             )}
           </View>
         )}
-
-        <StatusBar
-          style={isIOS() && isCurrencySelectorOpen ? 'dark' : 'light'}
-        />
       </Container>
     </Pressable>
   )
