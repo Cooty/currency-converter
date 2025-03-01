@@ -22,9 +22,10 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 
   componentDidCatch(error: Error, info: any) {
-    if (error.message) {
-      this.setState({ errorMessage: error.message })
-    }
+    this.setState({
+      errorMessage: error.message ?? 'Unexpected error, please try again!',
+    })
+    console.error(info)
   }
 
   render() {

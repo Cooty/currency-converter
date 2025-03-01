@@ -1,83 +1,47 @@
 import { registerRootComponent } from 'expo'
-import { useEffect, useState, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import { View, StyleSheet } from 'react-native'
 import * as SplashScreen from 'expo-splash-screen'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { RootTabs } from './routing'
 import {
-  getCurrencies,
-  CurrencyContext,
-  CurrencyList,
+  CurrencyListProvider,
   StoredExchangeRateContextProvider,
 } from './features/currency'
-import { ErrorScreen } from './screens'
 import ErrorBoundary from './features/error/error-boundary'
-import {
-  ThemeProvider,
-  getSavedThemeSetting,
-  ThemeOptions,
-} from './features/theming'
+import { ThemeProvider } from './features/theming'
+
+// Keep the splash screen visible while we fetch resources
+SplashScreen.preventAutoHideAsync()
+
+// Set the animation options. This is optional.
+SplashScreen.setOptions({
+  duration: 1000,
+  fade: true,
+})
 
 function App() {
-  const [appIsReady, setAppIsReady] = useState(false)
-  const [currencies, setCurrencies] = useState<CurrencyList | undefined>(
-    undefined
-  )
-  const [error, setError] = useState<string | undefined>()
-  const [initialThemeSetting, setInitialThemeSetting] = useState<
-    ThemeOptions | undefined
-  >()
+  const [isThemeSettingLoaded, setIsThemeSettingLoaded] = useState(false)
+  const [isCurrencyListLoaded, setIsCurrencyListLoaded] = useState(false)
 
   useEffect(() => {
-    async function prepare() {
-      try {
-        const currencies = await getCurrencies()
-        setCurrencies(currencies)
-        const savedThemeSetting = await getSavedThemeSetting()
-        if (savedThemeSetting) {
-          setInitialThemeSetting(savedThemeSetting)
-        }
-      } catch (e) {
-        console.error(e)
-
-        setError((e as Error).message ?? 'Unexpected error, please try again!')
-      } finally {
-        // Tell the application to render
-        setAppIsReady(true)
-      }
+    if (isCurrencyListLoaded && isThemeSettingLoaded) {
+      SplashScreen.hideAsync()
     }
-
-    prepare()
-  }, [])
-
-  const onLayoutRootView = useCallback(async () => {
-    if (appIsReady) {
-      await SplashScreen.hideAsync()
-    }
-  }, [appIsReady])
-
-  if (!appIsReady) {
-    return null
-  }
+  }, [isThemeSettingLoaded, isCurrencyListLoaded])
 
   return (
-    <View style={componentStyles.root} onLayout={onLayoutRootView}>
+    <View style={componentStyles.root}>
       <SafeAreaProvider>
-        <ThemeProvider initialThemeSetting={initialThemeSetting}>
-          <ErrorBoundary>
-            {error ? (
-              <ErrorScreen message={error} />
-            ) : (
-              <CurrencyContext.Provider
-                value={currencies ? currencies.data : undefined}
-              >
-                <StoredExchangeRateContextProvider>
-                  <RootTabs />
-                </StoredExchangeRateContextProvider>
-              </CurrencyContext.Provider>
-            )}
-          </ErrorBoundary>
-        </ThemeProvider>
+        <ErrorBoundary>
+          <ThemeProvider onReady={() => setIsThemeSettingLoaded(true)}>
+            <CurrencyListProvider onReady={() => setIsCurrencyListLoaded(true)}>
+              <StoredExchangeRateContextProvider>
+                <RootTabs />
+              </StoredExchangeRateContextProvider>
+            </CurrencyListProvider>
+          </ThemeProvider>
+        </ErrorBoundary>
       </SafeAreaProvider>
     </View>
   )
