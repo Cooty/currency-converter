@@ -9,7 +9,7 @@ import { useColorScheme } from 'react-native'
 import type { ThemeNames, ThemeOptions } from './types'
 import { colors, ThemeType } from './colors'
 import { DEFAULT_SETTING } from './constants'
-import { saveThemeSetting } from './utils'
+import { saveThemeSetting, getSavedThemeSetting } from './utils'
 
 interface ThemeContextValue {
   themeSetting: ThemeOptions
@@ -35,25 +35,36 @@ export function useTheme() {
 }
 
 type ThemeProviderProps = PropsWithChildren & {
-  initialThemeSetting?: ThemeOptions
+  onReady?: () => void
 }
 
-export function ThemeProvider({
-  children,
-  initialThemeSetting,
-}: ThemeProviderProps) {
-  const [themeSetting, setThemeSetting] = useState(
-    initialThemeSetting ?? DEFAULT_SETTING
+export function ThemeProvider({ children, onReady }: ThemeProviderProps) {
+  // This is the value set by the user, it can also be "system"
+  const [themeSetting, setThemeSetting] = useState<'system' | 'light' | 'dark'>(
+    DEFAULT_SETTING
   )
-  const [themeName, setThemeName] = useState('light' as ThemeNames)
+  // This is the actual name of the theme, it can only be "light" or "dark"
+  const [themeName, setThemeName] = useState<'light' | 'dark'>(
+    'light' as ThemeNames
+  )
   const systemThemeSetting = useColorScheme()
 
+  // Check theme on start up and set it
   useEffect(() => {
-    if (systemThemeSetting) {
-      setThemeSetting(systemThemeSetting)
+    async function setInitialTheme() {
+      const savedThemeSetting = (await getSavedThemeSetting()) as ThemeNames
+      if (savedThemeSetting) {
+        setThemeSetting(savedThemeSetting)
+      } else {
+        setThemeSetting('system')
+      }
     }
-  }, [systemThemeSetting])
+    setInitialTheme().then(() => {
+      onReady?.()
+    })
+  }, [])
 
+  // Check the users preferences when they are changed from the UI
   useEffect(() => {
     if (themeSetting === 'system' && systemThemeSetting) {
       setThemeName(systemThemeSetting)
@@ -62,6 +73,13 @@ export function ThemeProvider({
     }
     saveThemeSetting(themeSetting)
   }, [themeSetting])
+
+  // Watch for changes in the system's settings
+  useEffect(() => {
+    if (themeSetting === 'system') {
+      setThemeName(systemThemeSetting as ThemeNames)
+    }
+  }, [systemThemeSetting])
 
   return (
     <ThemeContext.Provider
