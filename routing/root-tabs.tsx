@@ -1,11 +1,14 @@
+import { useEffect } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import * as NavigationBar from 'expo-navigation-bar'
 import { PlatformAdaptiveIcon } from '../components'
 import { ConvertScreen, FavoritesScreen, SettingsScreen } from '../screens'
 import { colors, useTheme } from '../features/theming'
 import { RootTabsParamList } from './types'
 import { useDefaultCurrencyCodes } from '../features/currency'
+import { isAndroid } from '../utils'
 
 const Tab = createBottomTabNavigator<RootTabsParamList>()
 
@@ -13,6 +16,18 @@ export function RootTabs() {
   const defaultCurrencyCodes = useDefaultCurrencyCodes()
   const { theme, themeName } = useTheme()
   const { bottom } = useSafeAreaInsets()
+
+  useEffect(() => {
+    // Control how the bottom navigation bar looks like on Android
+    // has on effect on iOS
+    // https://docs.expo.dev/versions/latest/sdk/navigation-bar/
+    NavigationBar.setBackgroundColorAsync(theme.androidTabBarBackground)
+    if (themeName === 'light') {
+      NavigationBar.setButtonStyleAsync('dark')
+    } else {
+      NavigationBar.setButtonStyleAsync('light')
+    }
+  }, [themeName])
 
   return (
     <NavigationContainer>
@@ -31,8 +46,11 @@ export function RootTabs() {
             themeName === 'light' ? colors.brand : theme.text,
           tabBarInactiveTintColor: theme.textSecondary,
           tabBarStyle: {
-            backgroundColor: theme.background,
+            backgroundColor: isAndroid()
+              ? theme.androidTabBarBackground
+              : theme.background,
             height: 70 + bottom,
+            borderColor: isAndroid() ? 'rgba(0, 0, 0, 0)' : theme.divider,
           },
           tabBarItemStyle: {
             paddingTop: 10,

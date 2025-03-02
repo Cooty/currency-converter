@@ -17,6 +17,7 @@ export const colors = {
     red: 'rgb(253, 91, 91)',
     backdrop: 'rgba(0, 0, 0, 0.4)',
     inputFocus: 'rgb(50, 96, 247)',
+    androidTabBarBackground: 'rgb(225, 232, 255)',
   },
   // TODO: Add colors for dark mode
   dark: {
@@ -30,6 +31,7 @@ export const colors = {
     red: 'rgb(219, 57, 57)',
     inputFocus: 'rgb(30, 81, 247)',
     elevation: 'rgb(44, 46, 48)',
+    androidTabBarBackground: 'rgb(20, 24, 37)',
   },
 }
 
