@@ -16,6 +16,7 @@ export type HighlightProps = {
   style?: StyleProp<ViewStyle>
   rippleColor?: string
   activeOpacity?: number
+  accessibilityLabel?: string
 } & PropsWithChildren
 
 export function Highlight({
@@ -24,6 +25,7 @@ export function Highlight({
   style,
   rippleColor,
   activeOpacity,
+  accessibilityLabel,
 }: HighlightProps) {
   const SUPPORTS_NATIVE_FEEDBACK = isAndroid() && Number(Platform.Version) >= 21
   const defaultHitSlop = { top: 15, bottom: 15, right: 15, left: 15 }
@@ -36,6 +38,7 @@ export function Highlight({
         onPress={onPress}
         background={TouchableNativeFeedback.Ripple(androidRippleColor, false)}
         hitSlop={defaultHitSlop}
+        accessibilityLabel={accessibilityLabel}
       >
         <View style={style}>{children}</View>
       </TouchableNativeFeedback>
@@ -47,6 +50,7 @@ export function Highlight({
         hitSlop={defaultHitSlop}
         style={style}
         activeOpacity={activeOpacity ?? 0.2}
+        accessibilityLabel={accessibilityLabel}
       >
         {children}
       </TouchableOpacity>

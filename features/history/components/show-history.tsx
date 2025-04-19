@@ -3,11 +3,17 @@ import { PlatformAdaptiveButton } from '../../../components'
 
 export interface HistoryProps {
   style?: StyleProp<ViewStyle>
+  onPress: () => void
 }
 
-export function History({ style }: HistoryProps) {
+export function ShowHistory({ style, onPress }: HistoryProps) {
   return (
-    <PlatformAdaptiveButton variant="secondary" icon="history" style={style}>
+    <PlatformAdaptiveButton
+      variant="secondary"
+      icon="history"
+      style={style}
+      onPress={onPress}
+    >
       History
     </PlatformAdaptiveButton>
   )
