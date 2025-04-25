@@ -1,7 +1,22 @@
+import { useState } from 'react'
 import { Modal } from 'react-native'
 
-import { AppText, ModalHeader, Container } from '../../../components'
+import {
+  AppText,
+  ModalHeader,
+  Container,
+  SegmentedControl,
+} from '../../../components'
 import { isIOS } from '../../../utils'
+
+const timeFrameOptions = [
+  { value: '5-days', label: 'Five days' },
+  { value: '2-weeks', label: 'Two weeks' },
+  {
+    value: '1-month',
+    label: 'Last month',
+  },
+]
 
 export interface HistoryOverlayProps {
   isVisible: boolean
@@ -16,6 +31,10 @@ export function HistoryOverlay({
   baseCurrencyCode,
   targetCurrencyCode,
 }: HistoryOverlayProps) {
+  const [selectedTimeFrame, setSelectedTimeFrame] = useState(
+    timeFrameOptions[0].value
+  )
+
   return (
     <Modal
       visible={isVisible}
@@ -27,6 +46,11 @@ export function HistoryOverlay({
         {`${baseCurrencyCode} - ${targetCurrencyCode} Exchange Rates`}
       </ModalHeader>
       <Container>
+        <SegmentedControl
+          initialValue={selectedTimeFrame}
+          onChange={setSelectedTimeFrame}
+          options={timeFrameOptions}
+        />
         <AppText>History graph and time selection goes here...</AppText>
       </Container>
     </Modal>
