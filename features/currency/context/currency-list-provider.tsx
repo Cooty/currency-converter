@@ -36,9 +36,11 @@ export function CurrencyListProvider({
       setCurrencies(currencies)
     }
 
-    load().then(() => {
-      onReady?.()
-    })
+    load()
+      .catch((e) => {
+        throw new Error(e)
+      })
+      .finally(() => onReady?.())
   }, [])
 
   return (
