@@ -22,7 +22,6 @@ import {
   getLatestExchangeRate,
   useCurrencyPairSelection,
 } from '../../features/currency'
-import { ShowHistory, HistoryOverlay } from '../../features/history'
 import {
   convertBaseToTarget,
   convertTargetToBase,
@@ -43,7 +42,6 @@ export function ConvertScreen({ route }: ConvertScreenProps) {
     changeCurrencyOrder,
     setOpenedCurrencySelection,
   } = useCurrencyPairSelection()
-  const [isHistoryVisible, setIsHistoryVisible] = useState(false)
   const [exchangeRate, setExchangeRate] = useState<undefined | number>()
   const [exchangeRateDatetime, setExchangeRateDatetime] = useState<
     undefined | number
@@ -217,7 +215,7 @@ export function ConvertScreen({ route }: ConvertScreenProps) {
                   </>
                 )}
 
-              {/* Container for History and Add-to-favorites buttons */}
+              {/* Add-to-favorites buttons */}
               {/* Don't show these on small screens when the keyboard is opened */}
               {isKeyboardVisible && height < 920 ? null : (
                 <View
@@ -240,17 +238,6 @@ export function ConvertScreen({ route }: ConvertScreenProps) {
                       style={isLandscape ? { flexDirection: 'row' } : undefined}
                     />
                   )}
-
-                  <ShowHistory
-                    onPress={() => setIsHistoryVisible(true)}
-                    style={isLandscape ? { flexDirection: 'row' } : undefined}
-                  />
-                  <HistoryOverlay
-                    isVisible={isHistoryVisible}
-                    onCancel={() => setIsHistoryVisible(false)}
-                    baseCurrencyCode={baseCurrency.code}
-                    targetCurrencyCode={targetCurrency.code}
-                  />
                 </View>
               )}
             </View>

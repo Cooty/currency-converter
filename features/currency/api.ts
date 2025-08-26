@@ -29,11 +29,6 @@ export async function getCurrencies() {
   }
 }
 
-interface GetLatestExchangeRateParams {
-  baseCurrency: string
-  targetCurrency: string
-}
-
 /**
  * Gets the latest exchange rate between two currencies.
  * Will throw an error with the original message from the API if the request fails.
