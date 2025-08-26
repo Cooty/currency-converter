@@ -1,24 +1,23 @@
 import { ReactNode } from 'react'
 import { Modal, View, ScrollView, StyleSheet } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { wrapperGutter, shadowMedium, tokens } from '../styles'
-import { Card } from './card'
-import { Highlight } from './highlight'
-import { PlatformAdaptiveIcon } from './platform-adaptive-icon'
-import { useTheme } from '../features/theming'
-import { isAndroid } from '../utils'
 
-export interface AppModalProps {
+import { wrapperGutter, shadowMedium } from '../styles'
+import { Card } from './card'
+import { useTheme } from '../features/theming'
+import { CloseButton } from './close-button'
+
+export interface AppPopUpProps {
   isVisible: boolean
   onCancel: () => void
   children?: ReactNode
 }
 
 /**
- * Generic modal with a backdrop. You can pass arbitrary content
+ * Generic pop-up modal with a backdrop. You can pass arbitrary content
  * that will get rendered inside of a `<Card />`.
  */
-export function AppModal({ isVisible, children, onCancel }: AppModalProps) {
+export function AppPopUp({ isVisible, children, onCancel }: AppPopUpProps) {
   const { theme } = useTheme()
   const { top } = useSafeAreaInsets()
 
@@ -33,21 +32,10 @@ export function AppModal({ isVisible, children, onCancel }: AppModalProps) {
       <View style={componentStyles.container}>
         {/* Container for the close button (maybe a title if we ever want one) */}
         <View style={[componentStyles.header, { paddingTop: top }]}>
-          {/* Close button
-              Might want to pull this out to it's own component,
-              something like <IconButton /> where the background
-              and the icon are configurable. For now it's only used here so it's OK.
-           */}
-          <View
-            style={[
-              componentStyles.closeButtonCircle,
-              { backgroundColor: theme.background },
-            ]}
-          >
-            <Highlight style={componentStyles.closeButton} onPress={onCancel}>
-              <PlatformAdaptiveIcon name="x" color={theme.text} />
-            </Highlight>
-          </View>
+          <CloseButton
+            onPress={onCancel}
+            style={[{ backgroundColor: theme.background }, shadowMedium]}
+          />
         </View>
         {/* Content of the modal */}
         <ScrollView
@@ -74,10 +62,6 @@ export function AppModal({ isVisible, children, onCancel }: AppModalProps) {
   )
 }
 
-const CLOSE_BUTTON_SIZE = isAndroid()
-  ? tokens.androidMinTapArea
-  : tokens.iosMinTapArea
-
 const componentStyles = StyleSheet.create({
   backdrop: {
     zIndex: 1,
@@ -94,19 +78,7 @@ const componentStyles = StyleSheet.create({
     flexGrow: 0,
     padding: wrapperGutter,
   },
-  closeButtonCircle: {
-    width: CLOSE_BUTTON_SIZE,
-    height: CLOSE_BUTTON_SIZE,
-    borderRadius: CLOSE_BUTTON_SIZE,
-    overflow: 'hidden',
-    ...shadowMedium,
-  },
-  closeButton: {
-    width: CLOSE_BUTTON_SIZE,
-    height: CLOSE_BUTTON_SIZE,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+
   scrollView: {
     flex: 1,
   },

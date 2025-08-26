@@ -1,25 +1,20 @@
 import { useState, useEffect, useRef, RefObject } from 'react'
 import {
-  View,
   KeyboardAvoidingView,
   ScrollView,
   StyleSheet,
   Modal,
   TextInput,
-  useWindowDimensions,
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { useHeaderHeight } from '@react-navigation/elements'
-import { wrapperGutter } from '../../../styles'
 import { colors, useTheme } from '../../theming'
-import { SearchInput } from '../../../components/'
+import { SearchInput, ModalHeader } from '../../../components/'
 import { isIOS, isAndroid } from '../../../utils'
 import { Currency } from '../model'
 import { CurrencyListItem } from './currency-list-item'
 import { filterCurrencies } from '../utils'
 import { useCurrencies } from '../context'
 import { getAllCurrenciesAsArraySortedAlphabetically } from '../utils'
-import { useSafeAreaGutter } from '../../../hooks'
 
 export interface CurrencyListOverlayProps {
   isVisible: boolean
@@ -34,7 +29,6 @@ export function CurrencyListOverlay({
   onCancel,
   onShow,
 }: CurrencyListOverlayProps) {
-  const headerHeight = useHeaderHeight()
   const { theme } = useTheme()
   const [searchValue, setSearchValue] = useState('')
   const currencies = useCurrencies()
@@ -43,10 +37,6 @@ export function CurrencyListOverlay({
   const [filteredCurrencies, setFilteredCurrencies] =
     useState<Currency[]>(sortedCurrencies)
   const searchInputRef: RefObject<TextInput> = useRef(null)
-  const safeAreaGutter = useSafeAreaGutter()
-  const { width } = useWindowDimensions()
-  const wrapperHorizontalGutter =
-    width > 400 ? wrapperGutter * 2 : wrapperGutter
 
   useEffect(() => {
     if (searchValue.length !== 0) {
@@ -88,16 +78,7 @@ export function CurrencyListOverlay({
           behavior={isIOS() ? 'height' : undefined}
           style={componentStyles.modalInner}
         >
-          <View
-            style={[
-              componentStyles.modalHeader,
-              {
-                height: headerHeight,
-                borderColor: theme.divider,
-                paddingHorizontal: wrapperHorizontalGutter + safeAreaGutter,
-              },
-            ]}
-          >
+          <ModalHeader>
             <SearchInput
               // on iOS this works as expected but for Android we have to use a workaround
               // the two might clash with each other
@@ -109,7 +90,7 @@ export function CurrencyListOverlay({
               onCancel={onCancel}
               ref={searchInputRef}
             />
-          </View>
+          </ModalHeader>
           <ScrollView
             style={componentStyles.scrollableContent}
             keyboardDismissMode="on-drag"

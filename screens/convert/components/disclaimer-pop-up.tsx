@@ -1,16 +1,16 @@
 import {
-  AppModal,
-  AppModalProps,
+  AppPopUp,
+  AppPopUpProps,
   AppText,
   AppTextLink,
   AppTitle,
 } from '../../../components'
 
-export type DisclaimerModalProps = Omit<AppModalProps, 'children'>
+export type DisclaimerPopUpProps = Omit<AppPopUpProps, 'children'>
 
-export function DisclaimerModal({ isVisible, onCancel }: DisclaimerModalProps) {
+export function DisclaimerPopUp({ isVisible, onCancel }: DisclaimerPopUpProps) {
   return (
-    <AppModal isVisible={isVisible} onCancel={onCancel}>
+    <AppPopUp isVisible={isVisible} onCancel={onCancel}>
       <>
         <AppTitle>Legal Disclaimer</AppTitle>
         <AppText>
@@ -26,6 +26,6 @@ export function DisclaimerModal({ isVisible, onCancel }: DisclaimerModalProps) {
           the information contained within it.
         </AppText>
       </>
-    </AppModal>
+    </AppPopUp>
   )
 }

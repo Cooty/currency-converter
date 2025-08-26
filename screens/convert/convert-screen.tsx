@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import {
   StyleSheet,
   View,
@@ -6,16 +6,14 @@ import {
   Keyboard,
   Pressable,
 } from 'react-native'
-import { StatusBar } from 'expo-status-bar'
-import type { ConvertScreenProps, CurrencySelectionType } from './types'
+import type { ConvertScreenProps } from './types'
 import { wrapperGutter, baseSize } from '../../styles'
 import {
   CurrencyConverterForm,
   Result,
-  History,
   AddToFavorites,
   Disclaimer,
-  DisclaimerModal,
+  DisclaimerPopUp,
 } from './components'
 import { CurrencyListOverlay } from '../../features/currency/components/'
 import { Loader, Container } from '../../components'
@@ -24,7 +22,6 @@ import {
   getLatestExchangeRate,
   useCurrencyPairSelection,
 } from '../../features/currency'
-import { isIOS } from '../../utils'
 import {
   convertBaseToTarget,
   convertTargetToBase,
@@ -60,6 +57,8 @@ export function ConvertScreen({ route }: ConvertScreenProps) {
   const aspectRatio = useScreenAspectRatio()
   const isLandscape = aspectRatio === 'landscape'
   const isShortLandscape = isLandscape && height < 800
+  const isLoading =
+    !currencies || !baseCurrency || !targetCurrency || !exchangeRate
 
   // Set defaults as soon as they're ready
   useEffect(() => {
@@ -138,7 +137,7 @@ export function ConvertScreen({ route }: ConvertScreenProps) {
           paddingTop: isShortLandscape ? wrapperGutter : '10%',
         }}
       >
-        {!currencies || !baseCurrency || !targetCurrency || !exchangeRate ? (
+        {isLoading ? (
           <Loader />
         ) : (
           <View
@@ -216,7 +215,7 @@ export function ConvertScreen({ route }: ConvertScreenProps) {
                   </>
                 )}
 
-              {/* Container for History and Add-to-favorites buttons */}
+              {/* Add-to-favorites buttons */}
               {/* Don't show these on small screens when the keyboard is opened */}
               {isKeyboardVisible && height < 920 ? null : (
                 <View
@@ -239,10 +238,6 @@ export function ConvertScreen({ route }: ConvertScreenProps) {
                       style={isLandscape ? { flexDirection: 'row' } : undefined}
                     />
                   )}
-
-                  <History
-                    style={isLandscape ? { flexDirection: 'row' } : undefined}
-                  />
                 </View>
               )}
             </View>
@@ -258,7 +253,7 @@ export function ConvertScreen({ route }: ConvertScreenProps) {
 
             {/* Legal disclaimer overlay */}
             {isDisclaimerOpen && (
-              <DisclaimerModal
+              <DisclaimerPopUp
                 isVisible={isDisclaimerOpen}
                 onCancel={() => setIsDisclaimerOpen(false)}
               />

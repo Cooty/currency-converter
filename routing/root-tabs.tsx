@@ -18,14 +18,16 @@ export function RootTabs() {
   const { bottom } = useSafeAreaInsets()
 
   useEffect(() => {
-    // Control how the bottom navigation bar looks like on Android
-    // has on effect on iOS
-    // https://docs.expo.dev/versions/latest/sdk/navigation-bar/
-    NavigationBar.setBackgroundColorAsync(theme.androidTabBarBackground)
-    if (themeName === 'light') {
-      NavigationBar.setButtonStyleAsync('dark')
-    } else {
-      NavigationBar.setButtonStyleAsync('light')
+    if (isAndroid()) {
+      // Control how the bottom navigation bar looks like on Android
+      // has on effect on iOS
+      // https://docs.expo.dev/versions/latest/sdk/navigation-bar/
+      NavigationBar.setBackgroundColorAsync(theme.androidTabBarBackground)
+      if (themeName === 'light') {
+        NavigationBar.setButtonStyleAsync('dark')
+      } else {
+        NavigationBar.setButtonStyleAsync('light')
+      }
     }
   }, [themeName])
 

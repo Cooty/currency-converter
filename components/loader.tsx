@@ -23,9 +23,7 @@ function Loader({
         componentStyles.container,
         StyleSheet.absoluteFill,
         {
-          backgroundColor: hasBackgroundColor
-            ? theme.backdrop
-            : undefined,
+          backgroundColor: hasBackgroundColor ? theme.backdrop : undefined,
         },
       ]}
     >
@@ -41,7 +39,6 @@ function Loader({
 const componentStyles = StyleSheet.create({
   container: {
     flex: 1,
-    width: '100%',
     justifyContent: 'center',
     alignContent: 'center',
   },
