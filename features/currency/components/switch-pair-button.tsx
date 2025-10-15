@@ -1,4 +1,5 @@
 import { View, Animated, StyleSheet, Platform } from 'react-native'
+
 import { Highlight } from '../../../components'
 import { baseSize, tokens } from '../../../styles'
 import { colors } from '../../theming'

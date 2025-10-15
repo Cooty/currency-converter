@@ -1,7 +1,8 @@
 import { StyleSheet, StyleProp, TextStyle } from 'react-native'
+import { useLingui, Trans } from '@lingui/react/macro'
+
 import { baseSize, baseFontSize, underlinedText } from '../../../styles'
 import { useTheme } from '../../../features/theming'
-import { unixTimeStampToLocalDateTime } from '../../../utils'
 import {
   XStack,
   AppText,
@@ -19,6 +20,7 @@ export function Disclaimer({
   onPressDisclaimer,
 }: DisclaimerProps) {
   const { theme } = useTheme()
+  const { i18n } = useLingui()
 
   return (
     <XStack style={componentStyles.row}>
@@ -27,7 +29,7 @@ export function Disclaimer({
         numberOfLines={1}
         variant="secondary"
       >
-        {unixTimeStampToLocalDateTime(dateOfExchangeRate)} UTC
+        {i18n.date(new Date(dateOfExchangeRate))} UTC
       </AppText>
 
       <Highlight
@@ -45,7 +47,7 @@ export function Disclaimer({
             variant="secondary"
             style={underlinedText as StyleProp<TextStyle>}
           >
-            Disclaimer
+            <Trans>Disclaimer</Trans>
           </AppText>
         </XStack>
       </Highlight>

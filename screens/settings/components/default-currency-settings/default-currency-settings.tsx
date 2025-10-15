@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { StyleSheet } from 'react-native'
+import { Trans, useLingui } from '@lingui/react/macro'
+
 import { Section, RadioGroup } from '../../../../components'
 import {
   useCurrencies,
@@ -15,6 +17,7 @@ type WhatToShowOptions = 'default' | 'last'
 
 export function DefaultCurrencySettings(props: SectionPropsWithoutTitle) {
   const currencies = useCurrencies()
+  const { t } = useLingui()
   const {
     isCurrencySelectorOpen,
     baseCurrency,
@@ -40,12 +43,12 @@ export function DefaultCurrencySettings(props: SectionPropsWithoutTitle) {
     <>
       <Section title="Default currency pair" {...props}>
         <LeadText style={{ marginBottom: baseSize(3) }}>
-          What to show when opening the app?
+          <Trans>What to show when opening the app?</Trans>
         </LeadText>
         <RadioGroup
           options={[
-            { label: 'Default currency pair', value: 'default' },
-            { label: 'Last used', value: 'last' },
+            { label: t`Default currency pair`, value: 'default' },
+            { label: t`Last used`, value: 'last' },
           ]}
           initialValue="default"
           onChange={(value: string) =>
@@ -55,7 +58,7 @@ export function DefaultCurrencySettings(props: SectionPropsWithoutTitle) {
         {whatToShow === 'default' && (
           <>
             <LeadText style={componentStyles.verticalSpacingBlock}>
-              What should be the default currency pair?
+              <Trans>What should be the default currency pair?</Trans>
             </LeadText>
             {baseCurrency && targetCurrency && (
               <CurrencyForm

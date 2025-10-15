@@ -7,6 +7,8 @@ import {
   TextInput,
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { useLingui } from '@lingui/react/macro'
+
 import { colors, useTheme } from '../../theming'
 import { SearchInput, ModalHeader } from '../../../components/'
 import { isIOS, isAndroid } from '../../../utils'
@@ -30,6 +32,7 @@ export function CurrencyListOverlay({
   onShow,
 }: CurrencyListOverlayProps) {
   const { theme } = useTheme()
+  const { t } = useLingui()
   const [searchValue, setSearchValue] = useState('')
   const currencies = useCurrencies()
   const sortedCurrencies =
@@ -86,7 +89,7 @@ export function CurrencyListOverlay({
               value={searchValue}
               textContentType="countryName"
               onChangeText={setSearchValue}
-              placeholder="Start typing (eg.: USD or Dollars)"
+              placeholder={t`Start typing (eg.: USD or Dollars)`}
               onCancel={onCancel}
               ref={searchInputRef}
             />

@@ -1,5 +1,4 @@
 import { ScrollView, StyleSheet } from 'react-native'
-import { StatusBar } from 'expo-status-bar'
 import { Container } from '../../components/'
 import {
   DefaultCurrencySettings,

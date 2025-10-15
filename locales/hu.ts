@@ -1,0 +1,1 @@
+/*eslint-disable*/import type{Messages}from"@lingui/core";export const messages=JSON.parse("{\"T/pF0Z\":[\"Eltávolítás a kedvencekből\"],\"pBsoKL\":[\"Hozzadás a kedvencekhez\"]}")as Messages;

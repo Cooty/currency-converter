@@ -5,14 +5,21 @@
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
-    "ios": "expo start --ios"
+    "ios": "expo start --ios",
+    "i18n:extract": "lingui extract",
+    "i18n:compile": "lingui compile --typescript",
+    "postinstall": "npm run i18n:extract && npm run i18n:compile"
   },
   "dependencies": {
+    "@lingui/core": "^5.5.0",
+    "@lingui/react": "^5.5.0",
     "@react-native-async-storage/async-storage": "^1.23.1",
     "@react-navigation/bottom-tabs": "^7.2.0",
     "@react-navigation/native": "^7.0.14",
     "expo": "~52.0.31",
     "expo-linking": "~7.0.5",
+    "expo-localization": "~16.0.1",
+    "expo-navigation-bar": "~4.0.8",
     "expo-splash-screen": "~0.29.21",
     "expo-status-bar": "~2.0.1",
     "expo-symbols": "~0.2.2",
@@ -21,11 +28,12 @@
     "react-native": "0.76.7",
     "react-native-country-flag": "^2.0.2",
     "react-native-safe-area-context": "4.12.0",
-    "react-native-screens": "~4.4.0",
-    "expo-navigation-bar": "~4.0.8"
+    "react-native-screens": "~4.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
+    "@lingui/babel-plugin-lingui-macro": "^5.5.0",
+    "@lingui/cli": "^5.5.0",
     "@types/react": "~18.3.12",
     "typescript": "~5.3.3"
   },

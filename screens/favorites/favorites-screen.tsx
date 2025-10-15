@@ -1,5 +1,4 @@
 import { ScrollView, StyleSheet } from 'react-native'
-import { StatusBar } from 'expo-status-bar'
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs'
 import { Container } from '../../components'
 import { CurrencyPairListItem } from '../../features/currency/components'

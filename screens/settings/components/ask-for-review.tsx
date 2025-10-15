@@ -1,3 +1,5 @@
+import { Trans } from '@lingui/react/macro'
+
 import { Section, PlatformAdaptiveButton } from '../../../components'
 import { SectionPropsWithoutTitle } from './types'
 import { LeadText } from './lead-text'
@@ -8,9 +10,11 @@ import { LeadText } from './lead-text'
 export function AskForReview(props: SectionPropsWithoutTitle) {
   return (
     <Section title="Feedback" {...props}>
-      <LeadText>Please leave us a review make this app even better!</LeadText>
+      <LeadText>
+        <Trans>Please leave us a review make this app even better!</Trans>
+      </LeadText>
       <PlatformAdaptiveButton icon="star-outlined" hug>
-        Rate the App
+        <Trans>Rate the App</Trans>
       </PlatformAdaptiveButton>
     </Section>
   )
