@@ -17,6 +17,62 @@ msgstr ""
 msgid "Add to favorites"
 msgstr ""
 
+#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:50
+msgid "Default currency pair"
+msgstr ""
+
+#: screens/convert/components/disclaimer.tsx:50
+msgid "Disclaimer"
+msgstr ""
+
+#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:51
+msgid "Last used"
+msgstr ""
+
+#: screens/convert/components/disclaimer-pop-up.tsx:18
+msgid "Legal Disclaimer"
+msgstr ""
+
+#: screens/favorites/components/empty-state.tsx:10
+msgid "Nothing here yet!"
+msgstr ""
+
+#: screens/settings/components/ask-for-review.tsx:14
+msgid "Please leave us a review make this app even better!"
+msgstr ""
+
+#: screens/settings/components/ask-for-review.tsx:17
+msgid "Rate the App"
+msgstr ""
+
 #: screens/convert/components/add-to-favorites.tsx:51
 msgid "Remove from favorites"
+msgstr ""
+
+#: features/currency/components/currency-list-overlay.tsx:92
+msgid "Start typing (eg.: USD or Dollars)"
+msgstr ""
+
+#: screens/convert/components/disclaimer-pop-up.tsx:21
+msgid "The exchange rates provided in this app are sourced from a <0>third-party API</0> and may not always reflect the most current rates. All currency information is provided \"as is\" without any warranties, expressed or implied, including but not limited to the accuracy, reliability, or completeness of the data. We are not responsible for any financial decisions, losses, or damages incurred based on the use of this app or the information contained within it."
+msgstr ""
+
+#: features/error/error-boundary.tsx:34
+msgid "Unexpected error, please try again!"
+msgstr ""
+
+#: screens/favorites/components/empty-state.tsx:13
+msgid "Use the button with a ❤️ on the conversion screen to mark a currency pair as favorite so you can quickly access it!"
+msgstr ""
+
+#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:61
+msgid "What should be the default currency pair?"
+msgstr ""
+
+#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:46
+msgid "What to show when opening the app?"
+msgstr ""
+
+#: screens/error/error-screen.tsx:23
+msgid "Whoops Something Went Wrong 😞"
 msgstr ""
