@@ -3,6 +3,8 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import * as NavigationBar from 'expo-navigation-bar'
+import { useLingui } from '@lingui/react/macro'
+
 import { PlatformAdaptiveIcon } from '../components'
 import { ConvertScreen, FavoritesScreen, SettingsScreen } from '../screens'
 import { colors, useTheme } from '../features/theming'
@@ -16,6 +18,7 @@ export function RootTabs() {
   const defaultCurrencyCodes = useDefaultCurrencyCodes()
   const { theme, themeName } = useTheme()
   const { bottom } = useSafeAreaInsets()
+  const { t } = useLingui()
 
   useEffect(() => {
     if (isAndroid()) {
@@ -67,8 +70,8 @@ export function RootTabs() {
             targetCurrencyCode: defaultCurrencyCodes.target,
           }}
           options={{
-            tabBarLabel: 'Convert',
-            headerTitle: 'Convert currencies',
+            tabBarLabel: t`Convert`,
+            headerTitle: t`Convert currencies`,
             tabBarIcon: ({ color, size }) => (
               <PlatformAdaptiveIcon name="convert" color={color} size={size} />
             ),
@@ -79,8 +82,8 @@ export function RootTabs() {
           name="Favorites"
           component={FavoritesScreen}
           options={{
-            tabBarLabel: 'Favorites',
-            headerTitle: 'Favorite currency pairs',
+            tabBarLabel: t`Favorites`,
+            headerTitle: t`Favorite currency pairs`,
             tabBarIcon: ({ color, size }) => (
               <PlatformAdaptiveIcon name="favorite" color={color} size={size} />
             ),
@@ -90,8 +93,8 @@ export function RootTabs() {
           name="Settings"
           component={SettingsScreen}
           options={{
-            tabBarLabel: 'Settings',
-            headerTitle: 'Settings',
+            tabBarLabel: t`Settings`,
+            headerTitle: t`Settings`,
             tabBarIcon: ({ color, size }) => (
               <PlatformAdaptiveIcon name="settings" color={color} size={size} />
             ),

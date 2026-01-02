@@ -1,0 +1,125 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2025-09-16 16:24+0300\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: hu\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#: screens/convert/components/add-to-favorites.tsx:53
+msgid "Add to favorites"
+msgstr "Hozzadás a kedvencekhez"
+
+#: screens/convert/components/disclaimer-pop-up.tsx:32
+msgid "All currency information is provided for informational purposes only and is offered “as is”, without any warranties, express or implied, including but not limited to the accuracy, reliability, or completeness of the data."
+msgstr "Az alkalmazás kizárólag tájékoztató jellegű információkat nyújt. Az adatok „adott állapotukban” („as is”) kerülnek megjelenítésre, bármiféle kifejezett vagy hallgatólagos garancia nélkül."
+
+#: routing/root-tabs.tsx:73
+msgid "Convert"
+msgstr "Átváltás"
+
+#: routing/root-tabs.tsx:74
+msgid "Convert currencies"
+msgstr "Valuta átváltás"
+
+#: features/theming/constants.ts:15
+msgid "Dark mode"
+msgstr "Sötét mód"
+
+#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:50
+msgid "Default currency pair"
+msgstr "Alapértelmezett valutapár"
+
+#: screens/convert/components/disclaimer.tsx:50
+msgid "Disclaimer"
+msgstr "Felelősségkizárás"
+
+#: routing/root-tabs.tsx:86
+msgid "Favorite currency pairs"
+msgstr "Kedvenc valutapárok"
+
+#: routing/root-tabs.tsx:85
+msgid "Favorites"
+msgstr "Kedvencek"
+
+#: features/i18n/constants.ts:25
+#: features/theming/constants.ts:7
+msgid "Follow the system setting"
+msgstr "A rendszerbállításhoz igazodik"
+
+#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:51
+msgid "Last used"
+msgstr "Legutóbb használt"
+
+#: screens/convert/components/disclaimer-pop-up.tsx:19
+msgid "Legal Disclaimer"
+msgstr "Felelősségkizáró nyilatkozat"
+
+#: features/theming/constants.ts:11
+msgid "Light mode"
+msgstr "Világos mód"
+
+#: screens/favorites/components/empty-state.tsx:10
+msgid "Nothing here yet!"
+msgstr "Még nincs itt semmi!"
+
+#: screens/settings/components/ask-for-review.tsx:14
+msgid "Please leave us a review make this app even better!"
+msgstr "Írj értékelést, és segíts, hogy még jobbá tegyük az alkalmazást!"
+
+#: screens/settings/components/ask-for-review.tsx:17
+msgid "Rate the App"
+msgstr "Alkalmazás értékelése"
+
+#: screens/convert/components/add-to-favorites.tsx:51
+msgid "Remove from favorites"
+msgstr "Eltávolítás a kedvencekből"
+
+#: routing/root-tabs.tsx:96
+#: routing/root-tabs.tsx:97
+msgid "Settings"
+msgstr "Beállítások"
+
+#: features/currency/components/currency-list-overlay.tsx:92
+msgid "Start typing (eg.: USD or Dollars)"
+msgstr "Keresés valutára (pl. HUF vagy forint)"
+
+#: features/i18n/constants.ts:23
+#: features/theming/constants.ts:6
+msgid "System"
+msgstr "Rendszer szerint"
+
+#: screens/convert/components/disclaimer-pop-up.tsx:23
+msgid "The exchange rates displayed in this app are sourced from a <0>third-party API</0> and may not always reflect the most current or accurate rates."
+msgstr "Az alkalmazásban megjelenített árfolyamadatok egy <0>harmadik fél által biztosított API</0> forrásából származnak, és előfordulhat, hogy nem mindig a legfrissebb vagy legpontosabb adatokat tükrözik."
+
+#: features/error/error-boundary.tsx:34
+msgid "Unexpected error, please try again!"
+msgstr "Váratlan hiba történt, kérjük, próbáld újra!"
+
+#: screens/favorites/components/empty-state.tsx:13
+msgid "Use the button with a ❤️ on the conversion screen to mark a currency pair as favorite so you can quickly access it!"
+msgstr "A ❤️ gombbal jelöld kedvencként a valutapárt, így gyorsan hozzáférhetsz!"
+
+#: screens/convert/components/disclaimer-pop-up.tsx:40
+msgid "We are not responsible for any financial decisions made, or for any losses or damages incurred, as a result of using this app or relying on the information it provides."
+msgstr "Az alkalmazás használata során hozott pénzügyi döntésekért, illetve az ezekből eredő esetleges veszteségekért vagy károkért nem vállalunk felelősséget."
+
+#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:61
+msgid "What should be the default currency pair?"
+msgstr "Mi legyen az alapértelmezett valutapár?"
+
+#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:46
+msgid "What to show when opening the app?"
+msgstr "Mivel indítsuk az appot?"
+
+#: screens/error/error-screen.tsx:23
+msgid "Whoops Something Went Wrong 😞"
+msgstr "Hoppá, valami hiba történt 😞"

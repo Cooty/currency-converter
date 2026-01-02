@@ -6,10 +6,11 @@ import { StatusBar } from 'expo-status-bar'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { i18n } from '@lingui/core'
 import { I18nProvider } from '@lingui/react'
-import { messages as messagesBG } from './locales/bg'
-import { messages as messagesDE } from './locales/de'
-import { messages as messagesEN } from './locales/en'
-import { messages as messagesHU } from './locales/hu'
+import { messages as messagesBG } from './features/i18n/locales/bg'
+import { messages as messagesDE } from './features/i18n/locales/de'
+import { messages as messagesEN } from './features/i18n/locales/en'
+import { messages as messagesHU } from './features/i18n/locales/hu'
+import { LocaleProvider, defaultLocale } from './features/i18n'
 
 import { RootTabs } from './routing'
 import {
@@ -27,14 +28,15 @@ SplashScreen.setOptions({
 })
 
 i18n.load({ bg: messagesBG, de: messagesDE, en: messagesEN, hu: messagesHU })
-i18n.activate('en')
+i18n.activate(defaultLocale)
 
 function App() {
   const [isThemeSettingLoaded, setIsThemeSettingLoaded] = useState(false)
   const [isCurrencyListLoaded, setIsCurrencyListLoaded] = useState(false)
+  const [isLocaleSettingLoaded, setIsLocaleSettingLoaded] = useState(false)
 
   useEffect(() => {
-    if (isCurrencyListLoaded && isThemeSettingLoaded) {
+    if (isCurrencyListLoaded && isThemeSettingLoaded && isLocaleSettingLoaded) {
       SplashScreen.hideAsync()
     }
   }, [isThemeSettingLoaded, isCurrencyListLoaded])
@@ -48,9 +50,11 @@ function App() {
               <CurrencyListProvider
                 onReady={() => setIsCurrencyListLoaded(true)}
               >
-                <StoredExchangeRateContextProvider>
-                  <RootTabs />
-                </StoredExchangeRateContextProvider>
+                <LocaleProvider onReady={() => setIsLocaleSettingLoaded(true)}>
+                  <StoredExchangeRateContextProvider>
+                    <RootTabs />
+                  </StoredExchangeRateContextProvider>
+                </LocaleProvider>
               </CurrencyListProvider>
             </ThemeProvider>
           </ErrorBoundary>

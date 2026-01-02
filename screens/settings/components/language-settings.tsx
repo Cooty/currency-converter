@@ -1,17 +1,51 @@
-import { useState } from 'react'
+import { useMemo } from 'react'
+import { useLingui } from '@lingui/react/macro'
+
 import { Section, RadioGroup } from '../../../components'
-import { localeOptions } from '../../../features/i18n'
+import {
+  useLocale,
+  SYSTEM_SETTING_VALUE,
+  supportedLocales,
+} from '../../../features/i18n'
 import { SectionPropsWithoutTitle } from './types'
 
 export function LanguageSettings(props: SectionPropsWithoutTitle) {
-  const [localePreference, setLocalePreference] = useState('en')
+  const { t } = useLingui()
+  const { appLocale, setAppLocale } = useLocale()
+
+  const localeOptions = useMemo(
+    () => [
+      {
+        label: 'English',
+        value: supportedLocales[0],
+      },
+      {
+        label: 'Deutsch',
+        value: supportedLocales[1],
+      },
+      {
+        label: 'Magyar',
+        value: supportedLocales[2],
+      },
+      {
+        label: 'Български',
+        value: supportedLocales[3],
+      },
+      {
+        label: t`System`,
+        value: SYSTEM_SETTING_VALUE,
+        hint: t`Follow the system setting`,
+      },
+    ],
+    [t]
+  )
 
   return (
     <Section title="Language" {...props}>
       <RadioGroup
-        initialValue={localePreference}
+        initialValue={appLocale}
         options={localeOptions}
-        onChange={setLocalePreference}
+        onChange={setAppLocale}
       />
     </Section>
   )
