@@ -1,11 +1,14 @@
 import { StyleSheet } from 'react-native'
+import { type ReactNode } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { Trans } from '@lingui/react/macro'
+
 import { wrapperGutter } from '../../styles/'
 import { useTheme } from '../../features/theming'
 import { AppText, AppTitle, YStack } from '../../components/'
 
 export interface ErrorScreenProps {
-  message?: string
+  message?: ReactNode
 }
 
 export function ErrorScreen({ message }: ErrorScreenProps) {
@@ -17,7 +20,7 @@ export function ErrorScreen({ message }: ErrorScreenProps) {
     >
       <YStack>
         <AppTitle style={componentStyles.textCenter}>
-          Whoops Something Went Wrong 😞
+          <Trans>Whoops Something Went Wrong 😞</Trans>
         </AppTitle>
 
         {message && (

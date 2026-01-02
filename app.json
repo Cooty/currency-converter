@@ -14,8 +14,13 @@
       "resizeMode": "contain",
       "backgroundColor": "#002395"
     },
-    "assetBundlePatterns": ["**/*"],
-    "platforms": ["ios", "android"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "githubUrl": "https://github.com/Cooty/currency-converter",
     "ios": {
       "supportsTablet": true,
@@ -33,6 +38,9 @@
         "projectId": "e8e0a6e9-6edb-483e-a5ec-c13f7db5b8fb"
       }
     },
-    "owner": "cooty"
+    "owner": "cooty",
+    "plugins": [
+      "expo-localization"
+    ]
   }
 }

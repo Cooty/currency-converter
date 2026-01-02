@@ -1,18 +1,4 @@
-export const localeOptions = [
-  {
-    label: 'English',
-    value: 'en',
-  },
-  {
-    label: 'Deutsch',
-    value: 'de',
-  },
-  {
-    label: 'Magyar',
-    value: 'hu',
-  },
-  {
-    label: 'Български',
-    value: 'bg',
-  },
-]
+export const SYSTEM_SETTING_VALUE = 'system'
+
+export const defaultLocale = 'en'
+export const supportedLocales = [defaultLocale, 'de', 'hu', 'bg']

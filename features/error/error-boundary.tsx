@@ -1,4 +1,11 @@
-import { Component, ReactElement, PropsWithChildren } from 'react'
+import {
+  Component,
+  ReactElement,
+  PropsWithChildren,
+  type ReactNode,
+} from 'react'
+import { Trans } from '@lingui/react/macro'
+
 import { ErrorScreen } from '../../screens/error/error-screen'
 
 type ErrorBoundaryProps = PropsWithChildren & {
@@ -7,7 +14,7 @@ type ErrorBoundaryProps = PropsWithChildren & {
 
 interface ErrorBoundaryState {
   hasError: boolean
-  errorMessage?: string
+  errorMessage?: ReactNode
 }
 
 class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
@@ -23,7 +30,9 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 
   componentDidCatch(error: Error, info: any) {
     this.setState({
-      errorMessage: error.message ?? 'Unexpected error, please try again!',
+      errorMessage: error.message ?? (
+        <Trans>Unexpected error, please try again!</Trans>
+      ),
     })
     console.error(info)
   }

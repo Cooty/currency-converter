@@ -1,5 +1,7 @@
-import { PlatformAdaptiveButton } from '../../../components'
 import { StyleProp, ViewStyle } from 'react-native'
+import { Trans } from '@lingui/react/macro'
+
+import { PlatformAdaptiveButton } from '../../../components'
 import { Currency, useStoredExchangeRates } from '../../../features/currency'
 
 export interface AddToFavoritesProps {
@@ -45,7 +47,11 @@ export function AddToFavorites({
       style={style}
       onPress={onFavoritesPress}
     >
-      {isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+      {isFavorite ? (
+        <Trans>Remove from favorites</Trans>
+      ) : (
+        <Trans>Add to favorites</Trans>
+      )}
     </PlatformAdaptiveButton>
   )
 }

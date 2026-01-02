@@ -30,8 +30,7 @@ const ThemeContext = createContext<ThemeContextValue>({
 ThemeContext.displayName = 'ThemeContext'
 
 export function useTheme() {
-  const context = useContext(ThemeContext)
-  return context
+  return useContext(ThemeContext)
 }
 
 type ThemeProviderProps = PropsWithChildren & {
@@ -59,7 +58,7 @@ export function ThemeProvider({ children, onReady }: ThemeProviderProps) {
         setThemeSetting('system')
       }
     }
-    setInitialTheme().then(() => {
+    setInitialTheme().finally(() => {
       onReady?.()
     })
   }, [])
