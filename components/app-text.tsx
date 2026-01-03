@@ -1,5 +1,5 @@
 import { Text, StyleSheet, TextProps } from 'react-native'
-import { baseFontSize } from '../styles'
+import { baseFontSize, systemFontFamily } from '../styles'
 import { useTheme } from '../features/theming'
 
 type TextVariants = 'primary' | 'secondary'
@@ -32,5 +32,6 @@ export function AppText({
 const componentStyles = StyleSheet.create({
   text: {
     ...baseFontSize(0, true),
+    ...systemFontFamily,
   },
 })
