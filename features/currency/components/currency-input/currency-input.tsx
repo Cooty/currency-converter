@@ -7,7 +7,12 @@ import {
   ViewStyle,
   StyleProp,
 } from 'react-native'
-import { baseFontSize, baseSize, tokens } from '../../../../styles'
+import {
+  baseFontSize,
+  baseSize,
+  systemFontFamily,
+  tokens,
+} from '../../../../styles'
 import { useTheme } from '../../../theming'
 import { AppText } from '../../../../components/'
 import { isAndroid } from '../../../../utils'
@@ -71,5 +76,6 @@ const componentStyles = StyleSheet.create({
     paddingHorizontal: 0,
     paddingVertical: baseSize(2),
     ...baseFontSize(1),
+    ...systemFontFamily,
   },
 })

@@ -8,9 +8,10 @@ import {
   ViewStyle,
 } from 'react-native'
 import { PropsWithChildren } from 'react'
+
 import { Highlight } from './highlight'
 import { isAndroid, isIOS } from '../utils'
-import { baseFontSize, tokens } from '../styles'
+import { baseFontSize, tokens, systemFontFamily } from '../styles'
 import { colors } from '../features/theming'
 import { useTheme } from '../features/theming'
 import { IconNames, PlatformAdaptiveIcon } from './platform-adaptive-icon'
@@ -156,5 +157,6 @@ const componentStyles = StyleSheet.create({
     fontWeight: isIOS() ? 400 : 500,
     textAlign: 'center',
     ...textFontSize,
+    ...systemFontFamily,
   },
 })

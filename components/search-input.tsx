@@ -3,7 +3,7 @@ import { TextInput, TextInputProps, StyleSheet, View } from 'react-native'
 import { PlatformAdaptiveIcon } from './platform-adaptive-icon'
 import { Highlight } from './highlight'
 import { isAndroid, isIOS } from '../utils'
-import { baseFontSize, tokens, baseSize } from '../styles'
+import { baseFontSize, tokens, baseSize, systemFontFamily } from '../styles'
 import { colors, useTheme } from '../features/theming'
 
 export type SearchInputProps = TextInputProps & {
@@ -154,6 +154,7 @@ const componentStyles = StyleSheet.create({
     paddingStart: isIOS() ? iOSPaddingStart : androidPaddingStart,
     paddingVertical: baseSize(2),
     ...baseFontSize(),
+    ...systemFontFamily,
   },
   backButtonContainer: {
     borderRadius: backButtonSize,
