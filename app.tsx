@@ -1,6 +1,6 @@
 import { registerRootComponent } from 'expo'
 import { useState, useEffect } from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Text } from 'react-native'
 import * as SplashScreen from 'expo-splash-screen'
 import { StatusBar } from 'expo-status-bar'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
@@ -50,11 +50,12 @@ function App() {
               <CurrencyListProvider
                 onReady={() => setIsCurrencyListLoaded(true)}
               >
-                <LocaleProvider onReady={() => setIsLocaleSettingLoaded(true)}>
+                {/* <LocaleProvider onReady={() => setIsLocaleSettingLoaded(true)}>
                   <StoredExchangeRateContextProvider>
                     <RootTabs />
                   </StoredExchangeRateContextProvider>
-                </LocaleProvider>
+                </LocaleProvider> */}
+                <Text>Hi mom!</Text>
               </CurrencyListProvider>
             </ThemeProvider>
           </ErrorBoundary>

@@ -1,11 +1,5 @@
-import {
-  useState,
-  useEffect,
-  createContext,
-  useContext,
-  useRef,
-  type PropsWithChildren,
-} from 'react'
+import { useState, useEffect, createContext, useContext, useRef } from 'react'
+import type { PropsWithChildren } from 'react'
 import { AppState } from 'react-native'
 import { getLocales } from 'expo-localization'
 import { i18n } from '@lingui/core'
