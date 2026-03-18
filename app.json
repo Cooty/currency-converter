@@ -41,7 +41,8 @@
     "owner": "cooty",
     "plugins": [
       "expo-localization",
-      "expo-asset"
+      "expo-asset",
+      "expo-font"
     ]
   }
 }

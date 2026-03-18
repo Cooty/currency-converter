@@ -1,16 +1,19 @@
-import { useState, useEffect, createContext, useContext, useRef } from 'react'
-import type { PropsWithChildren } from 'react'
+import {
+  useState,
+  useEffect,
+  createContext,
+  useContext,
+  useRef,
+  type PropsWithChildren,
+} from 'react'
 import { AppState } from 'react-native'
 import { getLocales } from 'expo-localization'
 import { i18n } from '@lingui/core'
 
 import { SYSTEM_SETTING_VALUE, defaultLocale } from '../constants'
 
-import {
-  getSavedLocaleSetting,
-  saveLocaleSetting,
-  getSupportedLocale,
-} from '../utils'
+import { getSupportedLocale } from '../utils/get-supported-locale'
+import { getSavedLocaleSetting, saveLocaleSetting } from '../utils/storage'
 
 const LocaleContext = createContext<{
   appLocale: string
@@ -41,7 +44,7 @@ export function LocaleProvider({
   const [appLocale, setAppLocale] = useState(defaultLocale)
   const appState = useRef(AppState.currentState)
 
-  // Get the saved setting from storage
+  // // Get the saved setting from storage
   useEffect(() => {
     getSavedLocaleSetting()
       .then((savedValue) => {
