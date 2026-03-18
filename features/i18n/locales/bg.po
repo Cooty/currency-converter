@@ -21,6 +21,10 @@ msgstr "Добавяне към любими"
 msgid "All currency information is provided for informational purposes only and is offered “as is”, without any warranties, express or implied, including but not limited to the accuracy, reliability, or completeness of the data."
 msgstr "Всяка информация за валутите се предоставя само с информационна цел и се предоставя „както е“ („as is“), без никакви гаранции, изрични или подразбиращи се, включително, но не само, относно точността, надеждността или пълнотата на данните."
 
+#: screens/settings/components/support-us.tsx:20
+msgid "Buy me a Coffee"
+msgstr "Почерпи ме с кафе!"
+
 #: routing/root-tabs.tsx:73
 msgid "Convert"
 msgstr "Конвертиране"
@@ -29,10 +33,11 @@ msgstr "Конвертиране"
 msgid "Convert currencies"
 msgstr "Конвертиране на валути"
 
-#: features/theming/constants.ts:15
+#: screens/settings/components/theme-settings.tsx:24
 msgid "Dark mode"
 msgstr "Тъмен режим"
 
+#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:44
 #: screens/settings/components/default-currency-settings/default-currency-settings.tsx:50
 msgid "Default currency pair"
 msgstr "По подразбиране валутна двойка"
@@ -49,10 +54,18 @@ msgstr "Любими валутни двойки"
 msgid "Favorites"
 msgstr "Любими"
 
-#: features/i18n/constants.ts:25
-#: features/theming/constants.ts:7
+#: screens/settings/components/ask-for-review.tsx:14
+msgid "Feedback"
+msgstr "Отзиви"
+
+#: screens/settings/components/language-settings.tsx:37
+#: screens/settings/components/theme-settings.tsx:16
 msgid "Follow the system setting"
 msgstr "Следвай системната настройка"
+
+#: screens/settings/components/language-settings.tsx:44
+msgid "Language"
+msgstr "Език"
 
 #: screens/settings/components/default-currency-settings/default-currency-settings.tsx:51
 msgid "Last used"
@@ -62,7 +75,7 @@ msgstr "Последно използвано"
 msgid "Legal Disclaimer"
 msgstr "Правен отказ от отговорност"
 
-#: features/theming/constants.ts:11
+#: screens/settings/components/theme-settings.tsx:20
 msgid "Light mode"
 msgstr "Светъл режим"
 
@@ -70,11 +83,11 @@ msgstr "Светъл режим"
 msgid "Nothing here yet!"
 msgstr "Все още няма любими!"
 
-#: screens/settings/components/ask-for-review.tsx:14
+#: screens/settings/components/ask-for-review.tsx:16
 msgid "Please leave us a review make this app even better!"
 msgstr "Оставете ни отзив и помогнете приложението да стане още по-добро!"
 
-#: screens/settings/components/ask-for-review.tsx:17
+#: screens/settings/components/ask-for-review.tsx:19
 msgid "Rate the App"
 msgstr "Оценете"
 
@@ -91,14 +104,26 @@ msgstr "Настройки"
 msgid "Start typing (eg.: USD or Dollars)"
 msgstr "Търсене (например: EUR или Евро)"
 
-#: features/i18n/constants.ts:23
-#: features/theming/constants.ts:6
+#: screens/settings/components/support-us.tsx:10
+msgid "Support Us!"
+msgstr "Подкрепи ни!"
+
+#: screens/settings/components/language-settings.tsx:35
+#: screens/settings/components/theme-settings.tsx:15
 msgid "System"
 msgstr "Система"
 
 #: screens/convert/components/disclaimer-pop-up.tsx:23
 msgid "The exchange rates displayed in this app are sourced from a <0>third-party API</0> and may not always reflect the most current or accurate rates."
 msgstr "Обменните курсове, показани в това приложение, се получават от <0>API на трета страна</0> и може да не отразяват винаги най-актуалните или най-точните курсове."
+
+#: screens/settings/components/theme-settings.tsx:32
+msgid "Theme"
+msgstr "Облик"
+
+#: screens/settings/components/support-us.tsx:12
+msgid "This is a free app that doesn't run ads and doesn't collect your data. If you can afford it, please consider donating the price of a coffee to contribute to it's maintenance and development."
+msgstr "Това е безплатно приложение, което не показва реклами и не събира твоите данни. Ако можеш да си го позволиш, помисли да дариш стойността на едно кафе, за да помогнеш за поддръжката и развитието му."
 
 #: features/error/error-boundary.tsx:34
 msgid "Unexpected error, please try again!"

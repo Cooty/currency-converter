@@ -41,7 +41,7 @@ export function LanguageSettings(props: SectionPropsWithoutTitle) {
   )
 
   return (
-    <Section title="Language" {...props}>
+    <Section title={t`Language`} {...props}>
       <RadioGroup
         initialValue={appLocale}
         options={localeOptions}

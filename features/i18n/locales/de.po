@@ -21,6 +21,10 @@ msgstr "Zu Favoriten hinzufügen"
 msgid "All currency information is provided for informational purposes only and is offered “as is”, without any warranties, express or implied, including but not limited to the accuracy, reliability, or completeness of the data."
 msgstr "Alle Währungsinformationen dienen ausschließlich zu Informationszwecken und werden „wie gesehen“ („as is“) bereitgestellt, ohne jegliche ausdrückliche oder stillschweigende Garantien, einschließlich, aber nicht beschränkt auf die Genauigkeit, Zuverlässigkeit oder Vollständigkeit der Daten."
 
+#: screens/settings/components/support-us.tsx:20
+msgid "Buy me a Coffee"
+msgstr "Spendier mir einen Kaffee!"
+
 #: routing/root-tabs.tsx:73
 msgid "Convert"
 msgstr "Umrechnen"
@@ -29,10 +33,11 @@ msgstr "Umrechnen"
 msgid "Convert currencies"
 msgstr "Währung umrechnen"
 
-#: features/theming/constants.ts:15
+#: screens/settings/components/theme-settings.tsx:24
 msgid "Dark mode"
 msgstr "Dunkles Design"
 
+#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:44
 #: screens/settings/components/default-currency-settings/default-currency-settings.tsx:50
 msgid "Default currency pair"
 msgstr "Standard-Währungspaar"
@@ -49,10 +54,18 @@ msgstr "Bevorzugte Währungspaare"
 msgid "Favorites"
 msgstr "Favoriten"
 
-#: features/i18n/constants.ts:25
-#: features/theming/constants.ts:7
+#: screens/settings/components/ask-for-review.tsx:14
+msgid "Feedback"
+msgstr "Feedback"
+
+#: screens/settings/components/language-settings.tsx:37
+#: screens/settings/components/theme-settings.tsx:16
 msgid "Follow the system setting"
 msgstr "Der Systemeinstellung folgen"
+
+#: screens/settings/components/language-settings.tsx:44
+msgid "Language"
+msgstr "Schprache"
 
 #: screens/settings/components/default-currency-settings/default-currency-settings.tsx:51
 msgid "Last used"
@@ -62,7 +75,7 @@ msgstr "Zuletzt verwendet"
 msgid "Legal Disclaimer"
 msgstr "Rechtlicher Hinweis"
 
-#: features/theming/constants.ts:11
+#: screens/settings/components/theme-settings.tsx:20
 msgid "Light mode"
 msgstr "Helles Design"
 
@@ -70,11 +83,11 @@ msgstr "Helles Design"
 msgid "Nothing here yet!"
 msgstr "Noch keine Favoriten!"
 
-#: screens/settings/components/ask-for-review.tsx:14
+#: screens/settings/components/ask-for-review.tsx:16
 msgid "Please leave us a review make this app even better!"
 msgstr "Bewerte uns und hilf, die App zu verbessern!"
 
-#: screens/settings/components/ask-for-review.tsx:17
+#: screens/settings/components/ask-for-review.tsx:19
 msgid "Rate the App"
 msgstr "App bewerten"
 
@@ -91,14 +104,26 @@ msgstr "Einstellungen"
 msgid "Start typing (eg.: USD or Dollars)"
 msgstr "Tippe hier (z. B.: EUR oder Euro)"
 
-#: features/i18n/constants.ts:23
-#: features/theming/constants.ts:6
+#: screens/settings/components/support-us.tsx:10
+msgid "Support Us!"
+msgstr "Unterstütze uns!"
+
+#: screens/settings/components/language-settings.tsx:35
+#: screens/settings/components/theme-settings.tsx:15
 msgid "System"
 msgstr "System"
 
 #: screens/convert/components/disclaimer-pop-up.tsx:23
 msgid "The exchange rates displayed in this app are sourced from a <0>third-party API</0> and may not always reflect the most current or accurate rates."
 msgstr "Die in dieser App angezeigten Wechselkurse stammen aus einer <0>API eines Drittanbieters</0> und spiegeln möglicherweise nicht immer die aktuellsten oder genauesten Kurse wider."
+
+#: screens/settings/components/theme-settings.tsx:32
+msgid "Theme"
+msgstr "Erscheinungsbild"
+
+#: screens/settings/components/support-us.tsx:12
+msgid "This is a free app that doesn't run ads and doesn't collect your data. If you can afford it, please consider donating the price of a coffee to contribute to it's maintenance and development."
+msgstr "Dies ist eine kostenlose App, die keine Werbung anzeigt und keine Daten sammelt. Wenn du es dir leisten kannst, ziehe bitte in Betracht, den Preis eines Kaffees zu spenden, um zur Wartung und Weiterentwicklung beizutragen."
 
 #: features/error/error-boundary.tsx:34
 msgid "Unexpected error, please try again!"

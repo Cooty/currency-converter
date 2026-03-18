@@ -21,6 +21,10 @@ msgstr "Hozzadás a kedvencekhez"
 msgid "All currency information is provided for informational purposes only and is offered “as is”, without any warranties, express or implied, including but not limited to the accuracy, reliability, or completeness of the data."
 msgstr "Az alkalmazás kizárólag tájékoztató jellegű információkat nyújt. Az adatok „adott állapotukban” („as is”) kerülnek megjelenítésre, bármiféle kifejezett vagy hallgatólagos garancia nélkül."
 
+#: screens/settings/components/support-us.tsx:20
+msgid "Buy me a Coffee"
+msgstr "Hívj meg egy kávéra"
+
 #: routing/root-tabs.tsx:73
 msgid "Convert"
 msgstr "Átváltás"
@@ -29,10 +33,11 @@ msgstr "Átváltás"
 msgid "Convert currencies"
 msgstr "Valuta átváltás"
 
-#: features/theming/constants.ts:15
+#: screens/settings/components/theme-settings.tsx:24
 msgid "Dark mode"
 msgstr "Sötét mód"
 
+#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:44
 #: screens/settings/components/default-currency-settings/default-currency-settings.tsx:50
 msgid "Default currency pair"
 msgstr "Alapértelmezett valutapár"
@@ -49,10 +54,18 @@ msgstr "Kedvenc valutapárok"
 msgid "Favorites"
 msgstr "Kedvencek"
 
-#: features/i18n/constants.ts:25
-#: features/theming/constants.ts:7
+#: screens/settings/components/ask-for-review.tsx:14
+msgid "Feedback"
+msgstr "Értékelés"
+
+#: screens/settings/components/language-settings.tsx:37
+#: screens/settings/components/theme-settings.tsx:16
 msgid "Follow the system setting"
 msgstr "A rendszerbállításhoz igazodik"
+
+#: screens/settings/components/language-settings.tsx:44
+msgid "Language"
+msgstr "Nyelv"
 
 #: screens/settings/components/default-currency-settings/default-currency-settings.tsx:51
 msgid "Last used"
@@ -62,7 +75,7 @@ msgstr "Legutóbb használt"
 msgid "Legal Disclaimer"
 msgstr "Felelősségkizáró nyilatkozat"
 
-#: features/theming/constants.ts:11
+#: screens/settings/components/theme-settings.tsx:20
 msgid "Light mode"
 msgstr "Világos mód"
 
@@ -70,11 +83,11 @@ msgstr "Világos mód"
 msgid "Nothing here yet!"
 msgstr "Még nincs itt semmi!"
 
-#: screens/settings/components/ask-for-review.tsx:14
+#: screens/settings/components/ask-for-review.tsx:16
 msgid "Please leave us a review make this app even better!"
 msgstr "Írj értékelést, és segíts, hogy még jobbá tegyük az alkalmazást!"
 
-#: screens/settings/components/ask-for-review.tsx:17
+#: screens/settings/components/ask-for-review.tsx:19
 msgid "Rate the App"
 msgstr "Alkalmazás értékelése"
 
@@ -91,14 +104,26 @@ msgstr "Beállítások"
 msgid "Start typing (eg.: USD or Dollars)"
 msgstr "Keresés valutára (pl. HUF vagy forint)"
 
-#: features/i18n/constants.ts:23
-#: features/theming/constants.ts:6
+#: screens/settings/components/support-us.tsx:10
+msgid "Support Us!"
+msgstr "Támogass!"
+
+#: screens/settings/components/language-settings.tsx:35
+#: screens/settings/components/theme-settings.tsx:15
 msgid "System"
 msgstr "Rendszer szerint"
 
 #: screens/convert/components/disclaimer-pop-up.tsx:23
 msgid "The exchange rates displayed in this app are sourced from a <0>third-party API</0> and may not always reflect the most current or accurate rates."
 msgstr "Az alkalmazásban megjelenített árfolyamadatok egy <0>harmadik fél által biztosított API</0> forrásából származnak, és előfordulhat, hogy nem mindig a legfrissebb vagy legpontosabb adatokat tükrözik."
+
+#: screens/settings/components/theme-settings.tsx:32
+msgid "Theme"
+msgstr "Megjelenés"
+
+#: screens/settings/components/support-us.tsx:12
+msgid "This is a free app that doesn't run ads and doesn't collect your data. If you can afford it, please consider donating the price of a coffee to contribute to it's maintenance and development."
+msgstr "Ez egy ingyenes alkalmazás, amely nem jelenít meg hirdetéseket és nem gyűjt adatokat. Ha megengedheted magadnak, kérlek fontold meg, hogy egy kávé árával hozzájárulsz a fenntartásához és fejlesztéséhez."
 
 #: features/error/error-boundary.tsx:34
 msgid "Unexpected error, please try again!"
