@@ -21,6 +21,10 @@ msgstr "Zu Favoriten hinzufügen"
 msgid "All currency information is provided for informational purposes only and is offered “as is”, without any warranties, express or implied, including but not limited to the accuracy, reliability, or completeness of the data."
 msgstr "Alle Währungsinformationen dienen ausschließlich zu Informationszwecken und werden „wie gesehen“ („as is“) bereitgestellt, ohne jegliche ausdrückliche oder stillschweigende Garantien, einschließlich, aber nicht beschränkt auf die Genauigkeit, Zuverlässigkeit oder Vollständigkeit der Daten."
 
+#: screens/settings/components/app-version.tsx:13
+msgid "App version"
+msgstr "App-Version"
+
 #: screens/settings/components/support-us.tsx:20
 msgid "Buy me a Coffee"
 msgstr "Spendier mir einen Kaffee!"

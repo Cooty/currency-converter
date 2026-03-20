@@ -1,6 +1,7 @@
 import { AppConfig } from '../../config'
 
-type CurrencyAPIEndpoints = 'status' | 'currencies' | 'latest' | 'historical'
+import type { CurrencyAPIEndpoints } from './types'
+import { shouldUseProxy } from './should-use-proxy'
 
 function urlParamsFromObject(obj: Record<string, string>) {
   const searchParams = new URLSearchParams(obj)
@@ -12,13 +13,10 @@ export function makeCurrencyApiUrl(
   endpoint: CurrencyAPIEndpoints,
   params?: Record<string, string>
 ) {
-  // In production we'll use a proxy that adds the API key to the requests on the backend, cause we don't want to have API keys in the production bundle
-  // TODO: Add this line back once we have a proxy, right now it will break the test releases
-  // const authParam = __DEV__ ? `apikey=${AppConfig.currencyAPIKey}` : ''
-  const authParam = `apikey=${AppConfig.currencyAPIKey}`
-  const searchParams = params
-    ? `?${urlParamsFromObject(params)}&${authParam}`
-    : `?${authParam}`
+  const apiRoot = shouldUseProxy()
+    ? AppConfig.proxyHost
+    : AppConfig.currencyAPIHost
+  const searchParams = params ? `?${urlParamsFromObject(params)}` : ''
 
-  return `https://${AppConfig.currencyAPIHost}/v${AppConfig.currencyAPIVersion}/${endpoint}${searchParams}`
+  return `${apiRoot}/v${AppConfig.currencyAPIVersion}/${endpoint}${searchParams}`
 }

@@ -21,6 +21,10 @@ msgstr "Добавяне към любими"
 msgid "All currency information is provided for informational purposes only and is offered “as is”, without any warranties, express or implied, including but not limited to the accuracy, reliability, or completeness of the data."
 msgstr "Всяка информация за валутите се предоставя само с информационна цел и се предоставя „както е“ („as is“), без никакви гаранции, изрични или подразбиращи се, включително, но не само, относно точността, надеждността или пълнотата на данните."
 
+#: screens/settings/components/app-version.tsx:13
+msgid "App version"
+msgstr "версия на приложението"
+
 #: screens/settings/components/support-us.tsx:20
 msgid "Buy me a Coffee"
 msgstr "Почерпи ме с кафе!"

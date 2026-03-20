@@ -21,6 +21,10 @@ msgstr "Hozzadás a kedvencekhez"
 msgid "All currency information is provided for informational purposes only and is offered “as is”, without any warranties, express or implied, including but not limited to the accuracy, reliability, or completeness of the data."
 msgstr "Az alkalmazás kizárólag tájékoztató jellegű információkat nyújt. Az adatok „adott állapotukban” („as is”) kerülnek megjelenítésre, bármiféle kifejezett vagy hallgatólagos garancia nélkül."
 
+#: screens/settings/components/app-version.tsx:13
+msgid "App version"
+msgstr "App verzió"
+
 #: screens/settings/components/support-us.tsx:20
 msgid "Buy me a Coffee"
 msgstr "Hívj meg egy kávéra"

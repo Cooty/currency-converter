@@ -1,1 +1,1 @@
-export * from './make-api-url'
+export * from './call-api-endpoint'

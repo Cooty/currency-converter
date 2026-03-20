@@ -1,7 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { makeCurrencyApiUrl } from '../../utils/api'
+import { callApiEndPoint } from '../../utils/api'
 import { CurrencyList, ExchangeRates } from './model'
-import { APIError } from '../../utils/api/model'
 
 /**
  * Gets the list of all available currencies either from the API or from the device cache
@@ -15,17 +14,9 @@ export async function getCurrencies() {
   if (savedCurrencies !== null) {
     return JSON.parse(savedCurrencies) as CurrencyList
   } else {
-    const apiURL = makeCurrencyApiUrl('currencies')
-    const request = await fetch(apiURL)
-    if (request.ok) {
-      const currencies = (await request.json()) as CurrencyList
-      AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(currencies))
-
-      return currencies
-    } else {
-      const errorResponse = (await request.json()) as APIError
-      throw new Error(errorResponse.message)
-    }
+    const currencies = await callApiEndPoint<CurrencyList>('currencies')
+    AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(currencies))
+    return currencies
   }
 }
 
@@ -38,18 +29,12 @@ export async function getCurrencies() {
  * @returns {Promise<number>} A Promise that holds the exchange rate as a number.
  */
 export async function getLatestExchangeRate(base: string, target: string) {
-  const apiURL = makeCurrencyApiUrl('latest', {
+  const exchangeRates = await callApiEndPoint<ExchangeRates>('latest', {
     base_currency: base,
     currencies: target,
   })
 
-  const request = await fetch(apiURL)
-  if (request.ok) {
-    const exchangeRates = (await request.json()) as ExchangeRates
+  console.log(exchangeRates)
 
-    return exchangeRates.data[target]
-  } else {
-    const errorResponse = (await request.json()) as APIError
-    throw new Error(errorResponse.message)
-  }
+  return exchangeRates.data[target]
 }
