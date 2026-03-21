@@ -1,5 +1,4 @@
 import { Platform } from 'react-native'
-import * as Application from 'expo-application'
 
 import { AppConfig } from '../../config'
 import { getAppVersion } from '../../utils'

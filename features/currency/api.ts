@@ -34,7 +34,5 @@ export async function getLatestExchangeRate(base: string, target: string) {
     currencies: target,
   })
 
-  console.log(exchangeRates)
-
   return exchangeRates.data[target]
 }
