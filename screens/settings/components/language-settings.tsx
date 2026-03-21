@@ -3,11 +3,11 @@ import { useLingui } from '@lingui/react/macro'
 
 import { Section, RadioGroup } from '../../../components'
 import {
-  useLocale,
   SYSTEM_SETTING_VALUE,
   supportedLocales,
+  useLocale,
 } from '../../../features/i18n'
-import { SectionPropsWithoutTitle } from './types'
+import type { SectionPropsWithoutTitle } from './types'
 
 export function LanguageSettings(props: SectionPropsWithoutTitle) {
   const { t } = useLingui()
@@ -41,7 +41,7 @@ export function LanguageSettings(props: SectionPropsWithoutTitle) {
   )
 
   return (
-    <Section title="Language" {...props}>
+    <Section title={t`Language`} {...props}>
       <RadioGroup
         initialValue={appLocale}
         options={localeOptions}

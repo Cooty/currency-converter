@@ -1,2 +1,2 @@
 export * from './constants'
-export * from './context'
+export * from './context/locale-provider'

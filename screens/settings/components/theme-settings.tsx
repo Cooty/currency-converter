@@ -29,7 +29,7 @@ export function ThemeSettings(props: SectionPropsWithoutTitle) {
   )
 
   return (
-    <Section title="Theme" {...props}>
+    <Section title={t`Theme`} {...props}>
       <RadioGroup
         initialValue={themeSetting}
         options={themeOptions}

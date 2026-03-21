@@ -1,6 +1,6 @@
 import { View, StyleSheet, ViewProps, useWindowDimensions } from 'react-native'
 
-import { HeaderTitle } from '@react-navigation/elements/src/Header/HeaderTitle'
+import { HeaderTitle } from '@react-navigation/elements'
 import { useHeaderHeight } from '@react-navigation/elements'
 
 import { CloseButton, CLOSE_BUTTON_SIZE } from './close-button'

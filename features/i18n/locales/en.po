@@ -21,6 +21,14 @@ msgstr "Add to favorites"
 msgid "All currency information is provided for informational purposes only and is offered “as is”, without any warranties, express or implied, including but not limited to the accuracy, reliability, or completeness of the data."
 msgstr "All currency information is provided for informational purposes only and is offered “as is”, without any warranties, express or implied, including but not limited to the accuracy, reliability, or completeness of the data."
 
+#: screens/settings/components/app-version.tsx:13
+msgid "App version"
+msgstr "App version"
+
+#: screens/settings/components/support-us.tsx:20
+msgid "Buy me a Coffee"
+msgstr "Buy me a Coffee"
+
 #: routing/root-tabs.tsx:73
 msgid "Convert"
 msgstr "Convert"
@@ -29,10 +37,11 @@ msgstr "Convert"
 msgid "Convert currencies"
 msgstr "Convert currencies"
 
-#: features/theming/constants.ts:15
+#: screens/settings/components/theme-settings.tsx:24
 msgid "Dark mode"
 msgstr "Dark mode"
 
+#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:44
 #: screens/settings/components/default-currency-settings/default-currency-settings.tsx:50
 msgid "Default currency pair"
 msgstr "Default currency pair"
@@ -49,10 +58,18 @@ msgstr "Favorite currency pairs"
 msgid "Favorites"
 msgstr "Favorites"
 
-#: features/i18n/constants.ts:25
-#: features/theming/constants.ts:7
+#: screens/settings/components/ask-for-review.tsx:14
+msgid "Feedback"
+msgstr "Feedback"
+
+#: screens/settings/components/language-settings.tsx:37
+#: screens/settings/components/theme-settings.tsx:16
 msgid "Follow the system setting"
 msgstr "Follow the system setting"
+
+#: screens/settings/components/language-settings.tsx:44
+msgid "Language"
+msgstr "Language"
 
 #: screens/settings/components/default-currency-settings/default-currency-settings.tsx:51
 msgid "Last used"
@@ -62,7 +79,7 @@ msgstr "Last used"
 msgid "Legal Disclaimer"
 msgstr "Legal Disclaimer"
 
-#: features/theming/constants.ts:11
+#: screens/settings/components/theme-settings.tsx:20
 msgid "Light mode"
 msgstr "Light mode"
 
@@ -70,11 +87,11 @@ msgstr "Light mode"
 msgid "Nothing here yet!"
 msgstr "Nothing here yet!"
 
-#: screens/settings/components/ask-for-review.tsx:14
+#: screens/settings/components/ask-for-review.tsx:16
 msgid "Please leave us a review make this app even better!"
 msgstr "Please leave us a review make this app even better!"
 
-#: screens/settings/components/ask-for-review.tsx:17
+#: screens/settings/components/ask-for-review.tsx:19
 msgid "Rate the App"
 msgstr "Rate the App"
 
@@ -91,8 +108,12 @@ msgstr "Settings"
 msgid "Start typing (eg.: USD or Dollars)"
 msgstr "Start typing (eg.: USD or Dollars)"
 
-#: features/i18n/constants.ts:23
-#: features/theming/constants.ts:6
+#: screens/settings/components/support-us.tsx:10
+msgid "Support Us!"
+msgstr "Support Us!"
+
+#: screens/settings/components/language-settings.tsx:35
+#: screens/settings/components/theme-settings.tsx:15
 msgid "System"
 msgstr "System"
 
@@ -103,6 +124,14 @@ msgstr "The exchange rates displayed in this app are sourced from a <0>third-par
 #: screens/convert/components/disclaimer-pop-up.tsx:21
 #~ msgid "The exchange rates provided in this app are sourced from a <0>third-party API</0> and may not always reflect the most current rates. All currency information is provided \"as is\" without any warranties, expressed or implied, including but not limited to the accuracy, reliability, or completeness of the data. We are not responsible for any financial decisions, losses, or damages incurred based on the use of this app or the information contained within it."
 #~ msgstr "The exchange rates provided in this app are sourced from a <0>third-party API</0> and may not always reflect the most current rates. All currency information is provided \"as is\" without any warranties, expressed or implied, including but not limited to the accuracy, reliability, or completeness of the data. We are not responsible for any financial decisions, losses, or damages incurred based on the use of this app or the information contained within it."
+
+#: screens/settings/components/theme-settings.tsx:32
+msgid "Theme"
+msgstr "Theme"
+
+#: screens/settings/components/support-us.tsx:12
+msgid "This is a free app that doesn't run ads and doesn't collect your data. If you can afford it, please consider donating the price of a coffee to contribute to it's maintenance and development."
+msgstr "This is a free app that doesn't run ads and doesn't collect your data. If you can afford it, please consider donating the price of a coffee to contribute to it's maintenance and development."
 
 #: features/error/error-boundary.tsx:34
 msgid "Unexpected error, please try again!"

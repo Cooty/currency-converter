@@ -4,7 +4,7 @@ import { defineConfig } from '@lingui/cli'
 // a barrel-file, because then it may include code that calls one of the
 // lingui macros and that will trigger an error in the lingui commands
 // Any file that is evaluated during config loading must be pure Node-compatible JavaScript.
-import { defaultLocale, supportedLocales } from './features/i18n/config'
+import { defaultLocale, supportedLocales } from './features/i18n/constants'
 
 export default defineConfig({
   sourceLocale: defaultLocale,

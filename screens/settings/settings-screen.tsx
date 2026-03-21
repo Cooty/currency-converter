@@ -6,6 +6,7 @@ import {
   LanguageSettings,
   AskForReview,
   SupportUs,
+  AppVersion,
 } from './components'
 import { baseSize } from '../../styles'
 
@@ -17,7 +18,8 @@ export function SettingsScreen() {
         <LanguageSettings />
         <DefaultCurrencySettings />
         <AskForReview />
-        <SupportUs isLast />
+        <SupportUs />
+        <AppVersion />
       </ScrollView>
     </Container>
   )

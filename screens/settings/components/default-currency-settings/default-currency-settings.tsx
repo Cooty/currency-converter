@@ -41,7 +41,7 @@ export function DefaultCurrencySettings(props: SectionPropsWithoutTitle) {
 
   return (
     <>
-      <Section title="Default currency pair" {...props}>
+      <Section title={t`Default currency pair`} {...props}>
         <LeadText style={{ marginBottom: baseSize(3) }}>
           <Trans>What to show when opening the app?</Trans>
         </LeadText>
