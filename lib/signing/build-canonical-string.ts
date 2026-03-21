@@ -1,4 +1,4 @@
-export function normalizeQuery(params: URLSearchParams): string {
+export function normalizeQuery(params: URLSearchParams) {
   return [...params.entries()]
     .sort(([a], [b]) => a.localeCompare(b))
     .map(

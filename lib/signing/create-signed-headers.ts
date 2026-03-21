@@ -9,7 +9,7 @@ import { signCanonicalString } from './signing'
 export async function createSignedHeaders(input: {
   method: string
   url: string
-}): Promise<Record<string, string>> {
+}) {
   const parsedUrl = new URL(input.url)
   const timestamp = String(Math.floor(Date.now() / 1000))
 
