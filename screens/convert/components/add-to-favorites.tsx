@@ -46,6 +46,7 @@ export function AddToFavorites({
       elevated
       style={style}
       onPress={onFavoritesPress}
+      hug
     >
       {isFavorite ? (
         <Trans>Remove from favorites</Trans>

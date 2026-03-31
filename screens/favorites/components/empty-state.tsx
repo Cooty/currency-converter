@@ -9,7 +9,7 @@ export function EmptyState() {
       <AppTitle>
         <Trans>Nothing here yet!</Trans>
       </AppTitle>
-      <AppText variant="secondary">
+      <AppText variant="secondary" style={{ textAlign: 'center' }}>
         <Trans>
           Use the button with a ❤️ on the conversion screen to mark a currency
           pair as favorite so you can quickly access it!

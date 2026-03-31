@@ -21,6 +21,7 @@ export type PlatformAdaptiveButtonProps = Omit<
   'title' | 'color'
 > & {
   variant?: 'text' | 'primary' | 'secondary'
+  textEllipsizeMode?: 'head' | 'middle' | 'tail' | 'clip'
   icon?: IconNames
   elevated?: boolean
   style?: StyleProp<ViewStyle>
@@ -41,6 +42,7 @@ export function PlatformAdaptiveButton({
   elevated = false,
   style,
   hug = false,
+  textEllipsizeMode = 'tail',
 }: PlatformAdaptiveButtonProps) {
   const { themeName, theme } = useTheme()
   const secondaryBackgroundColor = isIOS() ? IOS_SECONDARY_COLOR : undefined
@@ -95,10 +97,10 @@ export function PlatformAdaptiveButton({
             {
               backgroundColor,
               paddingEnd: isIOS()
-                ? IOS_HORIZONTAL_GUTTER
+                ? IOS_HORIZONTAL_GUTTER * 2
                 : ANDROID_HORIZONTAL_GUTTER,
               paddingStart: isIOS()
-                ? IOS_HORIZONTAL_ICON_GUTTER
+                ? IOS_HORIZONTAL_ICON_GUTTER * 2
                 : ANDROID_HORIZONTAL_ICON_GUTTER,
               borderWidth:
                 isAndroid() && variant === 'secondary' ? 1 : undefined,
@@ -121,6 +123,8 @@ export function PlatformAdaptiveButton({
             />
           )}
           <Text
+            numberOfLines={1}
+            ellipsizeMode={textEllipsizeMode}
             style={[
               componentStyles.text,
               {

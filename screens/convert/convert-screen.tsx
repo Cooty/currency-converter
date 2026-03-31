@@ -153,7 +153,7 @@ export function ConvertScreen({ route }: ConvertScreenProps) {
             {/* Converter form */}
             <View
               style={{
-                flex: isLandscape ? 6 : undefined,
+                flex: isLandscape ? 5 : undefined,
                 justifyContent: isLandscape ? 'center' : 'flex-start',
               }}
             >
@@ -189,7 +189,7 @@ export function ConvertScreen({ route }: ConvertScreenProps) {
               style={{
                 alignItems: isLandscape ? 'flex-start' : 'center',
                 justifyContent: isLandscape ? 'center' : 'flex-start',
-                flex: isLandscape ? 4 : 1,
+                flex: isLandscape ? 5 : 1,
                 paddingTop: isLandscape ? 0 : baseSize(5),
               }}
             >
@@ -223,7 +223,7 @@ export function ConvertScreen({ route }: ConvertScreenProps) {
                     {
                       marginTop: isLandscape ? baseSize(6) : 0,
                       flex: isLandscape ? undefined : 1,
-                      width: isLandscape ? '100%' : '70%',
+                      width: isLandscape ? '100%' : 'auto',
                       justifyContent: isLandscape ? 'flex-start' : 'flex-end',
                     },
                     componentStyles.additionalActions,
