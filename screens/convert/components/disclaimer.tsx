@@ -62,6 +62,7 @@ const componentStyles = StyleSheet.create({
     alignItems: 'center',
     maxWidth: '100%',
     flexWrap: 'wrap',
+    alignSelf: 'flex-start',
   },
   text: {
     ...baseFontSize(-1, true),

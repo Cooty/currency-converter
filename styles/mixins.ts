@@ -27,3 +27,11 @@ export const systemFontFamily = {
     web: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
   }),
 }
+
+export const monospaceFontFamily = {
+  fontFamily: Platform.select({
+    ios: 'Menlo',
+    android: 'monospace',
+    web: 'ui-monospace, SFMono-Regular,Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+  }),
+}

@@ -10,7 +10,7 @@ import {
 import {
   baseFontSize,
   baseSize,
-  systemFontFamily,
+  monospaceFontFamily,
   tokens,
 } from '../../../../styles'
 import { useTheme } from '../../../theming'
@@ -76,6 +76,6 @@ const componentStyles = StyleSheet.create({
     paddingHorizontal: 0,
     paddingVertical: baseSize(2),
     ...baseFontSize(1),
-    ...systemFontFamily,
+    ...monospaceFontFamily,
   },
 })
