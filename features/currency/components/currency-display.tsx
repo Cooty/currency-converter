@@ -1,5 +1,6 @@
 import { View, Text, ViewStyle, StyleSheet } from 'react-native'
-import CountryFlag from 'react-native-country-flag'
+// import CountryFlag from 'react-native-country-flag'
+import CountryFlag from '../../../lib/country-flags'
 import { currencyCodeToCountryCode } from '../utils'
 import { baseFontSize, baseSize } from '../../../styles'
 import { useTheme } from '../../theming'
@@ -20,7 +21,11 @@ export function CurrencyDisplay({ code, name, style }: CurrencyDisplayProps) {
         <CountryFlag
           isoCode={currencyCodeToCountryCode(code)}
           size={25}
-          style={[componentStyles.flag, { borderColor: theme.divider }]}
+          style={[
+            componentStyles.flag,
+            { borderColor: theme.divider, backgroundColor: theme.divider },
+          ]}
+          resizeMode="cover"
         />
         <AppText style={componentStyles.code}>{code}</AppText>
       </View>
