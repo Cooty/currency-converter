@@ -13,7 +13,7 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: screens/convert/components/add-to-favorites.tsx:53
+#: screens/convert/components/add-to-favorites.tsx:54
 msgid "Add to favorites"
 msgstr "Add to favorites"
 
@@ -95,7 +95,7 @@ msgstr "Please leave us a review make this app even better!"
 msgid "Rate the App"
 msgstr "Rate the App"
 
-#: screens/convert/components/add-to-favorites.tsx:51
+#: screens/convert/components/add-to-favorites.tsx:52
 msgid "Remove from favorites"
 msgstr "Remove from favorites"
 

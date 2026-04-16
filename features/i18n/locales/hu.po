@@ -13,7 +13,7 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: screens/convert/components/add-to-favorites.tsx:53
+#: screens/convert/components/add-to-favorites.tsx:54
 msgid "Add to favorites"
 msgstr "Hozzadás a kedvencekhez"
 
@@ -95,7 +95,7 @@ msgstr "Írj értékelést, és segíts, hogy még jobbá tegyük az alkalmazás
 msgid "Rate the App"
 msgstr "Alkalmazás értékelése"
 
-#: screens/convert/components/add-to-favorites.tsx:51
+#: screens/convert/components/add-to-favorites.tsx:52
 msgid "Remove from favorites"
 msgstr "Eltávolítás a kedvencekből"
 

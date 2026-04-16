@@ -9,18 +9,7 @@
     "newArchEnabled": true,
     "jsEngine": "hermes",
     "primaryColor": "#002395",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#002395"
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "platforms": [
-      "ios",
-      "android"
-    ],
+    "platforms": ["ios", "android"],
     "githubUrl": "https://github.com/Cooty/currency-converter",
     "ios": {
       "supportsTablet": true,
@@ -31,7 +20,8 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#002395"
       },
-      "package": "com.cooty.easyCurrencyConverter"
+      "package": "com.cooty.easyCurrencyConverter",
+      "edgeToEdgeEnabled": true
     },
     "extra": {
       "eas": {
@@ -40,9 +30,14 @@
     },
     "owner": "cooty",
     "plugins": [
-      "expo-localization",
-      "expo-asset",
-      "expo-font"
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#002395"
+        }
+      ]
     ]
   }
 }
