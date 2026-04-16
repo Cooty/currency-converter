@@ -29,11 +29,11 @@ msgstr "App version"
 msgid "Buy me a Coffee"
 msgstr "Buy me a Coffee"
 
-#: routing/root-tabs.tsx:70
+#: routing/root-tabs.tsx:68
 msgid "Convert"
 msgstr "Convert"
 
-#: routing/root-tabs.tsx:71
+#: routing/root-tabs.tsx:69
 msgid "Convert currencies"
 msgstr "Convert currencies"
 
@@ -50,11 +50,11 @@ msgstr "Default currency pair"
 msgid "Disclaimer"
 msgstr "Disclaimer"
 
-#: routing/root-tabs.tsx:83
+#: routing/root-tabs.tsx:81
 msgid "Favorite currency pairs"
 msgstr "Favorite currency pairs"
 
-#: routing/root-tabs.tsx:82
+#: routing/root-tabs.tsx:80
 msgid "Favorites"
 msgstr "Favorites"
 
@@ -99,8 +99,8 @@ msgstr "Rate the App"
 msgid "Remove from favorites"
 msgstr "Remove from favorites"
 
-#: routing/root-tabs.tsx:93
-#: routing/root-tabs.tsx:94
+#: routing/root-tabs.tsx:91
+#: routing/root-tabs.tsx:92
 msgid "Settings"
 msgstr "Settings"
 
