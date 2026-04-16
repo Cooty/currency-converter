@@ -6,8 +6,6 @@
     "orientation": "default",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
-    "jsEngine": "hermes",
     "primaryColor": "#002395",
     "platforms": ["ios", "android"],
     "githubUrl": "https://github.com/Cooty/currency-converter",
