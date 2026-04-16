@@ -13,7 +13,7 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: screens/convert/components/add-to-favorites.tsx:53
+#: screens/convert/components/add-to-favorites.tsx:54
 msgid "Add to favorites"
 msgstr "Zu Favoriten hinzufügen"
 
@@ -29,11 +29,11 @@ msgstr "App-Version"
 msgid "Buy me a Coffee"
 msgstr "Spendier mir einen Kaffee!"
 
-#: routing/root-tabs.tsx:73
+#: routing/root-tabs.tsx:68
 msgid "Convert"
 msgstr "Umrechnen"
 
-#: routing/root-tabs.tsx:74
+#: routing/root-tabs.tsx:69
 msgid "Convert currencies"
 msgstr "Währung umrechnen"
 
@@ -50,11 +50,11 @@ msgstr "Standard-Währungspaar"
 msgid "Disclaimer"
 msgstr "Haftungsausschluss"
 
-#: routing/root-tabs.tsx:86
+#: routing/root-tabs.tsx:81
 msgid "Favorite currency pairs"
 msgstr "Bevorzugte Währungspaare"
 
-#: routing/root-tabs.tsx:85
+#: routing/root-tabs.tsx:80
 msgid "Favorites"
 msgstr "Favoriten"
 
@@ -95,12 +95,12 @@ msgstr "Bewerte uns und hilf, die App zu verbessern!"
 msgid "Rate the App"
 msgstr "App bewerten"
 
-#: screens/convert/components/add-to-favorites.tsx:51
+#: screens/convert/components/add-to-favorites.tsx:52
 msgid "Remove from favorites"
 msgstr "Aus Favoriten entfernen"
 
-#: routing/root-tabs.tsx:96
-#: routing/root-tabs.tsx:97
+#: routing/root-tabs.tsx:91
+#: routing/root-tabs.tsx:92
 msgid "Settings"
 msgstr "Einstellungen"
 

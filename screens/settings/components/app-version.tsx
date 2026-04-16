@@ -8,7 +8,7 @@ import { getAppVersion } from '../../../utils'
 
 export function AppVersion() {
   return (
-    <Section style={componentStyles.section}>
+    <Section isLast style={componentStyles.section}>
       <AppText variant="secondary">
         <Trans>App version</Trans>: {getAppVersion()}
       </AppText>

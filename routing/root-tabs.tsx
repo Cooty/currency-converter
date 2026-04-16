@@ -23,14 +23,9 @@ export function RootTabs() {
   useEffect(() => {
     if (isAndroid()) {
       // Control how the bottom navigation bar looks like on Android
-      // has on effect on iOS
+      // has no effect on iOS
       // https://docs.expo.dev/versions/latest/sdk/navigation-bar/
-      NavigationBar.setBackgroundColorAsync(theme.androidTabBarBackground)
-      if (themeName === 'light') {
-        NavigationBar.setButtonStyleAsync('dark')
-      } else {
-        NavigationBar.setButtonStyleAsync('light')
-      }
+      NavigationBar.setStyle(themeName === 'light' ? 'dark' : 'light')
     }
   }, [themeName])
 
