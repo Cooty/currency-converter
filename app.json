@@ -20,8 +20,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#002395"
       },
-      "package": "com.cooty.easyCurrencyConverter",
-      "edgeToEdgeEnabled": true
+      "package": "com.cooty.easyCurrencyConverter"
     },
     "extra": {
       "eas": {

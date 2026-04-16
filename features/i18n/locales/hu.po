@@ -29,11 +29,11 @@ msgstr "App verzió"
 msgid "Buy me a Coffee"
 msgstr "Hívj meg egy kávéra"
 
-#: routing/root-tabs.tsx:73
+#: routing/root-tabs.tsx:70
 msgid "Convert"
 msgstr "Átváltás"
 
-#: routing/root-tabs.tsx:74
+#: routing/root-tabs.tsx:71
 msgid "Convert currencies"
 msgstr "Valuta átváltás"
 
@@ -50,11 +50,11 @@ msgstr "Alapértelmezett valutapár"
 msgid "Disclaimer"
 msgstr "Felelősségkizárás"
 
-#: routing/root-tabs.tsx:86
+#: routing/root-tabs.tsx:83
 msgid "Favorite currency pairs"
 msgstr "Kedvenc valutapárok"
 
-#: routing/root-tabs.tsx:85
+#: routing/root-tabs.tsx:82
 msgid "Favorites"
 msgstr "Kedvencek"
 
@@ -99,8 +99,8 @@ msgstr "Alkalmazás értékelése"
 msgid "Remove from favorites"
 msgstr "Eltávolítás a kedvencekből"
 
-#: routing/root-tabs.tsx:96
-#: routing/root-tabs.tsx:97
+#: routing/root-tabs.tsx:93
+#: routing/root-tabs.tsx:94
 msgid "Settings"
 msgstr "Beállítások"
 
