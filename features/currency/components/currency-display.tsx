@@ -1,5 +1,4 @@
 import { View, Text, ViewStyle, StyleSheet } from 'react-native'
-// import CountryFlag from 'react-native-country-flag'
 import CountryFlag from '../../../lib/country-flags'
 import { currencyCodeToCountryCode } from '../utils'
 import { baseFontSize, baseSize } from '../../../styles'

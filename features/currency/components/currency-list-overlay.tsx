@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, RefObject } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import {
   KeyboardAvoidingView,
   ScrollView,
@@ -8,6 +8,8 @@ import {
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useLingui } from '@lingui/react/macro'
+
+import { useLocale, getTranslatedName } from '../../i18n'
 
 import { colors, useTheme } from '../../theming'
 import { SearchInput, ModalHeader } from '../../../components/'
@@ -33,17 +35,20 @@ export function CurrencyListOverlay({
 }: CurrencyListOverlayProps) {
   const { theme } = useTheme()
   const { t } = useLingui()
+  const { appLocale } = useLocale()
   const [searchValue, setSearchValue] = useState('')
   const currencies = useCurrencies()
   const sortedCurrencies =
     getAllCurrenciesAsArraySortedAlphabetically(currencies)
   const [filteredCurrencies, setFilteredCurrencies] =
     useState<Currency[]>(sortedCurrencies)
-  const searchInputRef: RefObject<TextInput> = useRef(null)
+  const searchInputRef = useRef<TextInput | null>(null)
 
   useEffect(() => {
     if (searchValue.length !== 0) {
-      setFilteredCurrencies(filterCurrencies(searchValue, filteredCurrencies))
+      setFilteredCurrencies(
+        filterCurrencies(searchValue, filteredCurrencies, appLocale)
+      )
     } else {
       setFilteredCurrencies(sortedCurrencies)
     }
@@ -101,12 +106,13 @@ export function CurrencyListOverlay({
             {filteredCurrencies.map((currency, i) => (
               <CurrencyListItem
                 currency={currency}
+                translatedNames={getTranslatedName(currency.code)}
                 isFirst={i === 0}
                 onPress={(currency) => {
                   onCurrencySelection(currency)
                   setSearchValue('')
                 }}
-                key={`${currency.code}-${i}`}
+                key={currency.code}
               />
             ))}
           </ScrollView>

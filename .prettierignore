@@ -1,1 +1,2 @@
 lib/country-flags/flags.ts
+features/i18n/currency-name-translations.ts
