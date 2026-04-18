@@ -1,11 +1,28 @@
 import { Currency } from '../currency'
+import { getTranslatedName, getTranslatedString } from '../i18n'
 
-export function filterCurrencies(query: string, currencies: Currency[]) {
+export function filterCurrencies(
+  query: string,
+  currencies: Currency[],
+  appLocale = 'en'
+) {
   return currencies.filter((currency) => {
+    const translatedName = getTranslatedName(currency.code)
+    const name = getTranslatedString(
+      appLocale,
+      currency.name,
+      translatedName?.name
+    )
+    const namePlural = getTranslatedString(
+      appLocale,
+      currency.name_plural,
+      translatedName?.name_plural
+    )
+
     const normalizedQuery = query.toLocaleLowerCase().trim()
     const normalizedCode = currency.code.toLowerCase()
-    const normalizedName = currency.name.toLocaleLowerCase()
-    const normalizedNamePlural = currency.name_plural.toLocaleLowerCase()
+    const normalizedName = name.toLocaleLowerCase()
+    const normalizedNamePlural = namePlural.toLocaleLowerCase()
 
     return (
       normalizedCode.includes(normalizedQuery) ||
