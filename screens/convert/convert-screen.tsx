@@ -22,6 +22,7 @@ import {
   getLatestExchangeRate,
   useCurrencyPairSelection,
 } from '../../features/currency'
+import { useDefaultCurrencyPair } from '../../features/currency/default-currency-pair'
 import {
   convertBaseToTarget,
   convertTargetToBase,
@@ -30,6 +31,8 @@ import {
 import { useIsKeyboardVisible, useScreenAspectRatio } from '../../hooks'
 
 export function ConvertScreen({ route }: ConvertScreenProps) {
+  const { defaultCurrencyPair, setDefaultCurrencyPair, whatToShowFirst } =
+    useDefaultCurrencyPair()
   const {
     isCurrencySelectorOpen,
     baseCurrency,
@@ -60,11 +63,22 @@ export function ConvertScreen({ route }: ConvertScreenProps) {
   const isLoading =
     !currencies || !baseCurrency || !targetCurrency || !exchangeRate
 
-  // Set defaults as soon as they're ready
   useEffect(() => {
-    if (currencies) {
+    // Set default codes from the route if they are passed
+    // This is when the user opens the screen by tapping of of there saved favorites
+    if (
+      currencies &&
+      route.params &&
+      route.params.baseCurrencyCode &&
+      route.params.targetCurrencyCode
+    ) {
       setBaseCurrency(currencies[route.params.baseCurrencyCode])
       setTargetCurrency(currencies[route.params.targetCurrencyCode])
+    }
+    // Use the default if nothing is passed from the route
+    if (currencies && defaultCurrencyPair && !route.params) {
+      setBaseCurrency(currencies[defaultCurrencyPair.base])
+      setTargetCurrency(currencies[defaultCurrencyPair.target])
     }
   }, [route.params, currencies])
 
@@ -83,6 +97,22 @@ export function ConvertScreen({ route }: ConvertScreenProps) {
       )
     }
   }, [baseCurrency, targetCurrency])
+
+  useEffect(() => {
+    if (baseCurrency && targetCurrency && whatToShowFirst === 'last') {
+      setDefaultCurrencyPair({
+        base: baseCurrency.code,
+        target: targetCurrency.code,
+      })
+    }
+  }, [baseCurrency, targetCurrency, whatToShowFirst, setDefaultCurrencyPair])
+
+  useEffect(() => {
+    if (currencies) {
+      setBaseCurrency(currencies[defaultCurrencyPair.base])
+      setTargetCurrency(currencies[defaultCurrencyPair.target])
+    }
+  }, [defaultCurrencyPair, currencies])
 
   // Base currency amount changes - Do the conversion from base to target
   useEffect(() => {

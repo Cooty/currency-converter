@@ -44,8 +44,8 @@ export function CurrencyListProvider({
   }, [])
 
   return (
-    <CurrencyContext.Provider value={currencies ? currencies.data : undefined}>
+    <CurrencyContext value={currencies ? currencies.data : undefined}>
       {children}
-    </CurrencyContext.Provider>
+    </CurrencyContext>
   )
 }

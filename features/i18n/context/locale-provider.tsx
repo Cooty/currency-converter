@@ -4,6 +4,7 @@ import {
   createContext,
   useContext,
   useRef,
+  useMemo,
   type PropsWithChildren,
 } from 'react'
 import { AppState } from 'react-native'
@@ -103,9 +104,11 @@ export function LocaleProvider({
     saveLocaleSetting(appLocale)
   }, [appLocale])
 
+  const contextValue = useMemo(() => ({ appLocale, setAppLocale }), [appLocale])
+
   return (
-    <LocaleContext.Provider value={{ appLocale, setAppLocale }} {...props}>
+    <LocaleContext value={contextValue} {...props}>
       {children}
-    </LocaleContext.Provider>
+    </LocaleContext>
   )
 }

@@ -3,7 +3,9 @@ import {
   useState,
   createContext,
   useContext,
+  useMemo,
   PropsWithChildren,
+  useCallback,
 } from 'react'
 import { StoredExchangeRate, StoredExchangeRates } from '../model'
 import {
@@ -20,7 +22,7 @@ interface StoredExchangeRateContextValue {
   addStoredExchangeRate: (exchangeRateToSore: StoredExchangeRate) => void
   deleteStoredExchangeRate: (baseCode: string, targetCode: string) => void
   unFavoriteStoredExchangeRate: (baseCode: string, targetCode: string) => void
-  getFavorites: () => StoredExchangeRate[] | null
+  favorites: StoredExchangeRate[] | null
   isSavedToFavorites: (baseCode: string, targetCode: string) => boolean
 }
 
@@ -29,7 +31,7 @@ const StoredExchangeRateContext = createContext<StoredExchangeRateContextValue>(
     isLoading: true,
     addStoredExchangeRate: (_: StoredExchangeRate) => {},
     deleteStoredExchangeRate: (_: string, __: string) => {},
-    getFavorites: () => null,
+    favorites: null,
     isSavedToFavorites: (_: string, __: string) => false,
     unFavoriteStoredExchangeRate: (b_: string, __: string) => {},
   }
@@ -67,78 +69,119 @@ export function StoredExchangeRateContextProvider({
     }
   }, [storedExchangeRates])
 
-  function addStoredExchangeRate(exchangeRateToStore: StoredExchangeRate) {
-    if (!exchangeRateToStore.base || !exchangeRateToStore.target) {
-      return
-    }
-    const key = makeKey(
-      exchangeRateToStore.base.code,
-      exchangeRateToStore.target.code
-    )
-    const copy = storedExchangeRates
-      ? (JSON.parse(JSON.stringify(storedExchangeRates)) as StoredExchangeRates)
-      : {}
-    copy[key] = exchangeRateToStore
-    setStoredExchangeRates(copy)
-  }
+  const addStoredExchangeRate = useCallback(
+    (exchangeRateToStore: StoredExchangeRate) => {
+      if (!exchangeRateToStore.base || !exchangeRateToStore.target) {
+        return
+      }
 
-  function deleteStoredExchangeRate(baseCode: string, targetCode: string) {
-    const key = makeKey(baseCode, targetCode)
-    const copy = JSON.parse(
-      JSON.stringify(storedExchangeRates)
-    ) as StoredExchangeRates
-    delete copy[key]
-    setStoredExchangeRates(copy)
-  }
+      const key = makeKey(
+        exchangeRateToStore.base.code,
+        exchangeRateToStore.target.code
+      )
 
-  function getFavorites() {
+      setStoredExchangeRates((prev) => {
+        const copy = prev
+          ? (JSON.parse(JSON.stringify(prev)) as StoredExchangeRates)
+          : {}
+
+        copy[key] = exchangeRateToStore
+        return copy
+      })
+    },
+    []
+  )
+
+  const deleteStoredExchangeRate = useCallback(
+    (baseCode: string, targetCode: string) => {
+      const key = makeKey(baseCode, targetCode)
+
+      setStoredExchangeRates((prev) => {
+        if (!prev) {
+          return prev
+        }
+
+        const copy = JSON.parse(JSON.stringify(prev)) as StoredExchangeRates
+
+        delete copy[key]
+        return copy
+      })
+    },
+    []
+  )
+
+  const favorites = useMemo(() => {
     return filterFavorites(storedExchangeRates)
-  }
+  }, [storedExchangeRates])
 
-  function isSavedToFavorites(baseCode: string, targetCode: string) {
-    const key = makeKey(baseCode, targetCode)
-    if (!storedExchangeRates) {
-      return false
-    }
-    const savedItem = storedExchangeRates[key]
+  const isSavedToFavorites = useCallback(
+    (baseCode: string, targetCode: string) => {
+      const key = makeKey(baseCode, targetCode)
+      if (!storedExchangeRates) {
+        return false
+      }
+      const savedItem = storedExchangeRates[key]
 
-    if (!savedItem) {
-      return false
-    }
+      if (!savedItem) {
+        return false
+      }
 
-    return savedItem.isFavorite ? true : false
-  }
+      return savedItem.isFavorite ? true : false
+    },
+    [storedExchangeRates]
+  )
 
-  function unFavoriteStoredExchangeRate(baseCode: string, targetCode: string) {
-    const key = makeKey(baseCode, targetCode)
-    const copy = JSON.parse(
-      JSON.stringify(storedExchangeRates)
-    ) as StoredExchangeRates
+  const unFavoriteStoredExchangeRate = useCallback(
+    (baseCode: string, targetCode: string) => {
+      const key = makeKey(baseCode, targetCode)
 
-    const stored = copy[key]
+      setStoredExchangeRates((prev) => {
+        if (!prev) {
+          return prev
+        }
 
-    if (!stored) {
-      return
-    }
+        const stored = prev[key]
 
-    stored.isFavorite = false
+        if (!stored || stored.isFavorite === false) {
+          return prev
+        }
 
-    setStoredExchangeRates(copy)
-  }
+        return {
+          ...prev,
+          [key]: {
+            ...stored,
+            isFavorite: false,
+          },
+        }
+      })
+    },
+    []
+  )
+
+  const contextValue = useMemo(
+    () => ({
+      isLoading,
+      storedExchangeRates,
+      addStoredExchangeRate,
+      deleteStoredExchangeRate,
+      favorites,
+      isSavedToFavorites,
+      unFavoriteStoredExchangeRate,
+    }),
+    [
+      isLoading,
+      storedExchangeRates,
+      addStoredExchangeRate,
+      deleteStoredExchangeRate,
+      favorites,
+      isSavedToFavorites,
+      unFavoriteStoredExchangeRate,
+    ]
+  )
 
   return (
-    <StoredExchangeRateContext.Provider
-      value={{
-        isLoading,
-        storedExchangeRates,
-        addStoredExchangeRate,
-        deleteStoredExchangeRate,
-        getFavorites,
-        isSavedToFavorites,
-        unFavoriteStoredExchangeRate,
-      }}
-    >
+    <StoredExchangeRateContext value={contextValue}>
       {children}
-    </StoredExchangeRateContext.Provider>
+    </StoredExchangeRateContext>
   )
 }

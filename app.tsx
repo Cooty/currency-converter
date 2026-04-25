@@ -17,6 +17,7 @@ import {
   CurrencyListProvider,
   StoredExchangeRateContextProvider,
 } from './features/currency'
+import { DefaultCurrencyPairProvider } from './features/currency/default-currency-pair'
 import ErrorBoundary from './features/error/error-boundary'
 import { ThemeProvider } from './features/theming'
 
@@ -34,12 +35,23 @@ function App() {
   const [isThemeSettingLoaded, setIsThemeSettingLoaded] = useState(false)
   const [isCurrencyListLoaded, setIsCurrencyListLoaded] = useState(false)
   const [isLocaleSettingLoaded, setIsLocaleSettingLoaded] = useState(false)
+  const [isDefaultCurrencyLoaded, setIsDefaultCurrencyLoaded] = useState(false)
 
   useEffect(() => {
-    if (isCurrencyListLoaded && isThemeSettingLoaded && isLocaleSettingLoaded) {
+    if (
+      isCurrencyListLoaded &&
+      isThemeSettingLoaded &&
+      isLocaleSettingLoaded &&
+      isDefaultCurrencyLoaded
+    ) {
       SplashScreen.hideAsync()
     }
-  }, [isThemeSettingLoaded, isCurrencyListLoaded])
+  }, [
+    isThemeSettingLoaded,
+    isCurrencyListLoaded,
+    isLocaleSettingLoaded,
+    isDefaultCurrencyLoaded,
+  ])
 
   return (
     <View style={componentStyles.root}>
@@ -50,11 +62,17 @@ function App() {
               <CurrencyListProvider
                 onReady={() => setIsCurrencyListLoaded(true)}
               >
-                <LocaleProvider onReady={() => setIsLocaleSettingLoaded(true)}>
-                  <StoredExchangeRateContextProvider>
-                    <RootTabs />
-                  </StoredExchangeRateContextProvider>
-                </LocaleProvider>
+                <DefaultCurrencyPairProvider
+                  onReady={() => setIsDefaultCurrencyLoaded(true)}
+                >
+                  <LocaleProvider
+                    onReady={() => setIsLocaleSettingLoaded(true)}
+                  >
+                    <StoredExchangeRateContextProvider>
+                      <RootTabs />
+                    </StoredExchangeRateContextProvider>
+                  </LocaleProvider>
+                </DefaultCurrencyPairProvider>
               </CurrencyListProvider>
             </ThemeProvider>
           </ErrorBoundary>

@@ -9,13 +9,11 @@ import { PlatformAdaptiveIcon } from '../components'
 import { ConvertScreen, FavoritesScreen, SettingsScreen } from '../screens'
 import { colors, useTheme } from '../features/theming'
 import { RootTabsParamList } from './types'
-import { useDefaultCurrencyCodes } from '../features/currency'
 import { isAndroid } from '../utils'
 
 const Tab = createBottomTabNavigator<RootTabsParamList>()
 
 export function RootTabs() {
-  const defaultCurrencyCodes = useDefaultCurrencyCodes()
   const { theme, themeName } = useTheme()
   const { bottom } = useSafeAreaInsets()
   const { t } = useLingui()
@@ -60,10 +58,6 @@ export function RootTabs() {
         <Tab.Screen
           name="Convert"
           component={ConvertScreen}
-          initialParams={{
-            baseCurrencyCode: defaultCurrencyCodes.base,
-            targetCurrencyCode: defaultCurrencyCodes.target,
-          }}
           options={{
             tabBarLabel: t`Convert`,
             headerTitle: t`Convert currencies`,
