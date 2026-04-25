@@ -12,8 +12,7 @@ export type FavoritesScreenProps = BottomTabScreenProps<
 >
 
 export function FavoritesScreen({ navigation }: FavoritesScreenProps) {
-  const { getFavorites } = useStoredExchangeRates()
-  const favorites = getFavorites()
+  const { favorites } = useStoredExchangeRates()
 
   function onPressCurrencyPair(currencyPair: CurrencyPair) {
     navigation.navigate('Convert', {
@@ -29,7 +28,7 @@ export function FavoritesScreen({ navigation }: FavoritesScreenProps) {
           {favorites.map((stored, i) => (
             <CurrencyPairListItem
               currencyPair={{ base: stored.base, target: stored.target }}
-              key={`favorite-${stored.base?.code}-${stored.target?.code}-${i}`}
+              key={`favorite-${stored.base?.code}-${stored.target?.code}`}
               isFirst={i === 0}
               onPress={onPressCurrencyPair}
             />

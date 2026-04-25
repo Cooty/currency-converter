@@ -20,7 +20,7 @@ export function Result({
   const lang = 'en-US'
 
   return (
-    <View style={componentStyles.text}>
+    <View style={componentStyles.rowContainer}>
       <AppText variant="secondary" style={componentStyles.base}>
         {formatToLocalNumber(baseCurrencyAmount, baseCurrencyCode, lang)}{' '}
         {baseCurrencyCode} ={' '}
@@ -35,12 +35,12 @@ export function Result({
 }
 
 const componentStyles = StyleSheet.create({
-  text: {
+  rowContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'baseline',
     maxWidth: '100%',
-    // justifyContent: 'center',
+    alignSelf: 'flex-start',
   },
   base: {
     fontWeight: 'bold',

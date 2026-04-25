@@ -4,6 +4,7 @@ import {
   PropsWithChildren,
   useState,
   useEffect,
+  useMemo,
 } from 'react'
 import { useColorScheme } from 'react-native'
 import type { ThemeNames, ThemeOptions } from './types'
@@ -37,7 +38,11 @@ type ThemeProviderProps = PropsWithChildren & {
   onReady?: () => void
 }
 
-export function ThemeProvider({ children, onReady }: ThemeProviderProps) {
+export function ThemeProvider({
+  children,
+  onReady,
+  ...props
+}: ThemeProviderProps) {
   // This is the value set by the user, it can also be "system"
   const [themeSetting, setThemeSetting] = useState<'system' | 'light' | 'dark'>(
     DEFAULT_SETTING
@@ -66,7 +71,11 @@ export function ThemeProvider({ children, onReady }: ThemeProviderProps) {
   // Check the users preferences when they are changed from the UI
   useEffect(() => {
     if (themeSetting === 'system' && systemThemeSetting) {
-      setThemeName(systemThemeSetting)
+      if (systemThemeSetting === 'light' || systemThemeSetting === 'dark') {
+        setThemeName(systemThemeSetting)
+      } else {
+        setThemeName('light')
+      }
     } else {
       setThemeName(themeSetting as ThemeNames)
     }
@@ -75,22 +84,28 @@ export function ThemeProvider({ children, onReady }: ThemeProviderProps) {
 
   // Watch for changes in the system's settings
   useEffect(() => {
-    if (themeSetting === 'system') {
-      setThemeName(systemThemeSetting as ThemeNames)
+    if (
+      (themeSetting === 'system' && systemThemeSetting === 'light') ||
+      systemThemeSetting === 'dark'
+    ) {
+      setThemeName(systemThemeSetting)
     }
   }, [systemThemeSetting])
 
+  const contextValue = useMemo(
+    () => ({
+      themeSetting,
+      setThemeSetting,
+      themeName,
+      setThemeName,
+      theme: colors[themeName],
+    }),
+    [themeName, themeSetting]
+  )
+
   return (
-    <ThemeContext.Provider
-      value={{
-        themeSetting,
-        setThemeSetting,
-        themeName,
-        setThemeName,
-        theme: colors[themeName],
-      }}
-    >
+    <ThemeContext value={contextValue} {...props}>
       {children}
-    </ThemeContext.Provider>
+    </ThemeContext>
   )
 }

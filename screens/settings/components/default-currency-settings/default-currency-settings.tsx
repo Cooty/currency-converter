@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { StyleSheet } from 'react-native'
 import { Trans, useLingui } from '@lingui/react/macro'
 
@@ -7,13 +7,17 @@ import {
   useCurrencies,
   useCurrencyPairSelection,
 } from '../../../../features/currency'
+
+import {
+  useDefaultCurrencyPair,
+  type WhatToShowOptions,
+} from '../../../../features/currency/default-currency-pair'
+
 import { CurrencyForm } from './currency-form'
 import { baseSize } from '../../../../styles'
 import { CurrencyListOverlay } from '../../../../features/currency/components'
 import { SectionPropsWithoutTitle } from '../types'
 import { LeadText } from '../lead-text'
-
-type WhatToShowOptions = 'default' | 'last'
 
 export function DefaultCurrencySettings(props: SectionPropsWithoutTitle) {
   const currencies = useCurrencies()
@@ -30,14 +34,29 @@ export function DefaultCurrencySettings(props: SectionPropsWithoutTitle) {
     changeCurrencyOrder,
     setOpenedCurrencySelection,
   } = useCurrencyPairSelection()
-  const [whatToShow, setWhatToShow] = useState<WhatToShowOptions>('default')
+  const {
+    whatToShowFirst,
+    setWhatToShowFirst,
+    setDefaultCurrencyPair,
+    defaultCurrencyPair,
+  } = useDefaultCurrencyPair()
 
   useEffect(() => {
     if (currencies) {
-      setBaseCurrency(currencies.EUR)
-      setTargetCurrency(currencies.USD)
+      setBaseCurrency(currencies[defaultCurrencyPair.base])
+      setTargetCurrency(currencies[defaultCurrencyPair.target])
     }
-  }, [currencies])
+  }, [currencies, defaultCurrencyPair, whatToShowFirst])
+
+  // set the users selection in the provider
+  useEffect(() => {
+    if (currencies && baseCurrency && targetCurrency) {
+      setDefaultCurrencyPair({
+        base: baseCurrency.code,
+        target: targetCurrency.code,
+      })
+    }
+  }, [currencies, baseCurrency, targetCurrency])
 
   return (
     <>
@@ -45,17 +64,8 @@ export function DefaultCurrencySettings(props: SectionPropsWithoutTitle) {
         <LeadText style={{ marginBottom: baseSize(3) }}>
           <Trans>What to show when opening the app?</Trans>
         </LeadText>
-        <RadioGroup
-          options={[
-            { label: t`Default currency pair`, value: 'default' },
-            { label: t`Last used`, value: 'last' },
-          ]}
-          initialValue="default"
-          onChange={(value: string) =>
-            setWhatToShow(value as WhatToShowOptions)
-          }
-        />
-        {whatToShow === 'default' && (
+
+        {whatToShowFirst === 'default' && (
           <>
             <LeadText style={componentStyles.verticalSpacingBlock}>
               <Trans>What should be the default currency pair?</Trans>
@@ -77,6 +87,17 @@ export function DefaultCurrencySettings(props: SectionPropsWithoutTitle) {
             )}
           </>
         )}
+
+        <RadioGroup
+          options={[
+            { label: t`Default currency pair`, value: 'default' },
+            { label: t`Last used`, value: 'last' },
+          ]}
+          initialValue={whatToShowFirst}
+          onChange={(value: string) => {
+            setWhatToShowFirst(value as WhatToShowOptions)
+          }}
+        />
       </Section>
       {/* Currency selector overlay */}
       {isCurrencySelectorOpen && (
