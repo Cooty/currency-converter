@@ -1,11 +1,11 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { appStorage } from '../../../lib/storage'
 import { isValidLocaleSetting } from './is-valid-locale-setting'
 
 const STORAGE_KEY = 'locale_setting'
 
 export async function getSavedLocaleSetting() {
   try {
-    const savedLocaleSetting = await AsyncStorage.getItem(STORAGE_KEY)
+    const savedLocaleSetting = await appStorage.getItem(STORAGE_KEY)
     if (!savedLocaleSetting) {
       return undefined
     }
@@ -25,7 +25,7 @@ export async function getSavedLocaleSetting() {
 export async function saveLocaleSetting(value: string) {
   try {
     if (isValidLocaleSetting(value)) {
-      await AsyncStorage.setItem(STORAGE_KEY, value)
+      await appStorage.setItem(STORAGE_KEY, value)
       return true
     }
 
