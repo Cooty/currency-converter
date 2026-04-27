@@ -56,7 +56,7 @@ export function DefaultCurrencyPairProvider({
     base: 'USD',
     target: 'EUR',
   })
-  // tracks if the initial state has been filled from the AsyncStorage
+  // tracks if the initial state has been filled from the storage
   const hasHydrated = useRef(false)
 
   // get stored values if we have any
@@ -68,6 +68,7 @@ export function DefaultCurrencyPairProvider({
     valuesFromStorage
       .then((values) => {
         const [savedWhatToShow, savedDefaultCurrencyPair] = values
+
         if (savedWhatToShow !== null) {
           setWhatToShowFirst(savedWhatToShow)
         }

@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { appStorage } from '../../lib/storage'
 import { StoredExchangeRates } from './model'
 
 const STORAGE_KEY = 'stored_exchange_rates'
@@ -8,19 +8,16 @@ export function makeKey(baseCurrencyCode: string, targetCurrencyCode: string) {
 }
 
 export async function getStoredExchangeRates() {
-  const storedExchangeRates = await AsyncStorage.getItem(STORAGE_KEY)
+  const storedExchangeRates =
+    await appStorage.getItem<StoredExchangeRates>(STORAGE_KEY)
 
-  if (storedExchangeRates === null) {
-    return storedExchangeRates
-  }
-
-  return JSON.parse(storedExchangeRates) as StoredExchangeRates
+  return storedExchangeRates
 }
 
 export async function saveStoredExchangeRates(
   storedExchangeRates: StoredExchangeRates
 ) {
-  await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(storedExchangeRates))
+  await appStorage.setItem(STORAGE_KEY, JSON.stringify(storedExchangeRates))
 }
 
 export function filterFavorites(storedExchangeRates?: StoredExchangeRates) {

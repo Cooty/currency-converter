@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { appStorage } from '../../lib/storage'
 import { callApiEndPoint } from '../../utils/api'
 import { CurrencyList, ExchangeRates } from './model'
 
@@ -9,13 +9,13 @@ export async function getCurrencies() {
   const STORAGE_KEY = 'currencies'
 
   // TODO: Set some expiration date for the cached currencies in case the provider adds new ones
-  const savedCurrencies = await AsyncStorage.getItem(STORAGE_KEY)
+  const savedCurrencies = await appStorage.getItem<CurrencyList>(STORAGE_KEY)
 
   if (savedCurrencies !== null) {
-    return JSON.parse(savedCurrencies) as CurrencyList
+    return savedCurrencies
   } else {
     const currencies = await callApiEndPoint<CurrencyList>('currencies')
-    AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(currencies))
+    appStorage.setItem(STORAGE_KEY, currencies)
     return currencies
   }
 }
