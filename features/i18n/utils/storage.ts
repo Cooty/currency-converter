@@ -1,25 +1,14 @@
 import { appStorage } from '../../../lib/storage'
-import { isValidLocaleSetting } from './is-valid-locale-setting'
+import { isValidLocaleSetting } from './validators'
+import { LocaleSettings } from '../types'
 
 const STORAGE_KEY = 'locale_setting'
 
 export async function getSavedLocaleSetting() {
-  try {
-    const savedLocaleSetting = await appStorage.getItem(STORAGE_KEY)
-    if (!savedLocaleSetting) {
-      return undefined
-    }
-    if (isValidLocaleSetting(savedLocaleSetting)) {
-      return savedLocaleSetting
-    }
-
-    throw new Error(
-      `The value "${savedLocaleSetting}" found in the local database is not a supported locale code`
-    )
-  } catch (e) {
-    console.error(e)
-    return undefined
-  }
+  return await appStorage.getItem<LocaleSettings>(
+    STORAGE_KEY,
+    isValidLocaleSetting
+  )
 }
 
 export async function saveLocaleSetting(value: string) {
