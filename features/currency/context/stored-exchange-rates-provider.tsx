@@ -14,7 +14,7 @@ import {
   filterFavorites,
   saveStoredExchangeRates,
 } from '../storage'
-import { isObjectEmpty } from '../../../utils'
+import { isStoredExchangeRates } from '../validators'
 
 interface StoredExchangeRateContextValue {
   isLoading: boolean
@@ -33,7 +33,7 @@ const StoredExchangeRateContext = createContext<StoredExchangeRateContextValue>(
     deleteStoredExchangeRate: (_: string, __: string) => {},
     favorites: null,
     isSavedToFavorites: (_: string, __: string) => false,
-    unFavoriteStoredExchangeRate: (b_: string, __: string) => {},
+    unFavoriteStoredExchangeRate: (_: string, __: string) => {},
   }
 )
 
@@ -64,7 +64,7 @@ export function StoredExchangeRateContextProvider({
 
   // Updated stored value whenever the one in the provider changes
   useEffect(() => {
-    if (storedExchangeRates && !isObjectEmpty(storedExchangeRates)) {
+    if (storedExchangeRates && isStoredExchangeRates(storedExchangeRates)) {
       saveStoredExchangeRates(storedExchangeRates)
     }
   }, [storedExchangeRates])

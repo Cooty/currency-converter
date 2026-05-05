@@ -1,23 +1,36 @@
 import { appStorage } from '../../lib/storage'
 import { callApiEndPoint } from '../../utils/api'
-import { CurrencyList, ExchangeRates } from './model'
+import {
+  CurrencyListSchema,
+  type CurrencyList,
+  type ExchangeRates,
+} from './model'
+import { isCurrencyList } from './validators'
 
 /**
  * Gets the list of all available currencies either from the API or from the device cache
  */
-export async function getCurrencies() {
+export async function getCurrencies(): Promise<CurrencyList> {
   const STORAGE_KEY = 'currencies'
 
   // TODO: Set some expiration date for the cached currencies in case the provider adds new ones
-  const savedCurrencies = await appStorage.getItem<CurrencyList>(STORAGE_KEY)
+  const savedCurrencies = await appStorage.getItem<CurrencyList>(
+    STORAGE_KEY,
+    isCurrencyList
+  )
 
   if (savedCurrencies !== null) {
     return savedCurrencies
-  } else {
-    const currencies = await callApiEndPoint<CurrencyList>('currencies')
-    appStorage.setItem(STORAGE_KEY, currencies)
-    return currencies
   }
+  const apiResult = await callApiEndPoint<unknown>('currencies')
+
+  const validationResult = CurrencyListSchema.safeParse(apiResult)
+  if (!validationResult.success) {
+    throw validationResult.error
+  }
+  const currencies = validationResult.data
+  await appStorage.setItem(STORAGE_KEY, currencies)
+  return currencies
 }
 
 /**

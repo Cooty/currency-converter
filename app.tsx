@@ -1,6 +1,6 @@
 import { registerRootComponent } from 'expo'
 import { useState, useEffect } from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Text } from 'react-native'
 import * as SplashScreen from 'expo-splash-screen'
 import { StatusBar } from 'expo-status-bar'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
@@ -37,21 +37,25 @@ function App() {
   const [isLocaleSettingLoaded, setIsLocaleSettingLoaded] = useState(false)
   const [isDefaultCurrencyLoaded, setIsDefaultCurrencyLoaded] = useState(false)
 
+  // useEffect(() => {
+  //   if (
+  //     isCurrencyListLoaded &&
+  //     isThemeSettingLoaded &&
+  //     isLocaleSettingLoaded &&
+  //     isDefaultCurrencyLoaded
+  //   ) {
+  //     SplashScreen.hideAsync()
+  //   }
+  // }, [
+  //   isThemeSettingLoaded,
+  //   isCurrencyListLoaded,
+  //   isLocaleSettingLoaded,
+  //   isDefaultCurrencyLoaded,
+  // ])
+
   useEffect(() => {
-    if (
-      isCurrencyListLoaded &&
-      isThemeSettingLoaded &&
-      isLocaleSettingLoaded &&
-      isDefaultCurrencyLoaded
-    ) {
-      SplashScreen.hideAsync()
-    }
-  }, [
-    isThemeSettingLoaded,
-    isCurrencyListLoaded,
-    isLocaleSettingLoaded,
-    isDefaultCurrencyLoaded,
-  ])
+    SplashScreen.hideAsync()
+  }, [])
 
   return (
     <View style={componentStyles.root}>

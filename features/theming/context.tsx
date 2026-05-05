@@ -44,19 +44,16 @@ export function ThemeProvider({
   ...props
 }: ThemeProviderProps) {
   // This is the value set by the user, it can also be "system"
-  const [themeSetting, setThemeSetting] = useState<'system' | 'light' | 'dark'>(
-    DEFAULT_SETTING
-  )
+  const [themeSetting, setThemeSetting] =
+    useState<ThemeOptions>(DEFAULT_SETTING)
   // This is the actual name of the theme, it can only be "light" or "dark"
-  const [themeName, setThemeName] = useState<'light' | 'dark'>(
-    'light' as ThemeNames
-  )
+  const [themeName, setThemeName] = useState<ThemeNames>('light')
   const systemThemeSetting = useColorScheme()
 
   // Check theme on start up and set it
   useEffect(() => {
     async function setInitialTheme() {
-      const savedThemeSetting = (await getSavedThemeSetting()) as ThemeNames
+      const savedThemeSetting = await getSavedThemeSetting()
       if (savedThemeSetting) {
         setThemeSetting(savedThemeSetting)
       } else {

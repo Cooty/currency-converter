@@ -1,9 +1,7 @@
-import { CurrencyPair } from './currency-pair'
+import { z } from 'zod'
 
-export type StoredExchangeRate = CurrencyPair & {
-  exchangeRate: number
-  retrievedAt: number
-  isFavorite?: boolean
-}
+import { StoredExchangeRateSchema, StoredExchangeRatesSchema } from './schemas'
 
-export type StoredExchangeRates = Record<string, StoredExchangeRate>
+export type StoredExchangeRate = z.infer<typeof StoredExchangeRateSchema>
+
+export type StoredExchangeRates = z.infer<typeof StoredExchangeRatesSchema>

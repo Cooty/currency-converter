@@ -1,6 +1,7 @@
-export interface CurrencyPairSetting {
-  base: string
-  target: string
-}
+import { z } from 'zod'
 
-export type WhatToShowOptions = 'default' | 'last'
+import { WhatToShowOptionsSchema, CurrencyPairSettingSchema } from './schemas'
+
+export type CurrencyPairSetting = z.infer<typeof CurrencyPairSettingSchema>
+
+export type WhatToShowOptions = z.infer<typeof WhatToShowOptionsSchema>

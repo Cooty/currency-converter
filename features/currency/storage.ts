@@ -1,5 +1,6 @@
 import { appStorage } from '../../lib/storage'
 import { StoredExchangeRates } from './model'
+import { isStoredExchangeRates } from './validators'
 
 const STORAGE_KEY = 'stored_exchange_rates'
 
@@ -8,8 +9,10 @@ export function makeKey(baseCurrencyCode: string, targetCurrencyCode: string) {
 }
 
 export async function getStoredExchangeRates() {
-  const storedExchangeRates =
-    await appStorage.getItem<StoredExchangeRates>(STORAGE_KEY)
+  const storedExchangeRates = await appStorage.getItem<StoredExchangeRates>(
+    STORAGE_KEY,
+    isStoredExchangeRates
+  )
 
   return storedExchangeRates
 }
@@ -17,7 +20,7 @@ export async function getStoredExchangeRates() {
 export async function saveStoredExchangeRates(
   storedExchangeRates: StoredExchangeRates
 ) {
-  await appStorage.setItem(STORAGE_KEY, JSON.stringify(storedExchangeRates))
+  await appStorage.setItem(STORAGE_KEY, storedExchangeRates)
 }
 
 export function filterFavorites(storedExchangeRates?: StoredExchangeRates) {

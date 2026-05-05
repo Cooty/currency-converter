@@ -5,6 +5,9 @@ import {
   useState,
   type PropsWithChildren,
 } from 'react'
+
+import { useRunTimeError } from '../../error/hooks'
+
 import type { Currency, CurrencyList } from '../model'
 import { getCurrencies } from '../api'
 
@@ -26,9 +29,8 @@ export function CurrencyListProvider({
   children,
   onReady,
 }: CurrencyListProviderProps) {
-  const [currencies, setCurrencies] = useState<CurrencyList | undefined>(
-    undefined
-  )
+  const [currencies, setCurrencies] = useState<CurrencyList>()
+  const { setRunTimeError } = useRunTimeError()
 
   useEffect(() => {
     async function load() {
@@ -37,9 +39,10 @@ export function CurrencyListProvider({
     }
 
     load()
-      .catch((e) => {
-        throw new Error(e)
-      })
+      // Exceptions inside Promises do
+      // not reach our React ErrorBoundary so we
+      // need to throw from the render cycle
+      .catch(setRunTimeError)
       .finally(() => onReady?.())
   }, [])
 
