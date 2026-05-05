@@ -2,10 +2,11 @@ import { appStorage } from '../../lib/storage'
 import { callApiEndPoint } from '../../utils/api'
 import {
   CurrencyListSchema,
+  ExchangeRatesSchema,
   type CurrencyList,
   type ExchangeRates,
 } from './model'
-import { isCurrencyList } from './validators'
+import { isCurrencyList, isValidCurrencyCode } from './validators'
 
 /**
  * Gets the list of all available currencies either from the API or from the device cache
@@ -42,10 +43,24 @@ export async function getCurrencies(): Promise<CurrencyList> {
  * @returns {Promise<number>} A Promise that holds the exchange rate as a number.
  */
 export async function getLatestExchangeRate(base: string, target: string) {
+  if (!isValidCurrencyCode(base) || !isValidCurrencyCode(target)) {
+    throw new Error(
+      `Either base (${base}) or target (${target}) currency is invalid code format`
+    )
+  }
   const exchangeRates = await callApiEndPoint<ExchangeRates>('latest', {
     base_currency: base,
     currencies: target,
   })
+
+  const validation = ExchangeRatesSchema.safeParse(exchangeRates)
+
+  if (!validation.success || !exchangeRates.data[target]) {
+    console.log(exchangeRates)
+    throw new Error(
+      "The result from the exchange rate endpoint doesn't match the expected result"
+    )
+  }
 
   return exchangeRates.data[target]
 }

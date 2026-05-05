@@ -47,3 +47,7 @@ export const StoredExchangeRatesSchema = z.record(
   CurrencyCodePairSchema,
   StoredExchangeRateSchema
 )
+
+export const ExchangeRatesSchema = z.object({
+  data: z.record(CurrencyCodeSchema, z.number()),
+})
