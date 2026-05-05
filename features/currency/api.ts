@@ -1,5 +1,6 @@
 import { appStorage } from '../../lib/storage'
-import { callApiEndPoint } from '../../utils/api'
+import { callApiEndPoint } from '../../lib/api'
+import { addDays } from '../../utils'
 import {
   CurrencyListSchema,
   ExchangeRatesSchema,
@@ -14,11 +15,11 @@ import { isCurrencyList, isValidCurrencyCode } from './validators'
 export async function getCurrencies(): Promise<CurrencyList> {
   const STORAGE_KEY = 'currencies'
 
-  // TODO: Set some expiration date for the cached currencies in case the provider adds new ones
-  const savedCurrencies = await appStorage.getItem<CurrencyList>(
-    STORAGE_KEY,
-    isCurrencyList
-  )
+  const savedCurrencies =
+    await appStorage.getItemWithExpirationDate<CurrencyList>(
+      STORAGE_KEY,
+      isCurrencyList
+    )
 
   if (savedCurrencies !== null) {
     return savedCurrencies
@@ -30,7 +31,11 @@ export async function getCurrencies(): Promise<CurrencyList> {
     throw validationResult.error
   }
   const currencies = validationResult.data
-  await appStorage.setItem(STORAGE_KEY, currencies)
+  await appStorage.setItemWithExpirationDate(
+    STORAGE_KEY,
+    currencies,
+    addDays(new Date(), 30)
+  )
   return currencies
 }
 
