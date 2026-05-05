@@ -1,20 +1,19 @@
 import { defaultLocale, supportedLocales } from '../constants'
+import type { SupportedLocales } from '../types'
+import { isValidSupportedLocale } from './validators'
 
-export function getSupportedLocale(locale: string | null) {
-  let matchingSupportedLocale = defaultLocale
+export function getSupportedLocale(locale: string | null): SupportedLocales {
   if (!locale) {
-    return matchingSupportedLocale
+    return defaultLocale
   }
+
   const normalizedLocale = locale.toLowerCase()
 
-  for (let i = 0; i < supportedLocales.length; i++) {
-    const item = supportedLocales[i]
-
+  for (const item of supportedLocales) {
     if (normalizedLocale === item || normalizedLocale.startsWith(`${item}-`)) {
-      matchingSupportedLocale = item
-      break
+      return item
     }
   }
 
-  return matchingSupportedLocale
+  return defaultLocale
 }

@@ -6,6 +6,7 @@ import {
   SYSTEM_SETTING_VALUE,
   supportedLocales,
   useLocale,
+  isValidLocaleSetting,
 } from '../../../features/i18n'
 import type { SectionPropsWithoutTitle } from './types'
 
@@ -45,7 +46,11 @@ export function LanguageSettings(props: SectionPropsWithoutTitle) {
       <RadioGroup
         initialValue={appLocale}
         options={localeOptions}
-        onChange={setAppLocale}
+        onChange={(value) => {
+          if (isValidLocaleSetting(value)) {
+            setAppLocale(value)
+          }
+        }}
       />
     </Section>
   )

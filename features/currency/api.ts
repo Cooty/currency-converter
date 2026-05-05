@@ -1,23 +1,42 @@
 import { appStorage } from '../../lib/storage'
-import { callApiEndPoint } from '../../utils/api'
-import { CurrencyList, ExchangeRates } from './model'
+import { callApiEndPoint } from '../../lib/api'
+import { addDays } from '../../utils'
+import {
+  CurrencyListSchema,
+  ExchangeRatesSchema,
+  type CurrencyList,
+  type ExchangeRates,
+} from './model'
+import { isCurrencyList, isValidCurrencyCode } from './validators'
 
 /**
  * Gets the list of all available currencies either from the API or from the device cache
  */
-export async function getCurrencies() {
+export async function getCurrencies(): Promise<CurrencyList> {
   const STORAGE_KEY = 'currencies'
 
-  // TODO: Set some expiration date for the cached currencies in case the provider adds new ones
-  const savedCurrencies = await appStorage.getItem<CurrencyList>(STORAGE_KEY)
+  const savedCurrencies =
+    await appStorage.getItemWithExpirationDate<CurrencyList>(
+      STORAGE_KEY,
+      isCurrencyList
+    )
 
   if (savedCurrencies !== null) {
     return savedCurrencies
-  } else {
-    const currencies = await callApiEndPoint<CurrencyList>('currencies')
-    appStorage.setItem(STORAGE_KEY, currencies)
-    return currencies
   }
+  const apiResult = await callApiEndPoint<unknown>('currencies')
+
+  const validationResult = CurrencyListSchema.safeParse(apiResult)
+  if (!validationResult.success) {
+    throw validationResult.error
+  }
+  const currencies = validationResult.data
+  await appStorage.setItemWithExpirationDate(
+    STORAGE_KEY,
+    currencies,
+    addDays(new Date(), 30)
+  )
+  return currencies
 }
 
 /**
@@ -29,10 +48,24 @@ export async function getCurrencies() {
  * @returns {Promise<number>} A Promise that holds the exchange rate as a number.
  */
 export async function getLatestExchangeRate(base: string, target: string) {
+  if (!isValidCurrencyCode(base) || !isValidCurrencyCode(target)) {
+    throw new Error(
+      `Either base (${base}) or target (${target}) currency is invalid code format`
+    )
+  }
   const exchangeRates = await callApiEndPoint<ExchangeRates>('latest', {
     base_currency: base,
     currencies: target,
   })
+
+  const validation = ExchangeRatesSchema.safeParse(exchangeRates)
+
+  if (!validation.success || !exchangeRates.data[target]) {
+    console.log(exchangeRates)
+    throw new Error(
+      "The result from the exchange rate endpoint doesn't match the expected result"
+    )
+  }
 
   return exchangeRates.data[target]
 }

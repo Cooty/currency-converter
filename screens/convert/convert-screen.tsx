@@ -23,6 +23,7 @@ import {
   useCurrencyPairSelection,
 } from '../../features/currency'
 import { useDefaultCurrencyPair } from '../../features/currency/default-currency-pair'
+import { useRunTimeError } from '../../features/error/hooks'
 import {
   convertBaseToTarget,
   convertTargetToBase,
@@ -33,6 +34,7 @@ import { useIsKeyboardVisible, useScreenAspectRatio } from '../../hooks'
 export function ConvertScreen({ route }: ConvertScreenProps) {
   const { defaultCurrencyPair, setDefaultCurrencyPair, whatToShowFirst } =
     useDefaultCurrencyPair()
+  const { setRunTimeError } = useRunTimeError()
   const {
     isCurrencySelectorOpen,
     baseCurrency,
@@ -85,16 +87,16 @@ export function ConvertScreen({ route }: ConvertScreenProps) {
   // Get the exchange rate when currencies change
   useEffect(() => {
     if (baseCurrency && targetCurrency) {
-      getLatestExchangeRate(baseCurrency.code, targetCurrency.code).then(
-        (latestExchangeRate) => {
+      getLatestExchangeRate(baseCurrency.code, targetCurrency.code)
+        .then((latestExchangeRate) => {
           setExchangeRate(latestExchangeRate)
           if (!isAmountEmpty(baseCurrencyAmount)) {
             setTargetCurrencyAmount(
               convertBaseToTarget(baseCurrencyAmount, latestExchangeRate)
             )
           }
-        }
-      )
+        })
+        .catch(setRunTimeError)
     }
   }, [baseCurrency, targetCurrency])
 

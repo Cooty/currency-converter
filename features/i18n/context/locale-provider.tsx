@@ -11,17 +11,19 @@ import { AppState } from 'react-native'
 import { getLocales } from 'expo-localization'
 import { i18n } from '@lingui/core'
 
+import type { LocaleSettings } from '../types'
+
 import { SYSTEM_SETTING_VALUE, defaultLocale } from '../constants'
 
 import { getSupportedLocale } from '../utils/get-supported-locale'
 import { getSavedLocaleSetting, saveLocaleSetting } from '../utils/storage'
 
 const LocaleContext = createContext<{
-  appLocale: string
-  setAppLocale: (locale: string) => void
+  appLocale: LocaleSettings
+  setAppLocale: (locale: LocaleSettings) => void
 }>({
   appLocale: defaultLocale,
-  setAppLocale: (_: string) => {},
+  setAppLocale: (_: LocaleSettings) => {},
 })
 
 LocaleContext.displayName = 'LocaleContext'
@@ -42,10 +44,10 @@ export function LocaleProvider({
   const [primarySystemLocale, setPrimarySystemLocale] = useState(
     getLocales()[0]
   )
-  const [appLocale, setAppLocale] = useState(defaultLocale)
+  const [appLocale, setAppLocale] = useState<LocaleSettings>(defaultLocale)
   const appState = useRef(AppState.currentState)
 
-  // // Get the saved setting from storage
+  // Get the saved setting from storage
   useEffect(() => {
     getSavedLocaleSetting()
       .then((savedValue) => {

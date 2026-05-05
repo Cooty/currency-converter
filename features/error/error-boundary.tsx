@@ -29,12 +29,12 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 
   componentDidCatch(error: Error, info: any) {
+    console.log(info)
     this.setState({
       errorMessage: error.message ?? (
         <Trans>Unexpected error, please try again!</Trans>
       ),
     })
-    console.error(info)
   }
 
   render() {

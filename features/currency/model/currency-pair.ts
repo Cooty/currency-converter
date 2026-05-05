@@ -1,6 +1,5 @@
-import { Currency } from './currencies'
+import { z } from 'zod'
 
-export interface CurrencyPair {
-  base: Currency
-  target: Currency
-}
+import { CurrencyPairSchema } from './schemas'
+
+export type CurrencyPair = z.infer<typeof CurrencyPairSchema>
