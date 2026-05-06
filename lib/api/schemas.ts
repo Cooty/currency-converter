@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const CurrencyAPIEndpointsSchema = z.enum([
+export const CurrencyApiEndpointsSchema = z.enum([
   'status',
   'currencies',
   'latest',

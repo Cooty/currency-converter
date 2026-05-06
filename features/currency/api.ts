@@ -1,5 +1,7 @@
+import { AppConfig } from '../../config'
+
 import { appStorage } from '../../lib/storage'
-import { callApiEndPoint } from '../../lib/api'
+import { ApiClient } from '../../lib/api'
 import { addDays } from '../../utils'
 import {
   CurrencyListSchema,
@@ -8,6 +10,13 @@ import {
   type ExchangeRates,
 } from './model'
 import { isCurrencyList, isValidCurrencyCode } from './validators'
+
+const apiClient = new ApiClient({
+  key: AppConfig.currencyApiKey,
+  version: AppConfig.currencyApiVersion,
+  host: AppConfig.currencyApiHost,
+  proxyHost: AppConfig.proxyHost,
+})
 
 /**
  * Gets the list of all available currencies either from the API or from the device cache
@@ -24,7 +33,7 @@ export async function getCurrencies(): Promise<CurrencyList> {
   if (savedCurrencies !== null) {
     return savedCurrencies
   }
-  const apiResult = await callApiEndPoint<unknown>('currencies')
+  const apiResult = await apiClient.callApiEndPoint<unknown>('currencies')
 
   const validationResult = CurrencyListSchema.safeParse(apiResult)
   if (!validationResult.success) {
@@ -53,10 +62,13 @@ export async function getLatestExchangeRate(base: string, target: string) {
       `Either base (${base}) or target (${target}) currency is invalid code format`
     )
   }
-  const exchangeRates = await callApiEndPoint<ExchangeRates>('latest', {
-    base_currency: base,
-    currencies: target,
-  })
+  const exchangeRates = await apiClient.callApiEndPoint<ExchangeRates>(
+    'latest',
+    {
+      base_currency: base,
+      currencies: target,
+    }
+  )
 
   const validation = ExchangeRatesSchema.safeParse(exchangeRates)
 
