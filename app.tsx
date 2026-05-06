@@ -4,22 +4,30 @@ import { View, StyleSheet } from 'react-native'
 import * as SplashScreen from 'expo-splash-screen'
 import { StatusBar } from 'expo-status-bar'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
+
 import { i18n } from '@lingui/core'
 import { I18nProvider } from '@lingui/react'
+
+import { NetworkProvider } from './lib/network'
+
 import { messages as messagesBG } from './features/i18n/locales/bg'
 import { messages as messagesDE } from './features/i18n/locales/de'
 import { messages as messagesEN } from './features/i18n/locales/en'
 import { messages as messagesHU } from './features/i18n/locales/hu'
 import { LocaleProvider, defaultLocale } from './features/i18n'
 
-import { RootTabs } from './routing'
 import {
   CurrencyListProvider,
   StoredExchangeRateContextProvider,
 } from './features/currency'
+
 import { DefaultCurrencyPairProvider } from './features/currency/default-currency-pair'
+
 import ErrorBoundary from './features/error/error-boundary'
+
 import { ThemeProvider } from './features/theming'
+
+import { RootTabs } from './routing'
 
 SplashScreen.preventAutoHideAsync()
 
@@ -59,21 +67,23 @@ function App() {
         <I18nProvider i18n={i18n}>
           <ErrorBoundary>
             <ThemeProvider onReady={() => setIsThemeSettingLoaded(true)}>
-              <CurrencyListProvider
-                onReady={() => setIsCurrencyListLoaded(true)}
-              >
-                <DefaultCurrencyPairProvider
-                  onReady={() => setIsDefaultCurrencyLoaded(true)}
+              <NetworkProvider>
+                <CurrencyListProvider
+                  onReady={() => setIsCurrencyListLoaded(true)}
                 >
-                  <LocaleProvider
-                    onReady={() => setIsLocaleSettingLoaded(true)}
+                  <DefaultCurrencyPairProvider
+                    onReady={() => setIsDefaultCurrencyLoaded(true)}
                   >
-                    <StoredExchangeRateContextProvider>
-                      <RootTabs />
-                    </StoredExchangeRateContextProvider>
-                  </LocaleProvider>
-                </DefaultCurrencyPairProvider>
-              </CurrencyListProvider>
+                    <LocaleProvider
+                      onReady={() => setIsLocaleSettingLoaded(true)}
+                    >
+                      <StoredExchangeRateContextProvider>
+                        <RootTabs />
+                      </StoredExchangeRateContextProvider>
+                    </LocaleProvider>
+                  </DefaultCurrencyPairProvider>
+                </CurrencyListProvider>
+              </NetworkProvider>
             </ThemeProvider>
           </ErrorBoundary>
         </I18nProvider>

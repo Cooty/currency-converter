@@ -13,6 +13,10 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: screens/convert/components/offline-warning.tsx:14
+msgid "<0>Note:</0> Once you're back online and start using the app, your recently used and favorite currency pairs will be saved for offline usage."
+msgstr "<0>Megjegyzés:</0> Amint újra online leszel és elkezded használni az alkalmazást, a legutóbb használt és kedvenc devizapárok mentésre kerülnek offline használatra."
+
 #: screens/convert/components/add-to-favorites.tsx:54
 msgid "Add to favorites"
 msgstr "Hozzadás a kedvencekhez"
@@ -29,11 +33,11 @@ msgstr "App verzió"
 msgid "Buy me a Coffee"
 msgstr "Hívj meg egy kávéra"
 
-#: routing/root-tabs.tsx:68
+#: routing/root-tabs.tsx:62
 msgid "Convert"
 msgstr "Átváltás"
 
-#: routing/root-tabs.tsx:69
+#: routing/root-tabs.tsx:63
 msgid "Convert currencies"
 msgstr "Valuta átváltás"
 
@@ -41,8 +45,8 @@ msgstr "Valuta átváltás"
 msgid "Dark mode"
 msgstr "Sötét mód"
 
-#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:44
-#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:50
+#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:65
+#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:95
 msgid "Default currency pair"
 msgstr "Alapértelmezett valutapár"
 
@@ -50,11 +54,11 @@ msgstr "Alapértelmezett valutapár"
 msgid "Disclaimer"
 msgstr "Felelősségkizárás"
 
-#: routing/root-tabs.tsx:81
+#: routing/root-tabs.tsx:75
 msgid "Favorite currency pairs"
 msgstr "Kedvenc valutapárok"
 
-#: routing/root-tabs.tsx:80
+#: routing/root-tabs.tsx:74
 msgid "Favorites"
 msgstr "Kedvencek"
 
@@ -62,16 +66,16 @@ msgstr "Kedvencek"
 msgid "Feedback"
 msgstr "Értékelés"
 
-#: screens/settings/components/language-settings.tsx:37
+#: screens/settings/components/language-settings.tsx:38
 #: screens/settings/components/theme-settings.tsx:16
 msgid "Follow the system setting"
 msgstr "A rendszerbállításhoz igazodik"
 
-#: screens/settings/components/language-settings.tsx:44
+#: screens/settings/components/language-settings.tsx:45
 msgid "Language"
 msgstr "Nyelv"
 
-#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:51
+#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:96
 msgid "Last used"
 msgstr "Legutóbb használt"
 
@@ -99,12 +103,12 @@ msgstr "Alkalmazás értékelése"
 msgid "Remove from favorites"
 msgstr "Eltávolítás a kedvencekből"
 
-#: routing/root-tabs.tsx:91
-#: routing/root-tabs.tsx:92
+#: routing/root-tabs.tsx:85
+#: routing/root-tabs.tsx:86
 msgid "Settings"
 msgstr "Beállítások"
 
-#: features/currency/components/currency-list-overlay.tsx:92
+#: features/currency/components/currency-list-overlay.tsx:97
 msgid "Start typing (eg.: USD or Dollars)"
 msgstr "Keresés valutára (pl. HUF vagy forint)"
 
@@ -112,7 +116,7 @@ msgstr "Keresés valutára (pl. HUF vagy forint)"
 msgid "Support Us!"
 msgstr "Támogass!"
 
-#: screens/settings/components/language-settings.tsx:35
+#: screens/settings/components/language-settings.tsx:36
 #: screens/settings/components/theme-settings.tsx:15
 msgid "System"
 msgstr "Rendszer szerint"
@@ -129,7 +133,7 @@ msgstr "Megjelenés"
 msgid "This is a free app that doesn't run ads and doesn't collect your data. If you can afford it, please consider donating the price of a coffee to contribute to it's maintenance and development."
 msgstr "Ez egy ingyenes alkalmazás, amely nem jelenít meg hirdetéseket és nem gyűjt adatokat. Ha megengedheted magadnak, kérlek fontold meg, hogy egy kávé árával hozzájárulsz a fenntartásához és fejlesztéséhez."
 
-#: features/error/error-boundary.tsx:34
+#: features/error/error-boundary.tsx:35
 msgid "Unexpected error, please try again!"
 msgstr "Váratlan hiba történt, kérjük, próbáld újra!"
 
@@ -141,14 +145,18 @@ msgstr "A ❤️ gombbal jelöld kedvencként a valutapárt, így gyorsan hozzá
 msgid "We are not responsible for any financial decisions made, or for any losses or damages incurred, as a result of using this app or relying on the information it provides."
 msgstr "Az alkalmazás használata során hozott pénzügyi döntésekért, illetve az ezekből eredő esetleges veszteségekért vagy károkért nem vállalunk felelősséget."
 
-#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:61
+#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:73
 msgid "What should be the default currency pair?"
 msgstr "Mi legyen az alapértelmezett valutapár?"
 
-#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:46
+#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:67
 msgid "What to show when opening the app?"
 msgstr "Mivel indítsuk az appot?"
 
 #: screens/error/error-screen.tsx:23
 msgid "Whoops Something Went Wrong 😞"
 msgstr "Hoppá, valami hiba történt 😞"
+
+#: screens/convert/components/offline-warning.tsx:9
+msgid "You're offline and you don't have any exchange rates cached!"
+msgstr "Offline állapotban vagy, és nincs elmentett árfolyamod!"
