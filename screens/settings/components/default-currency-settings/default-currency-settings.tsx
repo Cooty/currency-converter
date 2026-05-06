@@ -6,6 +6,7 @@ import { Section, RadioGroup } from '../../../../components'
 import {
   useCurrencies,
   useCurrencyPairSelection,
+  CurrencyListOverlay,
 } from '../../../../features/currency'
 
 import {
@@ -13,11 +14,12 @@ import {
   type WhatToShowOptions,
 } from '../../../../features/currency/default-currency-pair'
 
-import { CurrencyForm } from './currency-form'
 import { baseSize } from '../../../../styles'
-import { CurrencyListOverlay } from '../../../../features/currency/components'
+
 import { SectionPropsWithoutTitle } from '../types'
 import { LeadText } from '../lead-text'
+
+import { CurrencyForm } from './currency-form'
 
 export function DefaultCurrencySettings(props: SectionPropsWithoutTitle) {
   const currencies = useCurrencies()

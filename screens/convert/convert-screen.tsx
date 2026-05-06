@@ -6,32 +6,45 @@ import {
   Keyboard,
   Pressable,
 } from 'react-native'
-import type { ConvertScreenProps } from './types'
+
 import { wrapperGutter, baseSize } from '../../styles'
+
+import { useNetwork } from '../../lib/network'
+
+import { Loader, Container } from '../../components'
+
+import {
+  useCurrencies,
+  getLatestExchangeRate,
+  useCurrencyPairSelection,
+  CurrencyListOverlay,
+} from '../../features/currency'
+
+import { useDefaultCurrencyPair } from '../../features/currency/default-currency-pair'
+
+import { useRunTimeError } from '../../features/error/hooks'
+
+import { useIsKeyboardVisible, useScreenAspectRatio } from '../../hooks'
+
+import type { ConvertScreenProps } from './types'
+
+import {
+  convertBaseToTarget,
+  convertTargetToBase,
+  isAmountEmpty,
+} from './utils'
+
 import {
   CurrencyConverterForm,
   Result,
   AddToFavorites,
   Disclaimer,
   DisclaimerPopUp,
+  OfflineWarning,
 } from './components'
-import { CurrencyListOverlay } from '../../features/currency/components/'
-import { Loader, Container } from '../../components'
-import {
-  useCurrencies,
-  getLatestExchangeRate,
-  useCurrencyPairSelection,
-} from '../../features/currency'
-import { useDefaultCurrencyPair } from '../../features/currency/default-currency-pair'
-import { useRunTimeError } from '../../features/error/hooks'
-import {
-  convertBaseToTarget,
-  convertTargetToBase,
-  isAmountEmpty,
-} from './utils'
-import { useIsKeyboardVisible, useScreenAspectRatio } from '../../hooks'
 
 export function ConvertScreen({ route }: ConvertScreenProps) {
+  const { isOnline } = useNetwork()
   const { defaultCurrencyPair, setDefaultCurrencyPair, whatToShowFirst } =
     useDefaultCurrencyPair()
   const { setRunTimeError } = useRunTimeError()
@@ -62,8 +75,13 @@ export function ConvertScreen({ route }: ConvertScreenProps) {
   const aspectRatio = useScreenAspectRatio()
   const isLandscape = aspectRatio === 'landscape'
   const isShortLandscape = isLandscape && height < 800
+  // isOnline === null means "Not determined yet"
   const isLoading =
-    !currencies || !baseCurrency || !targetCurrency || !exchangeRate
+    !currencies ||
+    !baseCurrency ||
+    !targetCurrency ||
+    !exchangeRate ||
+    isOnline === null
 
   useEffect(() => {
     // Set default codes from the route if they are passed
@@ -155,6 +173,22 @@ export function ConvertScreen({ route }: ConvertScreenProps) {
       setExchangeRateDatetime(Date.now())
     }
   }, [exchangeRate])
+
+  // TODO: Show this if the user is offline AND has nothing cached yet
+  // Important to use false explicitly not just ! for falsy value
+  // because null means "not determined yet"
+  if (isOnline === false) {
+    return (
+      <Container
+        style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <OfflineWarning />
+      </Container>
+    )
+  }
 
   return (
     <Pressable

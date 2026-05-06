@@ -13,6 +13,10 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: screens/convert/components/offline-warning.tsx:14
+msgid "<0>Note:</0> Once you're back online and start using the app, your recently used and favorite currency pairs will be saved for offline usage."
+msgstr "<0>Hinweis:</0> Sobald du wieder online bist und die App nutzt, werden deine zuletzt verwendeten und favorisierten Währungspaare für die Offline-Nutzung gespeichert."
+
 #: screens/convert/components/add-to-favorites.tsx:54
 msgid "Add to favorites"
 msgstr "Zu Favoriten hinzufügen"
@@ -29,11 +33,11 @@ msgstr "App-Version"
 msgid "Buy me a Coffee"
 msgstr "Spendier mir einen Kaffee!"
 
-#: routing/root-tabs.tsx:68
+#: routing/root-tabs.tsx:62
 msgid "Convert"
 msgstr "Umrechnen"
 
-#: routing/root-tabs.tsx:69
+#: routing/root-tabs.tsx:63
 msgid "Convert currencies"
 msgstr "Währung umrechnen"
 
@@ -41,8 +45,8 @@ msgstr "Währung umrechnen"
 msgid "Dark mode"
 msgstr "Dunkles Design"
 
-#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:44
-#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:50
+#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:65
+#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:95
 msgid "Default currency pair"
 msgstr "Standard-Währungspaar"
 
@@ -50,11 +54,11 @@ msgstr "Standard-Währungspaar"
 msgid "Disclaimer"
 msgstr "Haftungsausschluss"
 
-#: routing/root-tabs.tsx:81
+#: routing/root-tabs.tsx:75
 msgid "Favorite currency pairs"
 msgstr "Bevorzugte Währungspaare"
 
-#: routing/root-tabs.tsx:80
+#: routing/root-tabs.tsx:74
 msgid "Favorites"
 msgstr "Favoriten"
 
@@ -62,16 +66,16 @@ msgstr "Favoriten"
 msgid "Feedback"
 msgstr "Feedback"
 
-#: screens/settings/components/language-settings.tsx:37
+#: screens/settings/components/language-settings.tsx:38
 #: screens/settings/components/theme-settings.tsx:16
 msgid "Follow the system setting"
 msgstr "Der Systemeinstellung folgen"
 
-#: screens/settings/components/language-settings.tsx:44
+#: screens/settings/components/language-settings.tsx:45
 msgid "Language"
 msgstr "Schprache"
 
-#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:51
+#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:96
 msgid "Last used"
 msgstr "Zuletzt verwendet"
 
@@ -99,12 +103,12 @@ msgstr "App bewerten"
 msgid "Remove from favorites"
 msgstr "Aus Favoriten entfernen"
 
-#: routing/root-tabs.tsx:91
-#: routing/root-tabs.tsx:92
+#: routing/root-tabs.tsx:85
+#: routing/root-tabs.tsx:86
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: features/currency/components/currency-list-overlay.tsx:92
+#: features/currency/components/currency-list-overlay.tsx:97
 msgid "Start typing (eg.: USD or Dollars)"
 msgstr "Tippe hier (z. B.: EUR oder Euro)"
 
@@ -112,7 +116,7 @@ msgstr "Tippe hier (z. B.: EUR oder Euro)"
 msgid "Support Us!"
 msgstr "Unterstütze uns!"
 
-#: screens/settings/components/language-settings.tsx:35
+#: screens/settings/components/language-settings.tsx:36
 #: screens/settings/components/theme-settings.tsx:15
 msgid "System"
 msgstr "System"
@@ -129,7 +133,7 @@ msgstr "Erscheinungsbild"
 msgid "This is a free app that doesn't run ads and doesn't collect your data. If you can afford it, please consider donating the price of a coffee to contribute to it's maintenance and development."
 msgstr "Dies ist eine kostenlose App, die keine Werbung anzeigt und keine Daten sammelt. Wenn du es dir leisten kannst, ziehe bitte in Betracht, den Preis eines Kaffees zu spenden, um zur Wartung und Weiterentwicklung beizutragen."
 
-#: features/error/error-boundary.tsx:34
+#: features/error/error-boundary.tsx:35
 msgid "Unexpected error, please try again!"
 msgstr "Unerwarteter Fehler – bitte versuche es erneut!"
 
@@ -141,14 +145,18 @@ msgstr "Benutze den ❤️-Button auf dem Umrechnungsbildschirm, um ein Währung
 msgid "We are not responsible for any financial decisions made, or for any losses or damages incurred, as a result of using this app or relying on the information it provides."
 msgstr "Wir übernehmen keine Verantwortung für finanzielle Entscheidungen, die aufgrund der Nutzung dieser App oder der Nutzung der darin bereitgestellten Informationen getroffen werden, sowie für daraus resultierende Verluste oder Schäden."
 
-#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:61
+#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:73
 msgid "What should be the default currency pair?"
 msgstr "Welches Währungspaar soll standardmäßig verwendet werden?"
 
-#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:46
+#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:67
 msgid "What to show when opening the app?"
 msgstr "Was beim Öffnen der App angezeigt werden soll?"
 
 #: screens/error/error-screen.tsx:23
 msgid "Whoops Something Went Wrong 😞"
 msgstr "Etwas ist schiefgegangen 😞"
+
+#: screens/convert/components/offline-warning.tsx:9
+msgid "You're offline and you don't have any exchange rates cached!"
+msgstr "Du bist offline und hast keine Wechselkurse gespeichert!"

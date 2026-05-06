@@ -13,6 +13,10 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: screens/convert/components/offline-warning.tsx:14
+msgid "<0>Note:</0> Once you're back online and start using the app, your recently used and favorite currency pairs will be saved for offline usage."
+msgstr "<0>Забележка:</0> След като отново си онлайн и започнеш да използваш приложението, последно използваните и любимите ти валутни двойки ще бъдат запазени за офлайн използване."
+
 #: screens/convert/components/add-to-favorites.tsx:54
 msgid "Add to favorites"
 msgstr "Добавяне към любими"
@@ -29,11 +33,11 @@ msgstr "версия на приложението"
 msgid "Buy me a Coffee"
 msgstr "Почерпи ме с кафе!"
 
-#: routing/root-tabs.tsx:68
+#: routing/root-tabs.tsx:62
 msgid "Convert"
 msgstr "Конвертиране"
 
-#: routing/root-tabs.tsx:69
+#: routing/root-tabs.tsx:63
 msgid "Convert currencies"
 msgstr "Конвертиране на валути"
 
@@ -41,8 +45,8 @@ msgstr "Конвертиране на валути"
 msgid "Dark mode"
 msgstr "Тъмен режим"
 
-#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:44
-#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:50
+#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:65
+#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:95
 msgid "Default currency pair"
 msgstr "По подразбиране валутна двойка"
 
@@ -50,11 +54,11 @@ msgstr "По подразбиране валутна двойка"
 msgid "Disclaimer"
 msgstr "Отказ от отговорност"
 
-#: routing/root-tabs.tsx:81
+#: routing/root-tabs.tsx:75
 msgid "Favorite currency pairs"
 msgstr "Любими валутни двойки"
 
-#: routing/root-tabs.tsx:80
+#: routing/root-tabs.tsx:74
 msgid "Favorites"
 msgstr "Любими"
 
@@ -62,16 +66,16 @@ msgstr "Любими"
 msgid "Feedback"
 msgstr "Отзиви"
 
-#: screens/settings/components/language-settings.tsx:37
+#: screens/settings/components/language-settings.tsx:38
 #: screens/settings/components/theme-settings.tsx:16
 msgid "Follow the system setting"
 msgstr "Следвай системната настройка"
 
-#: screens/settings/components/language-settings.tsx:44
+#: screens/settings/components/language-settings.tsx:45
 msgid "Language"
 msgstr "Език"
 
-#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:51
+#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:96
 msgid "Last used"
 msgstr "Последно използвано"
 
@@ -99,12 +103,12 @@ msgstr "Оценете"
 msgid "Remove from favorites"
 msgstr "Премахване от любими"
 
-#: routing/root-tabs.tsx:91
-#: routing/root-tabs.tsx:92
+#: routing/root-tabs.tsx:85
+#: routing/root-tabs.tsx:86
 msgid "Settings"
 msgstr "Настройки"
 
-#: features/currency/components/currency-list-overlay.tsx:92
+#: features/currency/components/currency-list-overlay.tsx:97
 msgid "Start typing (eg.: USD or Dollars)"
 msgstr "Търсене (например: EUR или Евро)"
 
@@ -112,7 +116,7 @@ msgstr "Търсене (например: EUR или Евро)"
 msgid "Support Us!"
 msgstr "Подкрепи ни!"
 
-#: screens/settings/components/language-settings.tsx:35
+#: screens/settings/components/language-settings.tsx:36
 #: screens/settings/components/theme-settings.tsx:15
 msgid "System"
 msgstr "Система"
@@ -129,7 +133,7 @@ msgstr "Облик"
 msgid "This is a free app that doesn't run ads and doesn't collect your data. If you can afford it, please consider donating the price of a coffee to contribute to it's maintenance and development."
 msgstr "Това е безплатно приложение, което не показва реклами и не събира твоите данни. Ако можеш да си го позволиш, помисли да дариш стойността на едно кафе, за да помогнеш за поддръжката и развитието му."
 
-#: features/error/error-boundary.tsx:34
+#: features/error/error-boundary.tsx:35
 msgid "Unexpected error, please try again!"
 msgstr "Неочаквана грешка, моля опитайте отново!"
 
@@ -141,14 +145,18 @@ msgstr "Използвайте бутона с ❤️ на екрана за к�
 msgid "We are not responsible for any financial decisions made, or for any losses or damages incurred, as a result of using this app or relying on the information it provides."
 msgstr "Не носим отговорност за финансови решения, взети въз основа на използването на това приложение или на информацията, предоставена в него, както и за евентуални загуби или щети, произтичащи от това."
 
-#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:61
+#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:73
 msgid "What should be the default currency pair?"
 msgstr "Коя да е валутната двойка по подразбиране?"
 
-#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:46
+#: screens/settings/components/default-currency-settings/default-currency-settings.tsx:67
 msgid "What to show when opening the app?"
 msgstr "Какво да се показва при отваряне на приложението?"
 
 #: screens/error/error-screen.tsx:23
 msgid "Whoops Something Went Wrong 😞"
 msgstr "Ой, нещо се обърка 😞"
+
+#: screens/convert/components/offline-warning.tsx:9
+msgid "You're offline and you don't have any exchange rates cached!"
+msgstr "Офлайн си и нямаш запазени валутни курсове!"
