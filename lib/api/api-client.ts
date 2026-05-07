@@ -4,10 +4,20 @@ import { shouldUseProxy } from './should-use-proxy'
 import type { CurrencyApiEndpoints, ApiConfig } from './types'
 import { ApiError } from './model'
 
-import { createSignedHeaders } from '../signing/create-signed-headers'
-
 export class ApiClient {
-  constructor(private config: ApiConfig) {}
+  constructor(
+    private config: ApiConfig,
+    private createSignedHeaders: (
+      method: string,
+      url: string,
+      secret: string
+    ) => Promise<{
+      'x-timestamp': string
+      'x-signature': string
+      'x-client-version': string
+      'x-client-platform': string
+    }>
+  ) {}
 
   async callApiEndPoint<T>(
     endpoint: CurrencyApiEndpoints,
@@ -16,7 +26,11 @@ export class ApiClient {
     const apiURL = makeCurrencyApiUrl(endpoint, this.config, params)
 
     const headers = shouldUseProxy()
-      ? await createSignedHeaders({ method: 'GET', url: apiURL })
+      ? await this.createSignedHeaders(
+          'GET',
+          apiURL,
+          this.config.requestSigningSecret
+        )
       : { apikey: this.config.key }
 
     const request = await fetch(apiURL, {

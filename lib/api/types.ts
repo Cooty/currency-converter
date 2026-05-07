@@ -9,4 +9,5 @@ export interface ApiConfig {
   key: string
   host: string
   proxyHost: string
+  requestSigningSecret: string
 }

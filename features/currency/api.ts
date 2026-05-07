@@ -1,8 +1,12 @@
+import { Platform } from 'react-native'
+
 import { AppConfig } from '../../config'
 
 import { appStorage } from '../../lib/storage'
 import { ApiClient } from '../../lib/api'
-import { addDays } from '../../utils'
+import { makeCreateSignedHeaders } from '../../lib/signing'
+
+import { addDays, getAppVersion } from '../../utils'
 import {
   CurrencyListSchema,
   ExchangeRatesSchema,
@@ -11,12 +15,19 @@ import {
 } from './model'
 import { isCurrencyList, isValidCurrencyCode } from './validators'
 
-const apiClient = new ApiClient({
+const createSignedHeaders = makeCreateSignedHeaders(
+  getAppVersion(),
+  Platform.OS
+)
+const apiConfig = {
   key: AppConfig.currencyApiKey,
   version: AppConfig.currencyApiVersion,
   host: AppConfig.currencyApiHost,
   proxyHost: AppConfig.proxyHost,
-})
+  requestSigningSecret: AppConfig.requestSigningSecret,
+}
+
+const apiClient = new ApiClient(apiConfig, createSignedHeaders)
 
 /**
  * Gets the list of all available currencies either from the API or from the device cache
@@ -73,7 +84,6 @@ export async function getLatestExchangeRate(base: string, target: string) {
   const validation = ExchangeRatesSchema.safeParse(exchangeRates)
 
   if (!validation.success || !exchangeRates.data[target]) {
-    console.log(exchangeRates)
     throw new Error(
       "The result from the exchange rate endpoint doesn't match the expected result"
     )
