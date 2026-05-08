@@ -10,7 +10,7 @@ node --env-file=.env lib/country-flags/scripts/get-country-flags.js
 
 ## TODO:
 
-Currently the call to download the currency flags was run against the host of https://freecurrencyapi.com/, so the free version, if one day we also want to download the extended country list for the premium API, we'll need to run it against https://currencyapi.com/.
+Currently the call to download the currency flags was run against the host of https://freecurrencyapi.com/, so the free version, if one day we also want to download the extended country list for the premium Api, we'll need to run it against https://currencyapi.com/.
 
 You can change the api host by passing the `host` argument
 
@@ -18,7 +18,7 @@ You can change the api host by passing the `host` argument
 node --env-file=.env lib/country-flags/scripts/get-country-flags.js host=http://example.com
 ```
 
-You can also change the API's version by passing `v={n}`
+You can also change the Api's version by passing `v={n}`
 
 ```bash
 node --env-file=.env lib/country-flags/scripts/get-country-flags.js host=http://example.com v=3

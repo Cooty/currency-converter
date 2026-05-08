@@ -1,7 +1,5 @@
-import { AppConfig } from '../../config'
-
-import type { CurrencyAPIEndpoints } from './types'
-import { CurrencyAPIEndpointsSchema } from './schemas'
+import type { CurrencyApiEndpoints, ApiConfig } from './types'
+import { CurrencyApiEndpointsSchema } from './schemas'
 import { shouldUseProxy } from './should-use-proxy'
 
 function urlParamsFromObject(obj: Record<string, string>) {
@@ -11,21 +9,20 @@ function urlParamsFromObject(obj: Record<string, string>) {
 }
 
 export function makeCurrencyApiUrl(
-  endpoint: CurrencyAPIEndpoints,
+  endpoint: CurrencyApiEndpoints,
+  config: ApiConfig,
   params?: Record<string, string>
 ) {
-  const validation = CurrencyAPIEndpointsSchema.safeParse(endpoint)
+  const validation = CurrencyApiEndpointsSchema.safeParse(endpoint)
 
   if (!validation.success) {
     throw new Error(
-      `"${endpoint}" is not a valid API endpoint name or it's currently not yet supported`
+      `"${endpoint}" is not a valid Api endpoint name or it's currently not yet supported`
     )
   }
 
-  const apiRoot = shouldUseProxy()
-    ? AppConfig.proxyHost
-    : AppConfig.currencyAPIHost
+  const apiRoot = shouldUseProxy() ? config.proxyHost : config.host
   const searchParams = params ? `?${urlParamsFromObject(params)}` : ''
 
-  return `${apiRoot}/v${AppConfig.currencyAPIVersion}/${endpoint}${searchParams}`
+  return `${apiRoot}/v${config.version}/${endpoint}${searchParams}`
 }

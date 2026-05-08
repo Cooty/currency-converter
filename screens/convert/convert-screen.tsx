@@ -18,6 +18,7 @@ import {
   getLatestExchangeRate,
   useCurrencyPairSelection,
   CurrencyListOverlay,
+  isValidCurrencyCode,
 } from '../../features/currency'
 
 import { useDefaultCurrencyPair } from '../../features/currency/default-currency-pair'
@@ -85,12 +86,14 @@ export function ConvertScreen({ route }: ConvertScreenProps) {
 
   useEffect(() => {
     // Set default codes from the route if they are passed
-    // This is when the user opens the screen by tapping of of there saved favorites
+    // This is when the user opens the screen by tapping of their saved favorites
     if (
       currencies &&
       route.params &&
       route.params.baseCurrencyCode &&
-      route.params.targetCurrencyCode
+      route.params.targetCurrencyCode &&
+      isValidCurrencyCode(route.params.baseCurrencyCode) &&
+      isValidCurrencyCode(route.params.targetCurrencyCode)
     ) {
       setBaseCurrency(currencies[route.params.baseCurrencyCode])
       setTargetCurrency(currencies[route.params.targetCurrencyCode])
@@ -102,7 +105,7 @@ export function ConvertScreen({ route }: ConvertScreenProps) {
     }
   }, [route.params, currencies])
 
-  // Get the exchange rate when currencies change
+  // Get the exchange rate when base/target currencies change
   useEffect(() => {
     if (baseCurrency && targetCurrency) {
       getLatestExchangeRate(baseCurrency.code, targetCurrency.code)
@@ -118,6 +121,8 @@ export function ConvertScreen({ route }: ConvertScreenProps) {
     }
   }, [baseCurrency, targetCurrency])
 
+  // If the user selected 'last used' as to what to show on the app's startup
+  // we set that currency pair whenever the base/target currency changes
   useEffect(() => {
     if (baseCurrency && targetCurrency && whatToShowFirst === 'last') {
       setDefaultCurrencyPair({
@@ -127,6 +132,7 @@ export function ConvertScreen({ route }: ConvertScreenProps) {
     }
   }, [baseCurrency, targetCurrency, whatToShowFirst, setDefaultCurrencyPair])
 
+  // Set base and target on first load when data is ready
   useEffect(() => {
     if (currencies) {
       setBaseCurrency(currencies[defaultCurrencyPair.base])
@@ -175,8 +181,8 @@ export function ConvertScreen({ route }: ConvertScreenProps) {
   }, [exchangeRate])
 
   // TODO: Show this if the user is offline AND has nothing cached yet
-  // Important to use false explicitly not just ! for falsy value
-  // because null means "not determined yet"
+  // Important to use `false` explicitly not just `!` for falsy value
+  // because `null` means "not determined yet"
   if (isOnline === false) {
     return (
       <Container

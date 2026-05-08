@@ -1,5 +1,13 @@
 import { z } from 'zod'
 
-import { CurrencyAPIEndpointsSchema } from './schemas'
+import { CurrencyApiEndpointsSchema } from './schemas'
 
-export type CurrencyAPIEndpoints = z.infer<typeof CurrencyAPIEndpointsSchema>
+export type CurrencyApiEndpoints = z.infer<typeof CurrencyApiEndpointsSchema>
+
+export interface ApiConfig {
+  version: string
+  key: string
+  host: string
+  proxyHost: string
+  requestSigningSecret: string
+}

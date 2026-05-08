@@ -1,34 +1,42 @@
-import { Platform } from 'react-native'
-
-import { AppConfig } from '../../config'
-import { getAppVersion } from '../../utils'
-
 import { buildCanonicalString, normalizeQuery } from './build-canonical-string'
 import { signCanonicalString } from './signing'
 
-export async function createSignedHeaders(input: {
+interface SignedHeadersInput {
   method: string
   url: string
-}) {
-  const parsedUrl = new URL(input.url)
+  appVersion: string
+  platform: string
+  secret: string
+}
+
+async function createSignedHeaders({
+  method,
+  url,
+  appVersion,
+  platform,
+  secret,
+}: SignedHeadersInput) {
+  const parsedUrl = new URL(url)
   const timestamp = String(Math.floor(Date.now() / 1000))
 
   const canonical = buildCanonicalString({
-    method: input.method,
+    method,
     path: parsedUrl.pathname,
     query: normalizeQuery(parsedUrl.searchParams),
     timestamp,
   })
 
-  const signature = await signCanonicalString(
-    AppConfig.requestSigningSecret,
-    canonical
-  )
+  const signature = await signCanonicalString(secret, canonical)
 
   return {
     'x-timestamp': timestamp,
     'x-signature': signature,
-    'x-client-version': getAppVersion(),
-    'x-client-platform': Platform.OS ?? 'unknown',
+    'x-client-version': appVersion,
+    'x-client-platform': platform,
   }
+}
+
+export function makeCreateSignedHeaders(appVersion: string, platform: string) {
+  return (method: string, url: string, secret: string) =>
+    createSignedHeaders({ method, url, appVersion, platform, secret })
 }

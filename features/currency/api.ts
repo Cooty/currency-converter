@@ -1,6 +1,12 @@
+import { Platform } from 'react-native'
+
+import { AppConfig } from '../../config'
+
 import { appStorage } from '../../lib/storage'
-import { callApiEndPoint } from '../../lib/api'
-import { addDays } from '../../utils'
+import { ApiClient } from '../../lib/api'
+import { makeCreateSignedHeaders } from '../../lib/signing'
+
+import { addDays, getAppVersion } from '../../utils'
 import {
   CurrencyListSchema,
   ExchangeRatesSchema,
@@ -8,6 +14,20 @@ import {
   type ExchangeRates,
 } from './model'
 import { isCurrencyList, isValidCurrencyCode } from './validators'
+
+const createSignedHeaders = makeCreateSignedHeaders(
+  getAppVersion(),
+  Platform.OS
+)
+const apiConfig = {
+  key: AppConfig.currencyApiKey,
+  version: AppConfig.currencyApiVersion,
+  host: AppConfig.currencyApiHost,
+  proxyHost: AppConfig.proxyHost,
+  requestSigningSecret: AppConfig.requestSigningSecret,
+}
+
+const apiClient = new ApiClient(apiConfig, createSignedHeaders)
 
 /**
  * Gets the list of all available currencies either from the API or from the device cache
@@ -24,7 +44,7 @@ export async function getCurrencies(): Promise<CurrencyList> {
   if (savedCurrencies !== null) {
     return savedCurrencies
   }
-  const apiResult = await callApiEndPoint<unknown>('currencies')
+  const apiResult = await apiClient.callApiEndPoint<unknown>('currencies')
 
   const validationResult = CurrencyListSchema.safeParse(apiResult)
   if (!validationResult.success) {
@@ -53,15 +73,17 @@ export async function getLatestExchangeRate(base: string, target: string) {
       `Either base (${base}) or target (${target}) currency is invalid code format`
     )
   }
-  const exchangeRates = await callApiEndPoint<ExchangeRates>('latest', {
-    base_currency: base,
-    currencies: target,
-  })
+  const exchangeRates = await apiClient.callApiEndPoint<ExchangeRates>(
+    'latest',
+    {
+      base_currency: base,
+      currencies: target,
+    }
+  )
 
   const validation = ExchangeRatesSchema.safeParse(exchangeRates)
 
   if (!validation.success || !exchangeRates.data[target]) {
-    console.log(exchangeRates)
     throw new Error(
       "The result from the exchange rate endpoint doesn't match the expected result"
     )

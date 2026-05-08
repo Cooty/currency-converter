@@ -1,1 +1,1 @@
-export * from './call-api-endpoint'
+export * from './api-client'
