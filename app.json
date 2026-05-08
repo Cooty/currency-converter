@@ -7,7 +7,10 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
     "primaryColor": "#002395",
-    "platforms": ["ios", "android"],
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "githubUrl": "https://github.com/Cooty/currency-converter",
     "ios": {
       "supportsTablet": true,
@@ -35,6 +38,12 @@
           "backgroundColor": "#002395"
         }
       ]
-    ]
+    ],
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/e8e0a6e9-6edb-483e-a5ec-c13f7db5b8fb"
+    }
   }
 }
