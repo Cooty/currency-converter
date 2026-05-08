@@ -13,7 +13,7 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: screens/convert/components/offline-warning.tsx:14
+#: screens/convert/components/offline-warning.tsx:15
 msgid "<0>Note:</0> Once you're back online and start using the app, your recently used and favorite currency pairs will be saved for offline usage."
 msgstr "<0>Hinweis:</0> Sobald du wieder online bist und die App nutzt, werden deine zuletzt verwendeten und favorisierten Währungspaare für die Offline-Nutzung gespeichert."
 
@@ -157,6 +157,6 @@ msgstr "Was beim Öffnen der App angezeigt werden soll?"
 msgid "Whoops Something Went Wrong 😞"
 msgstr "Etwas ist schiefgegangen 😞"
 
-#: screens/convert/components/offline-warning.tsx:9
+#: screens/convert/components/offline-warning.tsx:10
 msgid "You're offline and you don't have any exchange rates cached!"
 msgstr "Du bist offline und hast keine Wechselkurse gespeichert!"
