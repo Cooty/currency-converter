@@ -7,10 +7,7 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
     "primaryColor": "#002395",
-    "platforms": [
-      "ios",
-      "android"
-    ],
+    "platforms": ["ios", "android"],
     "githubUrl": "https://github.com/Cooty/currency-converter",
     "ios": {
       "supportsTablet": true,
@@ -36,6 +33,14 @@
           "image": "./assets/splash.png",
           "resizeMode": "contain",
           "backgroundColor": "#002395"
+        }
+      ],
+      [
+        "@sentry/react-native/expo",
+        {
+          "url": "https://sentry.io/",
+          "project": "currency-converter-app",
+          "organization": "cooty"
         }
       ]
     ],

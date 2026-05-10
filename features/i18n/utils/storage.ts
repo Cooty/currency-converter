@@ -1,6 +1,9 @@
 import { appStorage } from '../../../lib/storage'
+import { captureError } from '../../../lib/observability'
+
+import type { LocaleSettings } from '../types'
+
 import { isValidLocaleSetting } from './validators'
-import { LocaleSettings } from '../types'
 
 const STORAGE_KEY = 'locale_setting'
 
@@ -22,7 +25,10 @@ export async function saveLocaleSetting(value: string) {
       `The value "${value}" is not a supported locale code, so it won't be saved to the local database`
     )
   } catch (e) {
-    console.error(e)
+    captureError(e, {
+      tags: { feature: 'i18n', layer: 'storage' },
+      extra: { value },
+    })
     return false
   }
 }

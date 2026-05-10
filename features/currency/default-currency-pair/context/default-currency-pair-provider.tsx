@@ -8,6 +8,8 @@ import {
   type PropsWithChildren,
 } from 'react'
 
+import { captureError } from '../../../../lib/observability'
+
 import type { CurrencyPairSetting, WhatToShowOptions } from '../types'
 
 import {
@@ -77,7 +79,13 @@ export function DefaultCurrencyPairProvider({
         }
       })
       .catch((e) => {
-        console.error(e)
+        captureError(e, {
+          tags: {
+            feature: 'default-currency-pair',
+            layer: 'storage',
+          },
+          extra: { defaultCurrencyPair },
+        })
       })
       .finally(() => {
         onReady?.()
