@@ -1,14 +1,11 @@
 import {
-  View,
-  TouchableNativeFeedback,
-  TouchableOpacity,
+  Pressable,
   Platform,
   GestureResponderEvent,
   StyleProp,
   ViewStyle,
 } from 'react-native'
 import { PropsWithChildren } from 'react'
-import { isAndroid } from '../utils'
 import { useTheme } from '../features/theming'
 
 export type HighlightProps = {
@@ -24,36 +21,32 @@ export function Highlight({
   onPress,
   style,
   rippleColor,
-  activeOpacity,
+  activeOpacity = 0.2,
   accessibilityLabel,
 }: HighlightProps) {
-  const SUPPORTS_NATIVE_FEEDBACK = isAndroid() && Number(Platform.Version) >= 21
-  const defaultHitSlop = { top: 15, bottom: 15, right: 15, left: 15 }
   const { theme } = useTheme()
   const androidRippleColor = rippleColor ?? theme.rippleOnBackground
 
-  if (SUPPORTS_NATIVE_FEEDBACK) {
-    return (
-      <TouchableNativeFeedback
-        onPress={onPress}
-        background={TouchableNativeFeedback.Ripple(androidRippleColor, false)}
-        hitSlop={defaultHitSlop}
-        accessibilityLabel={accessibilityLabel}
-      >
-        <View style={style}>{children}</View>
-      </TouchableNativeFeedback>
-    )
-  } else {
-    return (
-      <TouchableOpacity
-        onPress={onPress}
-        hitSlop={defaultHitSlop}
-        style={style}
-        activeOpacity={activeOpacity ?? 0.2}
-        accessibilityLabel={accessibilityLabel}
-      >
-        {children}
-      </TouchableOpacity>
-    )
-  }
+  return (
+    <Pressable
+      onPress={onPress}
+      hitSlop={15}
+      accessibilityLabel={accessibilityLabel}
+      // Expo SDK 55 / RN 0.83 + Android background ripple had issues
+      // `foreground: true` was the workaround
+      android_ripple={
+        Platform.OS === 'android'
+          ? { color: androidRippleColor, borderless: false, foreground: true }
+          : undefined
+      }
+      style={({ pressed }) => [
+        style,
+        Platform.OS !== 'android' && pressed
+          ? { opacity: activeOpacity }
+          : null,
+      ]}
+    >
+      {children}
+    </Pressable>
+  )
 }
