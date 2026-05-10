@@ -8,7 +8,10 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { i18n } from '@lingui/core'
 import { I18nProvider } from '@lingui/react'
 
+import { AppConfig } from './config'
+
 import { NetworkProvider } from './lib/network'
+import { initObservability, withObservabilityRoot } from './lib/observability'
 
 import { messages as messagesBG } from './features/i18n/locales/bg'
 import { messages as messagesDE } from './features/i18n/locales/de'
@@ -28,6 +31,8 @@ import ErrorBoundary from './features/error/error-boundary'
 import { ThemeProvider } from './features/theming'
 
 import { RootTabs } from './routing'
+
+initObservability(AppConfig.sentry.dsn)
 
 SplashScreen.preventAutoHideAsync()
 
@@ -95,7 +100,7 @@ function App() {
 
 // This is needed because we've renamed App.tsx to app.tsx and set a custom entrypoint in package.json
 // See: https://docs.expo.dev/versions/latest/sdk/register-root-component/#what-if-i-want-to-name-my-main-app-file-something-other-than-appjs
-registerRootComponent(App)
+registerRootComponent(withObservabilityRoot(App))
 
 const componentStyles = StyleSheet.create({
   root: {

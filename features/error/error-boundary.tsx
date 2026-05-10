@@ -3,8 +3,11 @@ import {
   ReactElement,
   PropsWithChildren,
   type ReactNode,
+  type ErrorInfo,
 } from 'react'
 import { Trans } from '@lingui/react/macro'
+
+import { captureError } from '../../lib/observability'
 
 import { ErrorScreen } from '../../screens/error/error-screen'
 
@@ -28,8 +31,15 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     return { hasError: true }
   }
 
-  componentDidCatch(error: Error, info: any) {
-    console.log(info)
+  componentDidCatch(error: Error, info: ErrorInfo) {
+    captureError(error, {
+      contexts: {
+        tags: { section: 'error-boundary' },
+        react: {
+          componentStack: info.componentStack,
+        },
+      },
+    })
     this.setState({
       errorMessage: error.message ?? (
         <Trans>Unexpected error, please try again!</Trans>
