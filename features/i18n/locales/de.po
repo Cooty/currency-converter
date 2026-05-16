@@ -133,7 +133,7 @@ msgstr "Erscheinungsbild"
 msgid "This is a free app that doesn't run ads and doesn't collect your data. If you can afford it, please consider donating the price of a coffee to contribute to it's maintenance and development."
 msgstr "Dies ist eine kostenlose App, die keine Werbung anzeigt und keine Daten sammelt. Wenn du es dir leisten kannst, ziehe bitte in Betracht, den Preis eines Kaffees zu spenden, um zur Wartung und Weiterentwicklung beizutragen."
 
-#: features/error/error-boundary.tsx:35
+#: features/error/error-boundary.tsx:45
 msgid "Unexpected error, please try again!"
 msgstr "Unerwarteter Fehler – bitte versuche es erneut!"
 

@@ -133,7 +133,7 @@ msgstr "Megjelenés"
 msgid "This is a free app that doesn't run ads and doesn't collect your data. If you can afford it, please consider donating the price of a coffee to contribute to it's maintenance and development."
 msgstr "Ez egy ingyenes alkalmazás, amely nem jelenít meg hirdetéseket és nem gyűjt adatokat. Ha megengedheted magadnak, kérlek fontold meg, hogy egy kávé árával hozzájárulsz a fenntartásához és fejlesztéséhez."
 
-#: features/error/error-boundary.tsx:35
+#: features/error/error-boundary.tsx:45
 msgid "Unexpected error, please try again!"
 msgstr "Váratlan hiba történt, kérjük, próbáld újra!"
 
