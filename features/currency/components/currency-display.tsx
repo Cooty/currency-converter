@@ -36,7 +36,11 @@ export function CurrencyDisplay({ code, name, style }: CurrencyDisplayProps) {
       </View>
       {name && (
         <View style={componentStyles.nameContainer}>
-          <Text style={[componentStyles.name, { color: theme.textSecondary }]}>
+          <Text
+            style={[componentStyles.name, { color: theme.textSecondary }]}
+            numberOfLines={1}
+            ellipsizeMode="tail"
+          >
             {name}
           </Text>
         </View>
