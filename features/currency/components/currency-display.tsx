@@ -1,4 +1,10 @@
-import { View, Text, ViewStyle, StyleSheet } from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  type ViewStyle,
+  type StyleProp,
+} from 'react-native'
 import CountryFlag from '../../../lib/country-flags'
 import { currencyCodeToCountryCode } from '../utils'
 import { baseFontSize, baseSize } from '../../../styles'
@@ -8,7 +14,7 @@ import { AppText } from '../../../components'
 export interface CurrencyDisplayProps {
   code: string
   name?: string
-  style?: ViewStyle
+  style?: StyleProp<ViewStyle>
 }
 
 export function CurrencyDisplay({ code, name, style }: CurrencyDisplayProps) {
@@ -30,7 +36,11 @@ export function CurrencyDisplay({ code, name, style }: CurrencyDisplayProps) {
       </View>
       {name && (
         <View style={componentStyles.nameContainer}>
-          <Text style={[componentStyles.name, { color: theme.textSecondary }]}>
+          <Text
+            style={[componentStyles.name, { color: theme.textSecondary }]}
+            numberOfLines={1}
+            ellipsizeMode="tail"
+          >
             {name}
           </Text>
         </View>

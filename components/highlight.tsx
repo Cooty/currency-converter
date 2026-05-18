@@ -1,9 +1,9 @@
 import {
   Pressable,
   Platform,
-  GestureResponderEvent,
-  StyleProp,
-  ViewStyle,
+  type GestureResponderEvent,
+  type StyleProp,
+  type ViewStyle,
 } from 'react-native'
 import { PropsWithChildren } from 'react'
 import { useTheme } from '../features/theming'

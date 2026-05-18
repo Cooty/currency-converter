@@ -1,10 +1,13 @@
 import { ScrollView, StyleSheet } from 'react-native'
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs'
+
+import type { RootTabsParamList } from '../../routing/types'
 import { Container } from '../../components'
+
 import { CurrencyPairListItem } from '../../features/currency/components'
 import { CurrencyPair, useStoredExchangeRates } from '../../features/currency'
+
 import { EmptyState } from './components'
-import type { RootTabsParamList } from '../../routing/types'
 
 export type FavoritesScreenProps = BottomTabScreenProps<
   RootTabsParamList,

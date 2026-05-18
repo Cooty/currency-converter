@@ -4,10 +4,10 @@ import {
   StyleSheet,
   Text,
   View,
-  StyleProp,
-  ViewStyle,
+  type StyleProp,
+  type ViewStyle,
 } from 'react-native'
-import { PropsWithChildren } from 'react'
+import type { PropsWithChildren } from 'react'
 
 import { Highlight } from './highlight'
 import { isAndroid, isIOS } from '../utils'
