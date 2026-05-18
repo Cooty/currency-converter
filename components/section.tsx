@@ -1,9 +1,9 @@
-import { PropsWithChildren, ReactNode } from 'react'
+import type { PropsWithChildren, ReactNode } from 'react'
 import {
   View,
   StyleSheet,
-  StyleProp,
-  ViewStyle,
+  type StyleProp,
+  type ViewStyle,
   useWindowDimensions,
 } from 'react-native'
 import { wrapperGutter, baseSize } from '../styles'

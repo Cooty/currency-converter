@@ -1,6 +1,11 @@
-import { Platform, PlatformColor, StyleProp, ViewStyle } from 'react-native'
+import {
+  Platform,
+  PlatformColor,
+  type StyleProp,
+  type ViewStyle,
+} from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
-import { SymbolView, ContentMode } from 'expo-symbols'
+import { SymbolView, type ContentMode } from 'expo-symbols'
 import { IconNames } from './types'
 import { RGBAToHexA } from '../../utils'
 import { useTheme } from '../../features/theming'

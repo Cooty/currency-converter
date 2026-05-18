@@ -14,6 +14,8 @@ export type FavoritesScreenProps = BottomTabScreenProps<
 export function FavoritesScreen({ navigation }: FavoritesScreenProps) {
   const { favorites } = useStoredExchangeRates()
 
+  console.log(favorites)
+
   function onPressCurrencyPair(currencyPair: CurrencyPair) {
     navigation.navigate('Convert', {
       baseCurrencyCode: currencyPair.base.code,

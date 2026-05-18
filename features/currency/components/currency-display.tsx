@@ -1,4 +1,10 @@
-import { View, Text, ViewStyle, StyleSheet } from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  type ViewStyle,
+  type StyleProp,
+} from 'react-native'
 import CountryFlag from '../../../lib/country-flags'
 import { currencyCodeToCountryCode } from '../utils'
 import { baseFontSize, baseSize } from '../../../styles'
@@ -8,7 +14,7 @@ import { AppText } from '../../../components'
 export interface CurrencyDisplayProps {
   code: string
   name?: string
-  style?: ViewStyle
+  style?: StyleProp<ViewStyle>
 }
 
 export function CurrencyDisplay({ code, name, style }: CurrencyDisplayProps) {

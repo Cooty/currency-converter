@@ -1,9 +1,9 @@
-import { View, StyleSheet, ViewStyle } from 'react-native'
+import { View, StyleSheet, type ViewStyle, type StyleProp } from 'react-native'
 import { baseSize } from '../styles'
 import { useTheme } from '../features/theming'
 
 interface DividerProps {
-  style?: ViewStyle
+  style?: StyleProp<ViewStyle>
 }
 
 export function Divider({ style }: DividerProps) {

@@ -1,4 +1,4 @@
-import { StyleProp, ViewStyle } from 'react-native'
+import type { StyleProp, ViewStyle } from 'react-native'
 import { Trans } from '@lingui/react/macro'
 
 import { PlatformAdaptiveButton } from '../../../components'

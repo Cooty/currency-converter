@@ -1,5 +1,5 @@
 import { FC, PropsWithChildren } from 'react'
-import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native'
+import { View, StyleSheet, type StyleProp, type ViewStyle } from 'react-native'
 import { tokens, shadowMedium, baseSize } from '../styles'
 import { isIOS } from '../utils'
 import { useTheme } from '../features/theming'

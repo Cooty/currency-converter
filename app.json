@@ -1,16 +1,13 @@
 {
   "expo": {
-    "name": "Currency Converter",
+    "name": "Easy Currency Converter",
     "slug": "easy-currency-converter",
     "version": "1.0.0",
     "orientation": "default",
     "icon": "./assets/icons/ios/ios-light.png",
     "userInterfaceStyle": "automatic",
     "primaryColor": "#002395",
-    "platforms": [
-      "ios",
-      "android"
-    ],
+    "platforms": ["ios", "android"],
     "githubUrl": "https://github.com/Cooty/currency-converter",
     "ios": {
       "supportsTablet": true,

@@ -3,9 +3,9 @@ import {
   View,
   StyleSheet,
   TextInput,
-  TextInputProps,
-  ViewStyle,
-  StyleProp,
+  type TextInputProps,
+  type ViewStyle,
+  type StyleProp,
 } from 'react-native'
 import {
   baseFontSize,
