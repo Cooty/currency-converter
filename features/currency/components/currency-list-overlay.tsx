@@ -60,6 +60,8 @@ export function CurrencyListOverlay({
       animationType="slide"
       presentationStyle={isIOS() ? 'pageSheet' : 'fullScreen'}
       hardwareAccelerated
+      statusBarTranslucent
+      navigationBarTranslucent
       onShow={() => {
         // The soft-keyboard doesn't show up when adding `autoFocus` to the `<SearchInput />`
         // https://github.com/software-mansion/react-native-screens/issues/89
@@ -80,7 +82,7 @@ export function CurrencyListOverlay({
             backgroundColor: theme.background,
           },
         ]}
-        edges={['top', 'bottom']}
+        edges={['bottom']}
       >
         <KeyboardAvoidingView
           behavior={isIOS() ? 'height' : undefined}
