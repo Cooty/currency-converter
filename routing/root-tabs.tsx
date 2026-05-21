@@ -34,6 +34,9 @@ export function RootTabs() {
         screenOptions={{
           tabBarAllowFontScaling: true,
           animation: 'fade',
+          sceneStyle: {
+            backgroundColor: theme.background,
+          },
           headerStyle: {
             backgroundColor: colors.brand,
           },
