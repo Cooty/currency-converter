@@ -2,6 +2,7 @@ import { View, StyleSheet, ViewProps, useWindowDimensions } from 'react-native'
 
 import { HeaderTitle } from '@react-navigation/elements'
 import { useHeaderHeight } from '@react-navigation/elements'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { CloseButton, CLOSE_BUTTON_SIZE } from './close-button'
 
@@ -23,6 +24,7 @@ export function ModalHeader({
 }: ModalHeaderProps) {
   const headerHeight = useHeaderHeight()
   const safeAreaGutter = useSafeAreaGutter()
+  const { top } = useSafeAreaInsets()
   const { width } = useWindowDimensions()
   const { theme } = useTheme()
   const wrapperHorizontalGutter =
@@ -37,6 +39,7 @@ export function ModalHeader({
         {
           height: headerHeight,
           borderColor: theme.divider,
+          paddingTop: top,
           paddingHorizontal: wrapperHorizontalGutter + safeAreaGutter,
         },
         style,
