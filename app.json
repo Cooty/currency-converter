@@ -22,7 +22,7 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/icons/android/adaptive-icon.png",
         "backgroundColor": "#002395",
-        "monochromeImage": "./assets/icons/android/icon-monochrome-with-background.png"
+        "monochromeImage": "./assets/icons/android/icon-monochrome.png"
       },
       "package": "com.cooty.easyCurrencyConverter"
     },
