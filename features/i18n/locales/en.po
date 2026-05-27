@@ -33,13 +33,17 @@ msgstr "App version"
 msgid "Buy me a Coffee"
 msgstr "Buy me a Coffee"
 
-#: routing/root-tabs.tsx:62
+#: routing/root-tabs.tsx:65
 msgid "Convert"
 msgstr "Convert"
 
-#: routing/root-tabs.tsx:63
+#: routing/root-tabs.tsx:66
 msgid "Convert currencies"
 msgstr "Convert currencies"
+
+#: screens/settings/components/language-settings.tsx:21
+msgid "Currently using English"
+msgstr "Currently using English"
 
 #: screens/settings/components/theme-settings.tsx:24
 msgid "Dark mode"
@@ -54,11 +58,11 @@ msgstr "Default currency pair"
 msgid "Disclaimer"
 msgstr "Disclaimer"
 
-#: routing/root-tabs.tsx:75
+#: routing/root-tabs.tsx:78
 msgid "Favorite currency pairs"
 msgstr "Favorite currency pairs"
 
-#: routing/root-tabs.tsx:74
+#: routing/root-tabs.tsx:77
 msgid "Favorites"
 msgstr "Favorites"
 
@@ -66,12 +70,15 @@ msgstr "Favorites"
 msgid "Feedback"
 msgstr "Feedback"
 
-#: screens/settings/components/language-settings.tsx:38
+#: screens/settings/components/language-settings.tsx:18
+msgid "Follow the system language. Unsupported languages use English."
+msgstr "Follow the system language. Unsupported languages use English."
+
 #: screens/settings/components/theme-settings.tsx:16
 msgid "Follow the system setting"
 msgstr "Follow the system setting"
 
-#: screens/settings/components/language-settings.tsx:45
+#: screens/settings/components/language-settings.tsx:57
 msgid "Language"
 msgstr "Language"
 
@@ -103,12 +110,12 @@ msgstr "Rate the App"
 msgid "Remove from favorites"
 msgstr "Remove from favorites"
 
-#: routing/root-tabs.tsx:85
-#: routing/root-tabs.tsx:86
+#: routing/root-tabs.tsx:88
+#: routing/root-tabs.tsx:89
 msgid "Settings"
 msgstr "Settings"
 
-#: features/currency/components/currency-list-overlay.tsx:97
+#: features/currency/components/currency-list-overlay.tsx:99
 msgid "Start typing (eg.: USD or Dollars)"
 msgstr "Start typing (eg.: USD or Dollars)"
 
@@ -116,7 +123,7 @@ msgstr "Start typing (eg.: USD or Dollars)"
 msgid "Support Us!"
 msgstr "Support Us!"
 
-#: screens/settings/components/language-settings.tsx:36
+#: screens/settings/components/language-settings.tsx:32
 #: screens/settings/components/theme-settings.tsx:15
 msgid "System"
 msgstr "System"

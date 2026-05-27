@@ -21,9 +21,11 @@ import { getSavedLocaleSetting, saveLocaleSetting } from '../utils/storage'
 const LocaleContext = createContext<{
   appLocale: LocaleSettings
   setAppLocale: (locale: LocaleSettings) => void
+  isSystemLocaleSupported: boolean
 }>({
   appLocale: defaultLocale,
   setAppLocale: (_: LocaleSettings) => {},
+  isSystemLocaleSupported: true,
 })
 
 LocaleContext.displayName = 'LocaleContext'
@@ -44,7 +46,9 @@ export function LocaleProvider({
   const [primarySystemLocale, setPrimarySystemLocale] = useState(
     getLocales()[0]
   )
-  const [appLocale, setAppLocale] = useState<LocaleSettings>(defaultLocale)
+  const [isSystemLocaleSupported, setIsSystemLocaleSupported] = useState(true)
+  const [appLocale, setAppLocale] =
+    useState<LocaleSettings>(SYSTEM_SETTING_VALUE)
   const appState = useRef(AppState.currentState)
 
   // Get the saved setting from storage
@@ -80,9 +84,10 @@ export function LocaleProvider({
             primarySystemLocale.languageCode &&
           appLocale === SYSTEM_SETTING_VALUE
         ) {
-          i18n.activate(
-            getSupportedLocale(currentPrimarySystemLocale.languageCode)
+          const { resolvedLocale } = getSupportedLocale(
+            currentPrimarySystemLocale.languageCode
           )
+          i18n.activate(resolvedLocale)
           setPrimarySystemLocale(currentPrimarySystemLocale)
         }
       }
@@ -95,18 +100,22 @@ export function LocaleProvider({
 
   // react to changes in the appLocale setting
   useEffect(() => {
-    let localeName = appLocale
-
     if (appLocale === SYSTEM_SETTING_VALUE) {
       const { languageCode } = primarySystemLocale
-      localeName = getSupportedLocale(languageCode)
+      const { resolvedLocale, isSupported } = getSupportedLocale(languageCode)
+      setIsSystemLocaleSupported(isSupported)
+      i18n.activate(resolvedLocale)
+    } else {
+      i18n.activate(appLocale)
     }
 
-    i18n.activate(localeName)
     saveLocaleSetting(appLocale)
   }, [appLocale])
 
-  const contextValue = useMemo(() => ({ appLocale, setAppLocale }), [appLocale])
+  const contextValue = useMemo(
+    () => ({ appLocale, setAppLocale, isSystemLocaleSupported }),
+    [appLocale, isSystemLocaleSupported]
+  )
 
   return (
     <LocaleContext value={contextValue} {...props}>

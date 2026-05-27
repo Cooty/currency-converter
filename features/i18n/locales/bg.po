@@ -33,13 +33,17 @@ msgstr "версия на приложението"
 msgid "Buy me a Coffee"
 msgstr "Почерпи ме с кафе!"
 
-#: routing/root-tabs.tsx:62
+#: routing/root-tabs.tsx:65
 msgid "Convert"
 msgstr "Конвертиране"
 
-#: routing/root-tabs.tsx:63
+#: routing/root-tabs.tsx:66
 msgid "Convert currencies"
 msgstr "Конвертиране на валути"
+
+#: screens/settings/components/language-settings.tsx:21
+msgid "Currently using English"
+msgstr "В момента се използва български език."
 
 #: screens/settings/components/theme-settings.tsx:24
 msgid "Dark mode"
@@ -54,11 +58,11 @@ msgstr "По подразбиране валутна двойка"
 msgid "Disclaimer"
 msgstr "Отказ от отговорност"
 
-#: routing/root-tabs.tsx:75
+#: routing/root-tabs.tsx:78
 msgid "Favorite currency pairs"
 msgstr "Любими валутни двойки"
 
-#: routing/root-tabs.tsx:74
+#: routing/root-tabs.tsx:77
 msgid "Favorites"
 msgstr "Любими"
 
@@ -66,12 +70,15 @@ msgstr "Любими"
 msgid "Feedback"
 msgstr "Отзиви"
 
-#: screens/settings/components/language-settings.tsx:38
+#: screens/settings/components/language-settings.tsx:18
+msgid "Follow the system language. Unsupported languages use English."
+msgstr "Използва системния език. Неподдържаните езици използват английски."
+
 #: screens/settings/components/theme-settings.tsx:16
 msgid "Follow the system setting"
 msgstr "Следвай системната настройка"
 
-#: screens/settings/components/language-settings.tsx:45
+#: screens/settings/components/language-settings.tsx:57
 msgid "Language"
 msgstr "Език"
 
@@ -103,12 +110,12 @@ msgstr "Оценете"
 msgid "Remove from favorites"
 msgstr "Премахване от любими"
 
-#: routing/root-tabs.tsx:85
-#: routing/root-tabs.tsx:86
+#: routing/root-tabs.tsx:88
+#: routing/root-tabs.tsx:89
 msgid "Settings"
 msgstr "Настройки"
 
-#: features/currency/components/currency-list-overlay.tsx:97
+#: features/currency/components/currency-list-overlay.tsx:99
 msgid "Start typing (eg.: USD or Dollars)"
 msgstr "Търсене (например: EUR или Евро)"
 
@@ -116,7 +123,7 @@ msgstr "Търсене (например: EUR или Евро)"
 msgid "Support Us!"
 msgstr "Подкрепи ни!"
 
-#: screens/settings/components/language-settings.tsx:36
+#: screens/settings/components/language-settings.tsx:32
 #: screens/settings/components/theme-settings.tsx:15
 msgid "System"
 msgstr "Система"

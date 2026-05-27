@@ -33,13 +33,17 @@ msgstr "App-Version"
 msgid "Buy me a Coffee"
 msgstr "Spendier mir einen Kaffee!"
 
-#: routing/root-tabs.tsx:62
+#: routing/root-tabs.tsx:65
 msgid "Convert"
 msgstr "Umrechnen"
 
-#: routing/root-tabs.tsx:63
+#: routing/root-tabs.tsx:66
 msgid "Convert currencies"
 msgstr "Währung umrechnen"
+
+#: screens/settings/components/language-settings.tsx:21
+msgid "Currently using English"
+msgstr "Verwendet derzeit Deutsch."
 
 #: screens/settings/components/theme-settings.tsx:24
 msgid "Dark mode"
@@ -54,11 +58,11 @@ msgstr "Standard-Währungspaar"
 msgid "Disclaimer"
 msgstr "Haftungsausschluss"
 
-#: routing/root-tabs.tsx:75
+#: routing/root-tabs.tsx:78
 msgid "Favorite currency pairs"
 msgstr "Bevorzugte Währungspaare"
 
-#: routing/root-tabs.tsx:74
+#: routing/root-tabs.tsx:77
 msgid "Favorites"
 msgstr "Favoriten"
 
@@ -66,12 +70,15 @@ msgstr "Favoriten"
 msgid "Feedback"
 msgstr "Feedback"
 
-#: screens/settings/components/language-settings.tsx:38
+#: screens/settings/components/language-settings.tsx:18
+msgid "Follow the system language. Unsupported languages use English."
+msgstr "Verwendet die Systemsprache. Nicht unterstützte Sprachen nutzen Englisch."
+
 #: screens/settings/components/theme-settings.tsx:16
 msgid "Follow the system setting"
 msgstr "Der Systemeinstellung folgen"
 
-#: screens/settings/components/language-settings.tsx:45
+#: screens/settings/components/language-settings.tsx:57
 msgid "Language"
 msgstr "Schprache"
 
@@ -103,12 +110,12 @@ msgstr "App bewerten"
 msgid "Remove from favorites"
 msgstr "Aus Favoriten entfernen"
 
-#: routing/root-tabs.tsx:85
-#: routing/root-tabs.tsx:86
+#: routing/root-tabs.tsx:88
+#: routing/root-tabs.tsx:89
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: features/currency/components/currency-list-overlay.tsx:97
+#: features/currency/components/currency-list-overlay.tsx:99
 msgid "Start typing (eg.: USD or Dollars)"
 msgstr "Tippe hier (z. B.: EUR oder Euro)"
 
@@ -116,7 +123,7 @@ msgstr "Tippe hier (z. B.: EUR oder Euro)"
 msgid "Support Us!"
 msgstr "Unterstütze uns!"
 
-#: screens/settings/components/language-settings.tsx:36
+#: screens/settings/components/language-settings.tsx:32
 #: screens/settings/components/theme-settings.tsx:15
 msgid "System"
 msgstr "System"
