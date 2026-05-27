@@ -12,10 +12,27 @@ import type { SectionPropsWithoutTitle } from './types'
 
 export function LanguageSettings(props: SectionPropsWithoutTitle) {
   const { t } = useLingui()
-  const { appLocale, setAppLocale } = useLocale()
+  const { appLocale, setAppLocale, isSystemLocaleSupported } = useLocale()
+  const isSystem = appLocale === 'system'
+
+  let systemHint = t`Follow the system language. Unsupported languages use English.`
+
+  if (isSystem && isSystemLocaleSupported) {
+    systemHint = t`Currently using English`
+  }
+
+  if (isSystem && !isSystemLocaleSupported) {
+    // This message is only displayed in English
+    systemHint = 'Unsupported language, using English'
+  }
 
   const localeOptions = useMemo(
     () => [
+      {
+        label: t`System`,
+        value: SYSTEM_SETTING_VALUE,
+        hint: systemHint,
+      },
       {
         label: 'English',
         value: supportedLocales[0],
@@ -32,13 +49,8 @@ export function LanguageSettings(props: SectionPropsWithoutTitle) {
         label: 'Български',
         value: supportedLocales[3],
       },
-      {
-        label: t`System`,
-        value: SYSTEM_SETTING_VALUE,
-        hint: t`Follow the system setting`,
-      },
     ],
-    [t]
+    [t, systemHint]
   )
 
   return (
