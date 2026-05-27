@@ -1,5 +1,4 @@
 import { ScrollView, StyleSheet } from 'react-native'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import { Container } from '../../components/'
 import {
@@ -13,22 +12,14 @@ import {
 import { baseSize } from '../../styles'
 
 export function SettingsScreen() {
-  const clearAll = async () => {
-    try {
-      await AsyncStorage.clear()
-    } catch (e) {
-      console.error(e)
-    }
-  }
-
   return (
     <Container style={componentStyles.container}>
       <ScrollView style={componentStyles.scrollView}>
         <ThemeSettings />
         <LanguageSettings />
         <DefaultCurrencySettings />
-        <AskForReview />
-        <SupportUs />
+        {__DEV__ && <AskForReview />}
+        {__DEV__ && <SupportUs />}
         <AppVersion />
       </ScrollView>
     </Container>
