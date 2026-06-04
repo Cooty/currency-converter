@@ -7,4 +7,5 @@ export const AppConfig = {
   sentry: {
     dsn: 'https://cb324a5a3bd3f30cf05a67b5e114d003@o4511355700576256.ingest.de.sentry.io/4511355703066704',
   },
+  staticHTMLContentDomain: 'https://beardesign.hu',
 } as const
