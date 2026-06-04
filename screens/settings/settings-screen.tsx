@@ -8,6 +8,7 @@ import {
   AskForReview,
   SupportUs,
   AppVersion,
+  PrivacyPolicy,
 } from './components'
 import { baseSize } from '../../styles'
 
@@ -20,6 +21,7 @@ export function SettingsScreen() {
         <DefaultCurrencySettings />
         {__DEV__ && <AskForReview />}
         {__DEV__ && <SupportUs />}
+        <PrivacyPolicy />
         <AppVersion />
       </ScrollView>
     </Container>

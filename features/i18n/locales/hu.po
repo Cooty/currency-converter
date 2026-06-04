@@ -102,6 +102,10 @@ msgstr "Még nincs itt semmi!"
 msgid "Please leave us a review make this app even better!"
 msgstr "Írj értékelést, és segíts, hogy még jobbá tegyük az alkalmazást!"
 
+#: screens/settings/components/privacy-policy.tsx:11
+msgid "Privacy Policy"
+msgstr "Adatvédelmi irányelvek"
+
 #: screens/settings/components/ask-for-review.tsx:19
 msgid "Rate the App"
 msgstr "Alkalmazás értékelése"

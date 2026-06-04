@@ -102,6 +102,10 @@ msgstr "Все още няма любими!"
 msgid "Please leave us a review make this app even better!"
 msgstr "Оставете ни отзив и помогнете приложението да стане още по-добро!"
 
+#: screens/settings/components/privacy-policy.tsx:11
+msgid "Privacy Policy"
+msgstr "Политика за поверителност"
+
 #: screens/settings/components/ask-for-review.tsx:19
 msgid "Rate the App"
 msgstr "Оценете"

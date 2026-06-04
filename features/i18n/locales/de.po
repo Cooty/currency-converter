@@ -102,6 +102,10 @@ msgstr "Noch keine Favoriten!"
 msgid "Please leave us a review make this app even better!"
 msgstr "Bewerte uns und hilf, die App zu verbessern!"
 
+#: screens/settings/components/privacy-policy.tsx:11
+msgid "Privacy Policy"
+msgstr "Datenschutzerklärung"
+
 #: screens/settings/components/ask-for-review.tsx:19
 msgid "Rate the App"
 msgstr "App bewerten"
